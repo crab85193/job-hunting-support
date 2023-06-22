@@ -8,10 +8,22 @@
 import SwiftUI
 
 @main
-struct job_hunting_supportApp: App {
+struct YourApp: App {
+    @AppStorage("isFirstLaunch") var isFirstLaunch: Bool = true // 初回起動フラグをAppStorageで管理
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            
+            let _ = print(isFirstLaunch)
+            
+            if isFirstLaunch {
+                LoginView()
+                    .onAppear {
+                        isFirstLaunch = false // 初回起動フラグをfalseに設定
+                    }
+            } else {
+                ContentView()
+            }
         }
     }
 }

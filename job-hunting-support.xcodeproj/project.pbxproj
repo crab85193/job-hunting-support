@@ -12,6 +12,13 @@
 		D90D49A32A440CC0003E5017 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49A22A440CC0003E5017 /* ContentView.swift */; };
 		D90D49A52A440CC2003E5017 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D90D49A42A440CC2003E5017 /* Assets.xcassets */; };
 		D90D49A82A440CC2003E5017 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D90D49A72A440CC2003E5017 /* Preview Assets.xcassets */; };
+		D90D49B32A441356003E5017 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49B22A441356003E5017 /* LoginView.swift */; };
+		D90D49B52A44139C003E5017 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49B42A44139C003E5017 /* CreateAccountView.swift */; };
+		D90D49B72A44145F003E5017 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49B62A44145F003E5017 /* ListView.swift */; };
+		D90D49B92A4414F2003E5017 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49B82A4414F2003E5017 /* HomeView.swift */; };
+		D90D49BB2A441536003E5017 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49BA2A441536003E5017 /* ProfileView.swift */; };
+		D90D49BD2A44155A003E5017 /* appfunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49BC2A44155A003E5017 /* appfunc.swift */; };
+		D90D49BF2A441747003E5017 /* FirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49BE2A441747003E5017 /* FirstView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +30,13 @@
 		D90D49A22A440CC0003E5017 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D90D49A42A440CC2003E5017 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D90D49A72A440CC2003E5017 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D90D49B22A441356003E5017 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		D90D49B42A44139C003E5017 /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
+		D90D49B62A44145F003E5017 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		D90D49B82A4414F2003E5017 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		D90D49BA2A441536003E5017 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		D90D49BC2A44155A003E5017 /* appfunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appfunc.swift; sourceTree = "<group>"; };
+		D90D49BE2A441747003E5017 /* FirstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,8 +89,15 @@
 		D90D499F2A440CC0003E5017 /* job-hunting-support */ = {
 			isa = PBXGroup;
 			children = (
-				D90D49A02A440CC0003E5017 /* job_hunting_supportApp.swift */,
 				D90D49A22A440CC0003E5017 /* ContentView.swift */,
+				D90D49B42A44139C003E5017 /* CreateAccountView.swift */,
+				D90D49BE2A441747003E5017 /* FirstView.swift */,
+				D90D49B82A4414F2003E5017 /* HomeView.swift */,
+				D90D49B62A44145F003E5017 /* ListView.swift */,
+				D90D49B22A441356003E5017 /* LoginView.swift */,
+				D90D49BA2A441536003E5017 /* ProfileView.swift */,
+				D90D49BC2A44155A003E5017 /* appfunc.swift */,
+				D90D49A02A440CC0003E5017 /* job_hunting_supportApp.swift */,
 				D90D49A42A440CC2003E5017 /* Assets.xcassets */,
 				D90D49A62A440CC2003E5017 /* Preview Content */,
 			);
@@ -205,7 +226,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D90D49B32A441356003E5017 /* LoginView.swift in Sources */,
 				D90D49A32A440CC0003E5017 /* ContentView.swift in Sources */,
+				D90D49B72A44145F003E5017 /* ListView.swift in Sources */,
+				D90D49B92A4414F2003E5017 /* HomeView.swift in Sources */,
+				D90D49B52A44139C003E5017 /* CreateAccountView.swift in Sources */,
+				D90D49BD2A44155A003E5017 /* appfunc.swift in Sources */,
+				D90D49BB2A441536003E5017 /* ProfileView.swift in Sources */,
+				D90D49BF2A441747003E5017 /* FirstView.swift in Sources */,
 				D90D49A12A440CC0003E5017 /* job_hunting_supportApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
