@@ -89,15 +89,15 @@
 		D90D499F2A440CC0003E5017 /* job-hunting-support */ = {
 			isa = PBXGroup;
 			children = (
-				D90D49A22A440CC0003E5017 /* ContentView.swift */,
-				D90D49B42A44139C003E5017 /* CreateAccountView.swift */,
-				D90D49BE2A441747003E5017 /* FirstView.swift */,
-				D90D49B82A4414F2003E5017 /* HomeView.swift */,
-				D90D49B62A44145F003E5017 /* ListView.swift */,
+				D90D49A02A440CC0003E5017 /* job_hunting_supportApp.swift */,
 				D90D49B22A441356003E5017 /* LoginView.swift */,
+				D90D49B42A44139C003E5017 /* CreateAccountView.swift */,
+				D90D49A22A440CC0003E5017 /* ContentView.swift */,
+				D90D49B62A44145F003E5017 /* ListView.swift */,
+				D90D49B82A4414F2003E5017 /* HomeView.swift */,
 				D90D49BA2A441536003E5017 /* ProfileView.swift */,
 				D90D49BC2A44155A003E5017 /* appfunc.swift */,
-				D90D49A02A440CC0003E5017 /* job_hunting_supportApp.swift */,
+				D90D49BE2A441747003E5017 /* FirstView.swift */,
 				D90D49A42A440CC2003E5017 /* Assets.xcassets */,
 				D90D49A62A440CC2003E5017 /* Preview Content */,
 			);

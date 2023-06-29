@@ -9,13 +9,13 @@ import SwiftUI
 
 @main
 struct YourApp: App {
-    @AppStorage("isFirstLaunch") var isFirstLaunch: Bool = true // 初回起動フラグをAppStorageで管理
+    
+    @AppStorage("isFirstLaunch") var isFirstLaunch: Bool = true
     
     var body: some Scene {
         WindowGroup {
-            
-            let _ = print(isFirstLaunch)
-            
+            LoginView()
+            /*  今はLoginViewを強制表示しているが、後々起動時の画面指定を行う
             if isFirstLaunch {
                 LoginView()
                     .onAppear {
@@ -24,6 +24,7 @@ struct YourApp: App {
             } else {
                 ContentView()
             }
+             */
         }
     }
 }

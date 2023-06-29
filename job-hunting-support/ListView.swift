@@ -9,21 +9,43 @@
 import SwiftUI
 
 struct ListView: View {
-    @State var CompanyList: [Company] = [
-        Company(name: "A", industry: "X", employees: 1000),
-        Company(name: "B", industry: "Y", employees: 2000),
-        Company(name: "C", industry: "Z", employees: 4000)
-    ]
+    
+    @State var CompanyList = [Company]()
+    
+    //削除のアラートの管理するフラグ
+    @State var deleteAlert: Bool = false
+    
+    //削除する項目のindexを保持する変数
+    @State private var deleteIndexSet: IndexSet?
 
     var body: some View {
         NavigationView {
             List {
+                //会社のリスト表示
                 ForEach(CompanyList) { company in
                     NavigationLink(destination: CompanyDetailsView(company: binding(for: company))) {
                         Text(company.name)
                     }
                 }
-                .onDelete(perform: deletecompany)
+                //削除ボタン
+                .onDelete { indexSet in
+                    deleteIndexSet = indexSet
+                    deleteAlert = true
+                }
+                //削除前のアラート
+                .alert(isPresented: $deleteAlert) {
+                    Alert(
+                        title: Text("Delete Company"),
+                        message: Text("Are you sure you want to delete this company?"),
+                        primaryButton: .cancel(),
+                        secondaryButton: .destructive(Text("Delete"), action: {
+                            if let indexSet = deleteIndexSet {
+                                deleteSelectedCompanies(at: indexSet)
+                                deleteIndexSet = nil
+                            }
+                        })
+                    )
+                }
             }
             .navigationTitle("企業リスト")
             .toolbar {
@@ -36,6 +58,7 @@ struct ListView: View {
         }
     }
     
+    //選択したCompanyの前処理
     private func binding(for company: Company) -> Binding<Company> {
         guard let companyIndex = CompanyList.firstIndex(of: company) else {
             fatalError("Person not found")
@@ -43,12 +66,20 @@ struct ListView: View {
         return $CompanyList[companyIndex]
     }
     
+    //削除前のアラートを呼び出す
     private func deletecompany(at offsets: IndexSet) {
-            CompanyList.remove(atOffsets: offsets)
+        deleteAlert = true
+    }
+    
+    //項目の削除を行う
+    private func deleteSelectedCompanies(at indexSet: IndexSet) {
+        CompanyList.remove(atOffsets: indexSet)
     }
 }
 
+//データの詳細表示
 struct CompanyDetailsView: View {
+    //詳細表示する会社を保持する変数
     @Binding var company: Company
 
     var body: some View {
@@ -83,8 +114,11 @@ struct AddCompanyView: View {
     var body: some View {
         Form {
             TextField("Name", text:$newCompanyName)
+                .autocapitalization(.none)
             TextField("Industry", text:$newCompanyIndustry)
+                .autocapitalization(.none)
             TextField("Employees Number", value:$newCompanyEmployees, format: .number)
+                .autocapitalization(.none)
         }
         .navigationTitle("Add Company")
         .navigationBarItems(trailing: Button("Save") {
@@ -112,8 +146,11 @@ struct EditCompanyView: View {
     var body: some View {
         Form {
             TextField("Name", text: $editedCompany.name)
+                .autocapitalization(.none)
             TextField("Occupation", text: $editedCompany.industry)
+                .autocapitalization(.none)
             TextField("Employees Number", value:$editedCompany.employees, format: .number)
+                .autocapitalization(.none)
         }
         .navigationTitle("Edit Company")
         .navigationBarItems(trailing: Button("Save") {
