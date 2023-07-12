@@ -10,10 +10,14 @@ import SwiftUI
 
 struct CreateAccountView: View {
     
-    @State private var name = ""
+    //@State private var name = ""
     @State private var password = ""
-    @State private var isSecure = true
+    @State private var isSecure = false
     @State private var year = 0
+    //ここから下の三つを追加した。
+    @AppStorage("user_name") var name = ""
+    @State var pushLoginButton: Bool = false
+    @State var inputUserName: String = ""
     
     var body: some View {
         VStack(spacing: 70){
@@ -22,7 +26,7 @@ struct CreateAccountView: View {
             
             VStack(spacing: 10){
                 Text("あなたのユーザー名")
-                TextField("ユーザー名", text: $name)
+                TextField("UserName", text: $inputUserName)
                     .autocapitalization(.none)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(width: 330)
@@ -58,7 +62,11 @@ struct CreateAccountView: View {
             }
             
             Button{
-                //ここにログインボタンが押された時の処理
+                //ここに作成ボタンが押された時の処理
+                name = inputUserName
+                if name != "" {
+                    ContentView()
+                }
             }label: {
                 Text("作成")
                     .foregroundColor(Color.white)
