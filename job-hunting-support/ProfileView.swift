@@ -10,10 +10,11 @@ import SwiftUI
 
 struct ProfileView: View {
     
-    @State var name: String = ""
+    //@State var name: String = ""
     @State var userId = ""
     @State var year: Int = 0
-    @State var showAlert = false
+    @State var showLogoutAlert = false
+    @AppStorage("user_name") var name = ""
     
     var body: some View {
         NavigationStack {
@@ -35,15 +36,21 @@ struct ProfileView: View {
                 }
                 
                 Button(action: {
-                    showAlert = true;
+                    showLogoutAlert = true;
                 }){
                     Text("ログアウト")
+                        .foregroundColor(Color.white)
+                        .frame(width: 120, height: 40, alignment: .center)
+                        .background(Color.red)
+                        .cornerRadius(50)
+                        .padding()
                 }
-                .alert(isPresented: $showAlert) {
+                .alert(isPresented: $showLogoutAlert) {
                     Alert(title: Text("本当にログアウトしますか？"),
                         message: Text("ログアウトすると、次回アプリを開いていただいた時に再度ログインしてもらう必要があります。"),
                         primaryButton: .destructive(Text("ログアウト")){
-                            @AppStorage("isFirstLaunch") var isFirstLaunch: Bool = true
+                            name = ""
+                            LoginView()
                         },
                         secondaryButton: .cancel(Text("キャンセル")){
                             print("Cancelで閉じる")

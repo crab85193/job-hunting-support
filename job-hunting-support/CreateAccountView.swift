@@ -10,9 +10,14 @@ import SwiftUI
 
 struct CreateAccountView: View {
     
-    @State private var name = ""
+    //@State private var name = ""
     @State private var password = ""
+    @State private var isSecure = false
     @State private var year = 0
+    //ここから下の三つを追加した。
+    @AppStorage("user_name") var name = ""
+    @State var pushLoginButton: Bool = false
+    @State var inputUserName: String = ""
     
     var body: some View {
         VStack(spacing: 70){
@@ -21,17 +26,33 @@ struct CreateAccountView: View {
             
             VStack(spacing: 10){
                 Text("あなたのユーザー名")
-                TextField("ユーザー名", text: $name)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())  // 入力域のまわりを枠で囲む
-                    .padding()  // 余白を追加
+                TextField("UserName", text: $inputUserName)
+                    .autocapitalization(.none)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .frame(width: 330)
+                    .padding()
                 
                 Text("パスワード")
-                TextField("パスワード", text: $password)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())  // 入力域のまわりを枠で囲む
-                    .padding()  // 余白を追加
+                HStack{
+                    if isSecure {
+                        TextField("パスワード入力", text: $password)
+                            .autocapitalization(.none)
+                            .frame(width: 300)
+                    } else {
+                        SecureField("パスワード入力", text: $password)
+                            .autocapitalization(.none)
+                            .frame(width: 300)
+                    }
+                    Button(action: {
+                        isSecure.toggle()
+                    }) {
+                        Image(systemName: isSecure ? "eye.fill" : "eye.slash.fill")
+                    }
+                }
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
                 
                 Text("学年")
-                
                 Picker("好きな動物を選択", selection: $year) {
                     Text("学部1年次").tag(1)
                     Text("学部2年次").tag(2)
@@ -41,9 +62,18 @@ struct CreateAccountView: View {
             }
             
             Button{
-                //ここにログインボタンが押された時の処理
+                //ここに作成ボタンが押された時の処理
+                name = inputUserName
+                if name != "" {
+                    ContentView()
+                }
             }label: {
                 Text("作成")
+                    .foregroundColor(Color.white)
+                    .frame(width: 200, height: 40, alignment: .center)
+                    .background(Color.blue)
+                    .cornerRadius(50)
+                    .padding()
             }
         }
     }

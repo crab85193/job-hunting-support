@@ -9,9 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var name = ""
+    @AppStorage("user_name") var name = ""
     @State var year = 0
-    
     @State var tabSelect = 0
     
     var body: some View {
@@ -29,7 +28,7 @@ struct ContentView: View {
                     }
                     .tag(1)
                 */
-                ProfileView(name: name, year: year)
+                ProfileView(year: year, name: name)
                     .tabItem{Image(systemName: "person.fill")
                     Text("Profile")
                     }
