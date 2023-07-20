@@ -120,7 +120,8 @@ struct CompanyDetailsView: View {
                     .font(.title2)
                     .padding()
                 if let viewindustry = industryList.first(where: {$0.id == company.industry}){
-                    Text("業種: \(viewindustry.name)").font(.title3)
+                    Text("\(viewindustry.name)")
+                        .font(.title3)
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
                 } else {
@@ -132,7 +133,8 @@ struct CompanyDetailsView: View {
                     .font(.title2)
                     .padding()
                 if let viewoccupation = occupationList.first(where: {$0.id == company.occupation}){
-                    Text("職種: \(viewoccupation.name)").font(.title3)
+                    Text("\(viewoccupation.name)")
+                        .font(.title3)
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
                 } else {
