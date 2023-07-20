@@ -1,157 +1,208 @@
 //
 //  appfunc.swift
 //  job-hunting-support
-//  
+//
 //  Created by ibu.m on 2023/06/22
-//  
+//
 //
 
 import Foundation
 
 //ユーザー情報
-struct User: Identifiable, Equatable{
-    var id = UUID() //ID
+struct user: Identifiable, Equatable, Decodable{
+    var id = UUID() //ID(作成する場合としない場合でイニシャライザを分ける)
     var name: String?   //名前
     var password: String    //パスワード
-    var gender: String  //性別
+    var sex: String  //性別
     var age: Int    //年齢
-    var graduate: Date //卒業年度
+    var graduation_year: Date //卒業年度
 
-    init(id: UUID = UUID(), name: String? = nil, password: String, gender: String, age: Int, graduate: Date) {
+    init(name: String, password: String, sex: String, age: Int, graduate: Date = Date()) {
+        self.id = UUID()
+        self.name = name
+        self.password = password
+        self.sex = sex
+        self.age = age
+        self.graduation_year = graduate
+    }
+    
+    init(id: UUID, name: String, password: String, sex: String, age: Int, graduate: Date) {
         self.id = id
         self.name = name
         self.password = password
-        self.gender = gender
+        self.sex = sex
         self.age = age
-        self.graduate = graduate
+        self.graduation_year = graduate
     }
 }
 
 //業種
-struct Industry: Identifiable, Equatable{
+struct industry: Identifiable, Equatable, Hashable, Decodable{
     var id = UUID() //ID
-    var type_of_industry: String //業種
+    var name: String //業種
 
-    init(id: UUID = UUID(), type_of_industry: String) {
+    init(id: UUID = UUID(), name: String) {
         self.id = id
-        self.type_of_industry = type_of_industry
+        self.name = name
     }
 }
 //職種
-struct Occupation: Identifiable, Equatable{
+struct occupation: Identifiable, Equatable, Hashable, Decodable{
     var id = UUID() //id
-    var occupation: String // 職種
+    var name: String // 職種
 
-    init(id: UUID = UUID(), occupation: String) {
+    init(id: UUID = UUID(), name: String) {
         self.id = id
-        self.occupation = occupation
+        self.name = name
     }
 }
 
 //企業情報
-struct Company: Identifiable, Equatable{
-    var id = UUID()
-    var name: String = ""
-    var industry: String = ""
-    var employees: Int = 0
+struct corporate_info: Identifiable, Equatable, Decodable{
+    var id : UUID //UUID(作成する場合としない場合でイニシャライザを分ける必要あり)
+    var user_info: UUID //作成したユーザーのid
+    var name: String //企業名
+    var industry: UUID //業種のid
+    var occupation: UUID //職種のid
+    var business: String //事業内容
+    var establishment: Date //設立日
+    var employees: Int //従業員数
+    var capital: Int //資本金
+    var sales: Int //売上高
+    var operating_income:Int //営業利益
+    var representative: String //代表者
+    var location: String //所在地
+    var registration: Date //登録日
+    var memo: String //メモ
     
-    init(id: UUID = UUID(), name: String, industry: String, employees: Int) {
+    init(id: UUID, user: UUID, name: String, Industry: UUID, Occupation: UUID, business: String, establishment: Date, employees: Int, capital: Int, sales: Int, operating_income: Int, representative: String, location: String, registration: Date, memo: String) {
         self.id = id
+        self.user_info = user
         self.name = name
-        self.industry = industry
+        self.industry = Industry
+        self.occupation = Occupation
+        self.business = business
+        self.establishment = establishment
         self.employees = employees
+        self.capital = capital
+        self.sales = sales
+        self.operating_income = operating_income
+        self.representative = representative
+        self.location = location
+        self.registration = registration
+        self.memo = memo
+    }
+    init(user: UUID, name: String, Industry: UUID, Occupation: UUID, business: String, establishment: Date, employees: Int, capital: Int, sales: Int, operating_income: Int, representative: String, location: String, registration: Date, memo: String) {
+        self.id = UUID()
+        self.user_info = user
+        self.name = name
+        self.industry = Industry
+        self.occupation = Occupation
+        self.business = business
+        self.establishment = establishment
+        self.employees = employees
+        self.capital = capital
+        self.sales = sales
+        self.operating_income = operating_income
+        self.representative = representative
+        self.location = location
+        self.registration = registration
+        self.memo = memo
     }
 }
 
 //インターン情報
-struct Intern: Identifiable, Equatable{
+struct internship_info: Identifiable, Equatable, Decodable{
     var id = UUID() //ID
-    var user: User //ユーザー情報
-    var company: Company //企業情報
-    var term: Date  //期間
+    var user_info: UUID //ユーザーのid
+    var corporate_info: UUID //企業のid
+    var start: Date //いつから
+    var end: Date //いつまで
     var memo: String?   //メモ
 
-    init(id: UUID = UUID(), user: User, company: Company, term: Date){
+    init(id: UUID = UUID(), user: UUID, company: UUID, start:Date, end:Date, memo: String){
         self.id = id
-        self.user = user
-        self.company = company
-        self.term = term
-        self.memo = ""
+        self.user_info = user
+        self.corporate_info = company
+        self.start = start
+        self.end = end
+        self.memo = memo
     }
 
-    init(id: UUID = UUID(), user: User, company: Company, term: Date, memo: String){
-        self.id = id
-        self.user = user
-        self.company = company
-        self.term = term
+    init(user: UUID, company: UUID, start:Date, end:Date, memo: String){
+        self.id = UUID()
+        self.user_info = user
+        self.corporate_info = company
+        self.start = start
+        self.end = end
         self.memo = memo
     }
 }
 
 //本選考
-struct Selection: Identifiable, Equatable{
+struct Selection: Identifiable, Equatable, Decodable{
     var id = UUID() //ID
-    var user: User //ユーザー情報
-    var company: Company //企業情報
+    var user_info: UUID //ユーザーのid
+    var corporate_info: UUID //企業のid
     var result: String //合否結果
     var memo: String? //メモ
 
-    init(id: UUID = UUID(), user: User, company: Company, result: String){
+    init(id: UUID = UUID(), user: UUID, company: UUID, result: String, memo: String){
         self.id = id
-        self.user = user
-        self.company = company
+        self.user_info = user
+        self.corporate_info = company
         self.result = result
-        self.memo = ""
+        self.memo = memo
     }
 
-    init(id: UUID = UUID(), user: User, company: Company, result: String, memo: String){
-        self.id = id
-        self.user = user
-        self.company = company
+    init(user: UUID, company: UUID, result: String, memo: String){
+        self.id = UUID()
+        self.user_info = user
+        self.corporate_info = company
         self.result = result
         self.memo = memo
     }
 }
 
 //スケジュールカテゴリ
-struct Category: Identifiable, Equatable{
+struct Category: Identifiable, Equatable, Decodable{
     var id = UUID() //ID
-    var category: String //カテゴリー
+    var name: String //カテゴリー
 
     init(id: UUID = UUID(), category: String){
         self.id = id
-        self.category = category
+        self.name = category
     }
 }
 //スケジュール
-struct Schedule: Identifiable, Equatable{
+struct Schedule: Identifiable, Equatable, Decodable{
     var id = UUID() //ID
-    var name: String //スケジュール名
-    var category: Category //カテゴリー名
-    var intern: Intern //インターン情報
-    var company : Company //企業情報
-    var begin: Date //いつから
+    var title: String //スケジュール名
+    var schedule_category: UUID //カテゴリのid
+    var internship_info: UUID //インターンのid
+    var corporate_info : UUID //企業のid
+    var start: Date //いつから
     var end: Date //いつまで
     var memo: String? //メモ
 
-    init(id: UUID = UUID(), name: String, category: Category, intern: Intern, company:Company, begin: Date, end: Date){
+    init(id: UUID = UUID(), name: String, category: UUID, intern: UUID, company:UUID, begin: Date, end: Date, memo: String){
         self.id = id
-        self.name = name
-        self.category = category
-        self.intern = intern
-        self.company = company
-        self.begin = begin
+        self.title = name
+        self.schedule_category = category
+        self.internship_info = intern
+        self.corporate_info = company
+        self.start = begin
         self.end = end
-        self.memo = ""
+        self.memo = memo
     }
 
-    init(id: UUID = UUID(), name: String, category: Category, intern: Intern, company:Company, begin: Date, end: Date, memo: String){
-        self.id = id
-        self.name = name
-        self.category = category
-        self.intern = intern
-        self.company = company
-        self.begin = begin
+    init(name: String, category: UUID, intern: UUID, company:UUID, begin: Date, end: Date, memo: String){
+        self.id = UUID()
+        self.title = name
+        self.schedule_category = category
+        self.internship_info = intern
+        self.corporate_info = company
+        self.start = begin
         self.end = end
         self.memo = memo
     }
