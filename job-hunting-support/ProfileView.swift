@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ProfileView: View {
     
-    //@State var name: String = ""
     @State var userId = ""
     @State var year: Int = 0
     @State var showLogoutAlert = false
@@ -20,19 +19,18 @@ struct ProfileView: View {
         NavigationStack {
             VStack(spacing: 80){
                 VStack(spacing: 20)/*(alignment: .leading)*/{
-                    Spacer().frame(height: 50)
                     Text("ユーザー名")
                     TextField("ユーザー名", text: $name)
                         .textFieldStyle(RoundedBorderTextFieldStyle())  // 入力域のまわりを枠で囲む
-                        .padding()  // 余白を追加
+                        .padding(.horizontal)  // 余白を追加
                     Text("ユーザーID")
                     TextField("ユーザーID", text: $userId)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
+                        .padding(.horizontal)
                     Text("学年")
                     TextField("あなたの学年", value: $year, format: .number)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
+                        .padding(.horizontal)
                 }
                 
                 Button(action: {
@@ -43,7 +41,7 @@ struct ProfileView: View {
                         .frame(width: 120, height: 40, alignment: .center)
                         .background(Color.red)
                         .cornerRadius(50)
-                        .padding()
+                        //.padding()
                 }
                 .alert(isPresented: $showLogoutAlert) {
                     Alert(title: Text("本当にログアウトしますか？"),
@@ -57,22 +55,6 @@ struct ProfileView: View {
                         }
                     )
                 }
-                /*
-                Button("ログアウト") {
-                    self.isShowAlert = true
-                }
-                .alert(isPresented: $ShowAlert) {  // ③アラートの表示条件設定
-                    Alert(title: Text("本当にログアウトしますか？"),
-                        message: Text("ログアウトすると、次回アプリを開いていただいた時に再度ログインしてもらう必要があります。"),primaryButton: .destructive(Text("ログアウト")),secondaryButton: .cancel(Text("キャンセル")))
-                }
-                 */
-                /*
-                Button{
-                    //ここにログアウトボタンが押された時の処理
-                }label: {
-                    Text("ログアウト")
-                }
-                 */
             }
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)

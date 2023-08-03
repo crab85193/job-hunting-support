@@ -13,7 +13,7 @@ struct CreateAccountView: View {
     //@State private var name = ""
     @State private var password = ""
     @State private var isSecure = false
-    @State private var year = 0
+    @State var year = 0
     //ここから下の三つを追加した。
     @AppStorage("user_name") var name = ""
     @State var pushLoginButton: Bool = false
@@ -53,7 +53,7 @@ struct CreateAccountView: View {
                 .padding()
                 
                 Text("学年")
-                Picker("好きな動物を選択", selection: $year) {
+                Picker("あなたの学年を選択", selection: $year) {
                     Text("学部1年次").tag(1)
                     Text("学部2年次").tag(2)
                     Text("学部3年次").tag(3)
