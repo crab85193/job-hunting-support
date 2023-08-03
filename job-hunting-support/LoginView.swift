@@ -19,15 +19,11 @@ struct LoginView: View {
     @AppStorage("user_name") var name = ""
     @State var pushLoginButton: Bool = false
     @State var inputUserName: String = ""
+    init(){
+        //_name = ""
+    }
 
     var body: some View {
-        if pushLoginButton{
-            ContentView()
-        }
-        if pushCreate{
-            CreateAccountView()
-        }
-        
         
         ZStack{
             BackGroundCircle()
@@ -36,88 +32,82 @@ struct LoginView: View {
                 .offset(x: -130, y: 420)
             
             VStack(spacing: 70){
-                //NavigationStack{
-                    VStack{
-                        Text("ログイン")
-                            .font(.largeTitle)
-                            .padding(50)
+                VStack{
+                    Text("ログイン")
+                        .font(.largeTitle)
+                        //.padding(50)
+                    
+                    VStack(spacing: 10){
+                        Text("あなたのユーザー名")
+                        TextField("UserName", text: $inputUserName)
+                            .autocapitalization(.none)  // 最初の文字が大文字になるのを防ぐ
+                            .textFieldStyle(RoundedBorderTextFieldStyle())  // 入力域のまわりを枠で囲む
+                            .frame(width: 330)
+                            .padding(.bottom, 20)  // 余白を追加
                         
-                        VStack(spacing: 10){
-                            Text("あなたのユーザー名")
-                            TextField("UserName", text: $inputUserName)
-                                .autocapitalization(.none)  // 最初の文字が大文字になるのを防ぐ
-                                .textFieldStyle(RoundedBorderTextFieldStyle())  // 入力域のまわりを枠で囲む
-                                .frame(width: 330)
-                                .padding(20)  // 余白を追加
-                            
-                            Text("パスワード")
-                            HStack{
-                                if isSecure {
-                                    TextField("パスワード入力", text: $password)
-                                        .autocapitalization(.none)
-                                        .frame(width: 300)
-                                } else {
-                                    SecureField("パスワード入力", text: $password)
-                                        .autocapitalization(.none)
-                                        .frame(width: 300)
-                                }
-                                Button(action: {
-                                    isSecure.toggle()
-                                }) {
-                                    Image(systemName: isSecure ? "eye.fill" : "eye.slash.fill")
-                                }
+                        Text("パスワード")
+                        HStack{
+                            if isSecure {
+                                TextField("パスワード入力", text: $password)
+                                    .autocapitalization(.none)
+                                    .frame(width: 300)
+                            } else {
+                                SecureField("パスワード入力", text: $password)
+                                    .autocapitalization(.none)
+                                    .frame(width: 300)
                             }
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
+                            Button(action: {
+                                isSecure.toggle()
+                            }) {
+                                Image(systemName: isSecure ? "eye.fill" : "eye.slash.fill")
+                            }
                         }
-                        .padding(30)
-                        
-                        Button{
-                            //ここにログインボタンが押された時の処理
-                            name = inputUserName
-                            pushLoginButton.toggle()
-                        }label: {
-                            Text("ログイン")
-                                .foregroundColor(Color.white)
-                                .frame(width: 100, height: 40, alignment: .center)
-                                .background(Color.orange)
-                                .cornerRadius(50)
-                                .padding()
-                        }
-                        
-                        Rectangle()
-                            .foregroundColor(.black)
-                            .frame(width:300, height: 0.5)
-                            .padding(30)
-
-                    }/*.navigationDestination(isPresented: $pushCreate){
-                        CreateAccountView()
-                    }*/
-                    /*
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.bottom, 20)
+                    }
+                    .padding(30)
+                    
                     Button{
-                        pushCreate.toggle()
+                        //ここにログインボタンが押された時の処理
+                        name = inputUserName
+                        if name != ""{
+                            pushLoginButton.toggle()
+                            if pushLoginButton {
+                                ContentView()
+                            }
+                        }
+                        //pushLoginButton.toggle()
                     }label: {
-                    Text("初めての方はこちら")
-                        .foregroundColor(Color.white)
-                        .frame(width: 200, height: 40, alignment: .center)
-                        .background(Color.green)
-                        .cornerRadius(50)
-                        .padding()
-                    }*/
+                        Text("ログイン")
+                            .foregroundColor(Color.white)
+                            .frame(width: 100, height: 40, alignment: .center)
+                            .background(Color.orange)
+                            .cornerRadius(50)
+                            //.padding()
+                    }
+                    
+                    Rectangle()
+                        .foregroundColor(.black)
+                        .frame(width:300, height: 0.5)
+                        .padding(30)
+                    
                     Button(action: {
-                        pushCreate = true //trueにしないと画面遷移されない
+                        pushCreate = true
+                        if pushCreate{
+                            CreateAccountView()
+                        }
                     }) {
                         Text("初めての方はこちら")
                             .foregroundColor(Color.white)
                             .frame(width: 200, height: 40, alignment: .center)
                             .background(Color.green)
                             .cornerRadius(50)
-                            .padding()
+                            //.padding()
                     }
                     .fullScreenCover(isPresented: $pushCreate) { //フルスクリーンの画面遷移
                         CreateAccountView()
                     }
-                //}
+                }
             }
         }
     }

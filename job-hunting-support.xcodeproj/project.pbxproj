@@ -24,6 +24,7 @@
 /* Begin PBXFileReference section */
 		2FCD6B74DBE438FF752A106C /* Pods-job-hunting-support.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-job-hunting-support.release.xcconfig"; path = "Target Support Files/Pods-job-hunting-support/Pods-job-hunting-support.release.xcconfig"; sourceTree = "<group>"; };
 		557FA53EC785D9675D0767C5 /* Pods_job_hunting_support.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_job_hunting_support.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D72D8F82A7B5E5100BCB8A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		7E7572B45EEAC7985F974781 /* Pods-job-hunting-support.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-job-hunting-support.debug.xcconfig"; path = "Target Support Files/Pods-job-hunting-support/Pods-job-hunting-support.debug.xcconfig"; sourceTree = "<group>"; };
 		D90D499D2A440CC0003E5017 /* job-hunting-support.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "job-hunting-support.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D90D49A02A440CC0003E5017 /* job_hunting_supportApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = job_hunting_supportApp.swift; sourceTree = "<group>"; };
@@ -89,6 +90,7 @@
 		D90D499F2A440CC0003E5017 /* job-hunting-support */ = {
 			isa = PBXGroup;
 			children = (
+				7D72D8F82A7B5E5100BCB8A4 /* Info.plist */,
 				D90D49A02A440CC0003E5017 /* job_hunting_supportApp.swift */,
 				D90D49B22A441356003E5017 /* LoginView.swift */,
 				D90D49B42A44139C003E5017 /* CreateAccountView.swift */,
@@ -367,6 +369,7 @@
 				DEVELOPMENT_TEAM = 5DTX4R27WN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "job-hunting-support/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -397,6 +400,7 @@
 				DEVELOPMENT_TEAM = 5DTX4R27WN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "job-hunting-support/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
