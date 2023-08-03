@@ -10,7 +10,8 @@ import SwiftUI
 
 struct ListView: View {
     
-    var testUser = user(name: "dummy", password: "01234", sex: "male", age: 20)
+    //テスト動作用のユーザー、業種、職種
+    var testUser = user(name: "dummy", password: "01234", sex: "male", age: "20", graduate: "2023-03-31")
     
     @State var testindustry = [
         industry(name:"未選択"),
@@ -26,6 +27,7 @@ struct ListView: View {
         occupation(name:"パート")
     ]
     
+    //企業リスト
     @State var CompanyList = [corporate_info]()
     
     //削除のアラートの管理するフラグ
@@ -33,11 +35,11 @@ struct ListView: View {
     
     //削除する項目のindexを保持する変数
     @State private var deleteIndexSet: IndexSet?
-
+    
     var body: some View {
         NavigationView {
             List {
-                //会社のリスト表示
+                //企業のリスト表示
                 ForEach(CompanyList) { company in
                     NavigationLink(destination: CompanyDetailsView(company: binding(for: company), industryList: $testindustry, occupationList: $testoccupation)) {
                         Text(company.name)
@@ -51,10 +53,10 @@ struct ListView: View {
                 //削除前のアラート
                 .alert(isPresented: $deleteAlert) {
                     Alert(
-                        title: Text("Delete Company"),
-                        message: Text("Are you sure you want to delete this company?"),
+                        title: Text("本当に削除しますか？"),
+                        message: Text("削除すると、そのデータを復元することはできません"),
                         primaryButton: .cancel(),
-                        secondaryButton: .destructive(Text("Delete"), action: {
+                        secondaryButton: .destructive(Text("削除"), action: {
                             if let indexSet = deleteIndexSet {
                                 deleteSelectedCompanies(at: indexSet)
                                 deleteIndexSet = nil
@@ -93,15 +95,17 @@ struct ListView: View {
     }
 }
 
-//データの詳細表示
+//企業データの詳細表示
 struct CompanyDetailsView: View {
-    //詳細表示する会社を保持する変数
+    //詳細表示する企業を保持する変数
     @Binding var company: corporate_info
     @Binding var industryList : [industry]
     @Binding var occupationList : [occupation]
     
+    //日付関連
     let dateFormatter = DateFormatter()
     
+    //各パラメータの初期化
     init(company: Binding<corporate_info>, industryList: Binding<[industry]>, occupationList: Binding<[occupation]>) {
         _company = company
         _industryList = industryList
@@ -111,8 +115,6 @@ struct CompanyDetailsView: View {
         dateFormatter.dateFormat = "yyyy/MM/dd"
     }
     
-    @State var viewDate: Date = Date()
-
     var body: some View {
         ScrollView{
             HStack{
@@ -125,7 +127,7 @@ struct CompanyDetailsView: View {
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
                 } else {
-                    Text("設定されていません。")
+                    Text("未選択")
                 }
             }
             HStack{
@@ -138,7 +140,7 @@ struct CompanyDetailsView: View {
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
                 } else {
-                    Text("設定されていません。")
+                    Text("未選択")
                 }
             }
             Group{
@@ -160,7 +162,7 @@ struct CompanyDetailsView: View {
                     Text("設立日")
                         .font(.title2)
                         .padding()
-                    Text(dateFormatter.string(from: company.establishment))
+                    Text(company.establishment)
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
@@ -233,64 +235,83 @@ struct CompanyDetailsView: View {
                         ).padding()
                 }
             }
-            
-            
-            NavigationLink(destination: EditCompanyView(company: $company, industryList: $industryList, occupationList: $occupationList)) {
-                Text("Edit").font(.largeTitle)
-            }
         }
         .navigationTitle("\(company.name)")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink(destination: EditCompanyView(company: $company, industryList: $industryList, occupationList: $occupationList)) {
+                    Image(systemName: "square.and.pencil")
+                }
+            }
+        }
     }
 }
 
 /*
-
-struct CompanyDetailsView: View {
-    //詳細表示する会社を保持する変数
-    @Binding var company: corporate_info
-    @Binding var industryList : [industry]
-    @Binding var occupationList : [occupation]
-
-    var body: some View {
-        ScrollView{
-            
-            Text("従業員数: \(company.employees)").font(.title3)
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            Text("従業員数: \(company.employees)").font(.title3)
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            Text("従業員数: \(company.employees)").font(.title3)
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            Text("従業員数: \(company.employees)").font(.title3)
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            NavigationLink(destination: EditCompanyView(company: $company, industryList: $industryList, occupationList: $occupationList)) {
-                Text("Edit")
-            }
-        }
-        .navigationTitle("\(company.name)")
-    }
-}
+ 
+ struct CompanyDetailsView: View {
+ //詳細表示する会社を保持する変数
+ @Binding var company: corporate_info
+ @Binding var industryList : [industry]
+ @Binding var occupationList : [occupation]
+ 
+ var body: some View {
+ ScrollView{
+ 
+ Text("従業員数: \(company.employees)").font(.title3)
+ .padding()
+ .frame(maxWidth: .infinity, alignment: .leading)
+ 
+ Text("従業員数: \(company.employees)").font(.title3)
+ .padding()
+ .frame(maxWidth: .infinity, alignment: .leading)
+ 
+ Text("従業員数: \(company.employees)").font(.title3)
+ .padding()
+ .frame(maxWidth: .infinity, alignment: .leading)
+ 
+ Text("従業員数: \(company.employees)").font(.title3)
+ .padding()
+ .frame(maxWidth: .infinity, alignment: .leading)
+ 
+ NavigationLink(destination: EditCompanyView(company: $company, industryList: $industryList, occupationList: $occupationList)) {
+ Text("Edit")
+ }
+ }
+ .navigationTitle("\(company.name)")
+ }
+ }
  */
 
-
+//新規企業データの作成
 struct AddCompanyView: View {
+    
+    //画面遷移
     @Environment(\.presentationMode) var presentationMode
     
-    var userid: UUID = UUID()
-    @Binding var companyList: [corporate_info]
-    var industryList: [industry]
-    var occupationList: [occupation]
+    var userid: String //ユーザーID
+    @Binding var companyList: [corporate_info] //企業リスト
+    var industryList: [industry] //職種リスト
+    var occupationList: [occupation] //業種リスト
     
+    //日付関連
+    let dateFormatter = DateFormatter()
+    
+    //各種パラメータの初期化
+    init(userid: String,companyList: Binding<[corporate_info]>, industryList: [industry], occupationList: [occupation]) {
+        self.userid = userid
+        self.industryList = industryList
+        self.occupationList = occupationList
+        _companyList = companyList
+        dateFormatter.locale = Locale(identifier: "ja_JP")
+        dateFormatter.dateStyle = .medium
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+    }
+    
+    //新規作成時の初期値
     @State private var newName = ""
-    @State private var selectindustry: UUID = UUID()
-    @State private var selectoccupation: UUID = UUID()
+    @State private var selectindustry: String = ""
+    @State private var selectoccupation: String = ""
     @State private var newbusiness = ""
     @State private var selectionDate = Date()
     @State private var newEmployees = 0
@@ -302,6 +323,9 @@ struct AddCompanyView: View {
     @State private var newmemo = ""
     @State private var currentdate = Date()
     
+    //キーボードの利用検知
+    @FocusState  var isActive:Bool
+    
     var body: some View {
         ScrollView{
             HStack{
@@ -310,6 +334,7 @@ struct AddCompanyView: View {
                     .padding()
                 TextField("株式会社タカアシガニ", text:$newName)
                     .font(.title)
+                    .focused($isActive)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                     .autocapitalization(.none)
@@ -322,7 +347,7 @@ struct AddCompanyView: View {
                     Picker(selection: $selectindustry, content: {
                         ForEach(industryList) { industry in
                             Text("\(industry.name)").tag(industry.id)
-                                    }
+                        }
                     }, label: { Text("業種") }).pickerStyle(MenuPickerStyle())
                 }.autocapitalization(.none)
             }
@@ -344,6 +369,7 @@ struct AddCompanyView: View {
                         .font(.title2)
                         .padding()
                     TextField("事業内容を書いてください。", text:$newbusiness)
+                        .focused($isActive)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .autocapitalization(.none)
                 }
@@ -357,7 +383,8 @@ struct AddCompanyView: View {
                         .font(.title2)
                         .padding()
                     TextField("従業員数", value:$newEmployees, format: .number)
-                        .keyboardType(.decimalPad)
+                        .keyboardType(.numberPad)
+                        .focused($isActive)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
                         .autocapitalization(.none)
@@ -367,7 +394,8 @@ struct AddCompanyView: View {
                         .font(.title2)
                         .padding()
                     TextField("資本金", value:$newcapital, format: .number)
-                        .keyboardType(.decimalPad)
+                        .keyboardType(.numberPad)
+                        .focused($isActive)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
                         .autocapitalization(.none)
@@ -377,7 +405,8 @@ struct AddCompanyView: View {
                         .font(.title2)
                         .padding()
                     TextField("売上高", value:$newsales, format: .number)
-                        .keyboardType(.decimalPad)
+                        .keyboardType(.numberPad)
+                        .focused($isActive)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
                         .autocapitalization(.none)
@@ -387,7 +416,8 @@ struct AddCompanyView: View {
                         .font(.title2)
                         .padding()
                     TextField("営業利益", value:$newincome, format: .number)
-                        .keyboardType(.decimalPad)
+                        .keyboardType(.numberPad)
+                        .focused($isActive)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
                         .autocapitalization(.none)
@@ -398,6 +428,7 @@ struct AddCompanyView: View {
                         .padding()
                     TextField("山田 太郎", text:$newrepresentative)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .focused($isActive)
                         .padding()
                         .autocapitalization(.none)
                 }
@@ -406,6 +437,7 @@ struct AddCompanyView: View {
                         .font(.title2)
                         .padding()
                     TextField("沖縄県中頭郡西原町字千原1番地", text:$newlocation)
+                        .focused($isActive)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
                         .autocapitalization(.none)
@@ -416,6 +448,7 @@ struct AddCompanyView: View {
                         .padding()
                     TextField("メモ", text:$newmemo)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .focused($isActive)
                         .padding()
                         .autocapitalization(.none)
                 }
@@ -423,9 +456,10 @@ struct AddCompanyView: View {
         }
         .navigationTitle("新規作成")
         .navigationBarItems(trailing: Button("作成") {
+            //新規企業データの作成
+            companyList.append(corporate_info(user: userid, name: newName, Industry: selectindustry, Occupation: selectoccupation, business: newbusiness, establishment: dateFormatter.string(from: selectionDate), employees: String(newEmployees), capital: String(newcapital), sales: String(newsales), operating_income: String(newincome), representative: newrepresentative, location: newlocation, registration: dateFormatter.string(from: currentdate), memo: newmemo))
             
-            companyList.append(corporate_info(user: userid, name: newName, Industry: selectindustry, Occupation: selectoccupation, business: newbusiness, establishment: selectionDate, employees: newEmployees, capital: newcapital, sales: newsales, operating_income: newincome, representative: newrepresentative, location: newlocation, registration: currentdate, memo: newmemo))
-            
+            //企業データ入力部分の初期化
             newName = ""
             newbusiness = ""
             selectionDate = Date()
@@ -437,31 +471,60 @@ struct AddCompanyView: View {
             newlocation = ""
             newmemo = ""
             currentdate = Date()
+            
+            //企業リスト画面に戻る
             presentationMode.wrappedValue.dismiss()
         })
-        
+        .toolbar {
+            //キーボードを閉じるボタン
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()         // 右寄せにする
+                Button("閉じる") {
+                    isActive = false  //  フォーカスを外す
+                }
+            }
+        }
         Spacer()
     }
 }
 
+//企業データの編集
 struct EditCompanyView: View {
+    
+    //画面遷移
     @Environment(\.presentationMode) var presentationMode
     
+    //編集する企業を保持する変数
     @Binding var company: corporate_info
+    
+    //職種、業種のリスト
     @Binding var industryList: [industry]
     @Binding var occupationList: [occupation]
     
+    //編集前の企業データを保存する変数
     @State private var editedCompany: corporate_info
     @State private var editedmemo: String
-
+    @State private var editedDate: Date = Date()
+    
+    //日付関連
+    let dateFormatter = DateFormatter()
+    
+    //キーボードの利用検知
+    @FocusState  var isActive:Bool
+    
+    //各種パラメータの初期化
     init(company: Binding<corporate_info>, industryList: Binding<[industry]>, occupationList: Binding<[occupation]>) {
         _company = company
         _industryList = industryList
         _occupationList = occupationList
         _editedCompany = State(initialValue: company.wrappedValue)
         _editedmemo = State(initialValue: company.wrappedValue.memo)
+        dateFormatter.locale = Locale(identifier: "ja_JP")
+        dateFormatter.dateStyle = .medium
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        self.editedDate = dateFormatter.date(from: editedCompany.establishment) ?? Date()
     }
-
+    
     var body: some View {
         ScrollView{
             HStack{
@@ -470,6 +533,7 @@ struct EditCompanyView: View {
                     .padding()
                 TextField("企業名", text:$editedCompany.name)
                     .font(.title)
+                    .focused($isActive)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                     .autocapitalization(.none)
@@ -482,7 +546,7 @@ struct EditCompanyView: View {
                     Picker(selection: $editedCompany.industry, content: {
                         ForEach(industryList) { industry in
                             Text("\(industry.name)").tag(industry.id)
-                                    }
+                        }
                     }, label: { Text("業種") }).pickerStyle(MenuPickerStyle())
                 }.autocapitalization(.none)
             }
@@ -508,7 +572,7 @@ struct EditCompanyView: View {
                         .autocapitalization(.none)
                 }
                 HStack{
-                    DatePicker("設立日", selection: $editedCompany.establishment, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
+                    DatePicker("設立日", selection: $editedDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
                         .font(.title2)
                         .padding()
                 }
@@ -516,9 +580,10 @@ struct EditCompanyView: View {
                     Text("従業員数")
                         .font(.title2)
                         .padding()
-                    TextField("従業員数", value:$editedCompany.employees, format: .number)
-                        .keyboardType(.decimalPad)
+                    TextField("従業員数", text: $editedCompany.employees)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.numberPad)
+                        .focused($isActive)
                         .padding()
                         .autocapitalization(.none)
                 }
@@ -526,9 +591,10 @@ struct EditCompanyView: View {
                     Text("資本金")
                         .font(.title2)
                         .padding()
-                    TextField("資本金", value:$editedCompany.capital, format: .number)
-                        .keyboardType(.decimalPad)
+                    TextField("資本金", text: $editedCompany.capital)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.numberPad)
+                        .focused($isActive)
                         .padding()
                         .autocapitalization(.none)
                 }
@@ -536,9 +602,10 @@ struct EditCompanyView: View {
                     Text("売上高")
                         .font(.title2)
                         .padding()
-                    TextField("売上高", value:$editedCompany.sales, format: .number)
-                        .keyboardType(.decimalPad)
+                    TextField("売上高", text:$editedCompany.sales)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.numberPad)
+                        .focused($isActive)
                         .padding()
                         .autocapitalization(.none)
                 }
@@ -546,9 +613,10 @@ struct EditCompanyView: View {
                     Text("営業利益")
                         .font(.title2)
                         .padding()
-                    TextField("営業利益", value:$editedCompany.operating_income, format: .number)
-                        .keyboardType(.decimalPad)
+                    TextField("営業利益", text:$editedCompany.operating_income)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.numberPad)
+                        .focused($isActive)
                         .padding()
                         .autocapitalization(.none)
                 }
@@ -558,6 +626,7 @@ struct EditCompanyView: View {
                         .padding()
                     TextField("代表者", text:$editedCompany.representative)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .focused($isActive)
                         .padding()
                         .autocapitalization(.none)
                 }
@@ -567,6 +636,7 @@ struct EditCompanyView: View {
                         .padding()
                     TextField("所在地", text:$editedCompany.location)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .focused($isActive)
                         .padding()
                         .autocapitalization(.none)
                 }
@@ -576,6 +646,7 @@ struct EditCompanyView: View {
                         .padding()
                     TextField("メモ", text:$editedmemo)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .focused($isActive)
                         .padding()
                         .autocapitalization(.none)
                 }
@@ -583,11 +654,24 @@ struct EditCompanyView: View {
             
         }
         .navigationTitle("編集")
-        .navigationBarItems(trailing: Button("Save") {
+        .navigationBarItems(trailing: Button("編集を保存") {
+            //編集した部分を保存する
             editedCompany.memo = editedmemo
+            editedCompany.establishment = dateFormatter.string(from: editedDate)
             company = editedCompany // 変更を反映させる
+            
+            //詳細表示画面へ遷移
             presentationMode.wrappedValue.dismiss()
         })
+        .toolbar {
+            //キーボードを閉じる
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()         // 右寄せにする
+                Button("閉じる") {
+                    isActive = false  //  フォーカスを外す
+                }
+            }
+        }
     }
 }
 

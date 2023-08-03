@@ -10,19 +10,35 @@ import SwiftUI
 
 struct FirstView: View {
     
-    @State private var pushSignUp = false
+    @State var comments = [Comments]()
     
     var body: some View {
         NavigationView {
-            VStack {
-                // 画面遷移を行うボタン
-                NavigationLink(destination: ContentView()) {
-                    Text("画面遷移ボタン")
+            //3.
+            List(comments) { comment in
+                VStack(alignment: .leading) {
+                    Text("Name: " + "\(comment.name)")
+                        .font(.title)
+                        .fontWeight(.bold)
+                    Text("ID: " + "\(comment.id)")
+                        .font(.subheadline)
+                    Text("Password: " + "\(comment.password)")
+                        .font(.subheadline)
+                    Text("Sex: " + "\(comment.sex)")
+                        .font(.subheadline)
+                    Text("Age: " + "\(comment.age)")
+                        .font(.subheadline)
+                    Text("Graduation Year: " + "\(comment.graduation_year)")
+                        .font(.subheadline)
                 }
                 
-                // その他のビューコンテンツ
-                // ...
             }
+            //2.
+            .onAppear() {
+                apiCall().getUserComments { (comments) in
+                    self.comments = comments
+                }
+            }.navigationTitle("User Table")
         }
     }
 }
