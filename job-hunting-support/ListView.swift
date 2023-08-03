@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct ListView: View {
-    
     //テスト動作用のユーザー、業種、職種
     var testUser = user(name: "dummy", password: "01234", sex: "male", age: "20", graduate: "2023-03-31")
     
