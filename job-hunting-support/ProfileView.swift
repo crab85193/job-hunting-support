@@ -10,9 +10,7 @@ import SwiftUI
 
 struct ProfileView: View {
     
-    @State var year: Int = 0
     @State var showLogoutAlert = false
-    @AppStorage("user_name") var name = ""
     @AppStorage("isLogin") var isLogin = false
     
     @State var LoginUser: User = (LoadUserData() ?? User(name: "dummy", password: "01234", sex: "male", age: "20", graduate: "2023-03-31"))
@@ -26,13 +24,13 @@ struct ProfileView: View {
                     HStack{
                         Text("ユーザー名")
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Text("\(name)")
+                        Text("\(LoginUser.name)")
                     }
                     .padding(.all, 20)
                     HStack{
                         Text("卒業予定年度")
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Text("\(year)")
+                        Text("\(LoginUser.graduation_year)")
                     }
                     .padding(.all, 20)
                 }
