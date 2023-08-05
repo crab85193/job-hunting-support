@@ -14,6 +14,7 @@ struct ProfileView: View {
     @State var year: Int = 0
     @State var showLogoutAlert = false
     @AppStorage("user_name") var name = ""
+    @AppStorage("isLogin") var isLogin = false
     
     var body: some View {
         NavigationStack {
@@ -47,7 +48,7 @@ struct ProfileView: View {
                     Alert(title: Text("本当にログアウトしますか？"),
                         message: Text("ログアウトすると、次回アプリを開いていただいた時に再度ログインしてもらう必要があります。"),
                         primaryButton: .destructive(Text("ログアウト")){
-                            name = ""
+                            isLogin.toggle()
                             LoginView()
                         },
                         secondaryButton: .cancel(Text("キャンセル")){

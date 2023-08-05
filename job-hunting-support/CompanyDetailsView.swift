@@ -153,12 +153,10 @@ struct CompanyDetailsView: View {
             }
         }
         .navigationTitle("\(company.name)")
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
+        .navigationBarItems(trailing: {
                 NavigationLink(destination: EditCompanyView(company: $company, industryList: $industryList, occupationList: $occupationList)) {
                     Image(systemName: "square.and.pencil")
                 }
-            }
-        }
+            }())
     }
 }

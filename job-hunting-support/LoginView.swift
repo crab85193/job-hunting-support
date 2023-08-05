@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+
 struct LoginView: View {
     
     //@State private var name = ""
@@ -17,11 +18,12 @@ struct LoginView: View {
     @State var pushCreate = false
     //ここから下の三つを追加した。
     @AppStorage("user_name") var name = ""
+    @AppStorage("isLogin") var isLogin = false
+    @State var login_User: user = user(name: "", password: "", sex: "", age: "", graduate: "")
     @State var pushLoginButton: Bool = false
     @State var inputUserName: String = ""
-    init(){
-        //_name = ""
-    }
+    @State var selectionuser = [user]()
+    @State private var NotExistAlert = false
 
     var body: some View {
         
@@ -69,7 +71,22 @@ struct LoginView: View {
                     
                     Button{
                         //ここにログインボタンが押された時の処理
-                        name = inputUserName
+                        apiCall().getUserFromNameAndPassword(name: inputUserName, password: password) { (user) in
+                            self.selectionuser = user
+                            if selectionuser.count == 1 {
+                                print("正常に動作してる")
+                                login_User = selectionuser[0]
+                                print(login_User)
+                                isLogin.toggle()
+                            } else {
+                                print("そんなユーザーは存在しない")
+                                NotExistAlert = true
+                            }
+                            name = inputUserName
+                            if isLogin {
+                                ContentView()
+                            }
+                        }
                         if name != ""{
                             pushLoginButton.toggle()
                             if pushLoginButton {
@@ -84,6 +101,8 @@ struct LoginView: View {
                             .background(Color.orange)
                             .cornerRadius(50)
                             //.padding()
+                    }.alert(isPresented: $NotExistAlert) {
+                        Alert(title: Text("名前もしくはパスワードが違います"))
                     }
                     
                     Rectangle()

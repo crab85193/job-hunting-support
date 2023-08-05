@@ -29,6 +29,10 @@ struct ListView: View {
     //企業リスト
     @State var CompanyList = [corporate_info]()
     
+    @State var IndustryList = [industry]()
+    
+    @State var OccupationList = [occupation]()
+    
     //削除のアラートの管理するフラグ
     @State var deleteAlert: Bool = false
     

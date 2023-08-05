@@ -9,7 +9,7 @@
 import Foundation
 
 //ユーザー情報
-struct user: Identifiable, Equatable, Decodable{
+struct user: Identifiable, Equatable, Codable{
     let id: String //ID(作成する場合としない場合でイニシャライザを分ける)
     let name: String   //名前
     let password: String    //パスワード
@@ -37,7 +37,7 @@ struct user: Identifiable, Equatable, Decodable{
 }
 
 //業種
-struct industry: Identifiable, Equatable, Hashable, Decodable{
+struct industry: Identifiable, Equatable, Hashable, Codable{
     let id: String //ID
     let name: String //業種
 
@@ -53,7 +53,7 @@ struct industry: Identifiable, Equatable, Hashable, Decodable{
     
 }
 //職種
-struct occupation: Identifiable, Equatable, Hashable, Decodable{
+struct occupation: Identifiable, Equatable, Hashable, Codable{
     let id: String //id
     var name: String // 職種
 
@@ -69,7 +69,7 @@ struct occupation: Identifiable, Equatable, Hashable, Decodable{
 }
 
 //企業情報
-struct corporate_info: Identifiable, Equatable, Decodable{
+struct corporate_info: Identifiable, Equatable, Codable{
     let id : String //ID(作成する場合としない場合でイニシャライザを分ける必要あり)
     let user_info: String //作成したユーザーのid
     var name: String //企業名
@@ -123,7 +123,7 @@ struct corporate_info: Identifiable, Equatable, Decodable{
 }
 
 //インターン情報
-struct internship_info: Identifiable, Equatable, Decodable{
+struct internship_info: Identifiable, Equatable, Codable{
     let id: String //ID
     let user_info: String//ユーザーのid
     let corporate_info: String //企業のid
@@ -151,7 +151,7 @@ struct internship_info: Identifiable, Equatable, Decodable{
 }
 
 //本選考
-struct Selection: Identifiable, Equatable, Decodable{
+struct Selection: Identifiable, Equatable, Codable{
     let id: String //ID
     let user_info: String //ユーザーのid
     let corporate_info: String //企業のid
@@ -176,7 +176,7 @@ struct Selection: Identifiable, Equatable, Decodable{
 }
 
 //スケジュールカテゴリ
-struct Category: Identifiable, Equatable, Decodable{
+struct Category: Identifiable, Equatable, Codable{
     let id: String //ID
     let name: String //カテゴリー
 
@@ -186,7 +186,7 @@ struct Category: Identifiable, Equatable, Decodable{
     }
 }
 //スケジュール
-struct Schedule: Identifiable, Equatable, Decodable{
+struct Schedule: Identifiable, Equatable, Codable{
     let id: String //ID
     let title: String //スケジュール名
     let schedule_category: String //カテゴリのid
@@ -231,10 +231,14 @@ struct Comments: Codable, Identifiable {
 
 }
 
+//サーバ通信用の関数をまとめたクラス
 class apiCall {
+    //testclass(Comments)の情報をサーバからすべて取得するメソッド
     func getUserComments(completion:@escaping ([Comments]) -> ()) {
 //        guard let url = URL(string: "http://10.0.4.175/api/select-user.php?id="+"2") else { return }
-        guard let url = URL(string: "http://10.0.4.175/api/select-user.php") else { return }
+        guard let url = URL(string: "http://job-app.st.ie.u-ryukyu.ac.jp/user/select.php") else { print("Error")
+            return
+        }
 
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             let comments = try! JSONDecoder().decode([Comments].self, from: data!)
@@ -248,4 +252,95 @@ class apiCall {
         .resume()
         
     }
+    
+    //職種(industry)の情報をサーバからすべて取得するメソッド
+    func getIndustry(completion:@escaping ([industry]) -> ()) {
+//        guard let url = URL(string: "http://10.0.4.175/api/select-user.php?id="+"2") else { return }
+        guard let url = URL(string: "http://job-app.st.ie.u-ryukyu.ac.jp/industry/select.php") else { print("Error")
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { (data, _, _) in
+            let industries = try! JSONDecoder().decode([industry].self, from: data!)
+            print(industries)
+
+            DispatchQueue.main.async {
+                
+                completion(industries)
+            }
+        }
+        .resume()
+    }
+    
+    //業種(occupation)の情報をサーバからすべて取得するメソッド
+    func getOccupation(completion:@escaping ([occupation]) -> ()) {
+//        guard let url = URL(string: "http://10.0.4.175/api/select-user.php?id="+"2") else { return }
+        guard let url = URL(string: "http://job-app.st.ie.u-ryukyu.ac.jp/occupation/select.php") else { print("Error")
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { (data, _, _) in
+            let occupations = try! JSONDecoder().decode([occupation].self, from: data!)
+            print(occupations)
+
+            DispatchQueue.main.async {
+                
+                completion(occupations)
+            }
+        }
+        .resume()
+    }
+    
+    //スケジュールカテゴリ(Category)の情報をサーバからすべて取得するメソッド
+    func getCategory(completion:@escaping ([Category]) -> ()) {
+//        guard let url = URL(string: "http://10.0.4.175/api/select-user.php?id="+"2") else { return }
+        guard let url = URL(string: "http://job-app.st.ie.u-ryukyu.ac.jp/schedule_category/select.php") else { print("Error")
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { (data, _, _) in
+            let categories = try! JSONDecoder().decode([Category].self, from: data!)
+            print(categories)
+
+            DispatchQueue.main.async {
+                
+                completion(categories)
+            }
+        }
+        .resume()
+    }
+    
+    //nameとpasswordからUserの情報を取得するメソッド
+    func getUserFromNameAndPassword(name: String, password: String, completion: @escaping ([user]) -> Void) {
+            var urlComponents = URLComponents()
+            urlComponents.scheme = "http"
+            urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+            urlComponents.path = "/user/select.php"
+            urlComponents.queryItems = [
+                URLQueryItem(name: "name", value: name),
+                URLQueryItem(name: "password", value: password)
+            ]
+
+            guard let url = urlComponents.url else {
+                return
+            }
+        print(url.absoluteString)
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+
+                if let data = data {
+                    do {
+                        let decodedResponse = try JSONDecoder().decode([user].self, from: data)
+                        print("success")
+                        print(decodedResponse)
+                        completion(decodedResponse)
+                    } catch {
+                        print("JSON decoding error: \(error)")
+                    }
+                }
+            }.resume()
+        }
 }
