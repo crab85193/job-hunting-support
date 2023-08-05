@@ -35,40 +35,77 @@ struct ListView: View {
     //削除する項目のindexを保持する変数
     @State private var deleteIndexSet: IndexSet?
     
+    //カレンダー表示に関する変数
+    @State var date = Date()
+    private let dateFormatter = DateFormatter()
+    init(){
+        dateFormatter.dateFormat = "YYYY/MM/dd(E)"
+    }
+    
     var body: some View {
         NavigationView {
             List {
-                //企業のリスト表示
-                ForEach(CompanyList) { company in
-                    NavigationLink(destination: CompanyDetailsView(company: binding(for: company), industryList: $testindustry, occupationList: $testoccupation)) {
-                        Text(company.name)
+                Section(header: Text("企業リスト").font(.title3)){
+                    if CompanyList.count != 0 {
+                        //企業のリスト表示
+                        ForEach(CompanyList) { company in
+                            NavigationLink(destination: CompanyDetailsView(company: binding(for: company), industryList: $testindustry, occupationList: $testoccupation)) {
+                                VStack(alignment: .leading){
+                                    Text(company.name)
+                                        .fontWeight(.bold)
+                                    if let viewindustry = testindustry.first(where: {$0.id == company.industry}){
+                                        Text("\(viewindustry.name)")
+                                    } else {
+                                        Text("未選択")
+                                    }
+                                    if let viewoccupation = testoccupation.first(where: {$0.id == company.occupation}){
+                                        Text("\(viewoccupation.name)")
+                                    } else {
+                                        Text("未選択")
+                                    }
+                                }
+                            }
+                        }
+                        //削除ボタン
+                        .onDelete { indexSet in
+                            deleteIndexSet = indexSet
+                            deleteAlert = true
+                        }
+                        //削除前のアラート
+                        .alert(isPresented: $deleteAlert) {
+                            Alert(
+                                title: Text("本当に削除しますか？"),
+                                message: Text("削除すると、そのデータを復元することはできません"),
+                                primaryButton: .cancel(),
+                                secondaryButton: .destructive(Text("削除"), action: {
+                                    if let indexSet = deleteIndexSet {
+                                        deleteSelectedCompanies(at: indexSet)
+                                        deleteIndexSet = nil
+                                    }
+                                })
+                            )
+                        }
+                    }else {
+                        Text("会社が登録されていません。")
                     }
                 }
-                //削除ボタン
-                .onDelete { indexSet in
-                    deleteIndexSet = indexSet
-                    deleteAlert = true
-                }
-                //削除前のアラート
-                .alert(isPresented: $deleteAlert) {
-                    Alert(
-                        title: Text("本当に削除しますか？"),
-                        message: Text("削除すると、そのデータを復元することはできません"),
-                        primaryButton: .cancel(),
-                        secondaryButton: .destructive(Text("削除"), action: {
-                            if let indexSet = deleteIndexSet {
-                                deleteSelectedCompanies(at: indexSet)
-                                deleteIndexSet = nil
-                            }
-                        })
-                    )
+                //カレンダーセクション
+                Section(header: Text("カレンダー").font(.title3)){
+                    DatePicker("Calendar", selection: $date)
+                        .labelsHidden()
+                        .datePickerStyle(GraphicalDatePickerStyle())
+                        //.border(Color.blue)
+                        .frame(width: 300, height: 400)
+                    //Text(dateFormatter.string(from: date))
+                    //    .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
-            .navigationTitle("企業リスト")
+            .navigationTitle("ホーム")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: AddCompanyView(userid:testUser.id, companyList: $CompanyList, industryList: testindustry, occupationList: testoccupation)) {
-                        Image(systemName: "plus")
+                        Text("追加")
+                        //Image(systemName: "plus")
                     }
                 }
             }
@@ -113,6 +150,9 @@ struct CompanyDetailsView: View {
         dateFormatter.dateStyle = .medium
         dateFormatter.dateFormat = "yyyy/MM/dd"
     }
+    
+    //ナビゲーションバーの戻るボタンを消すための定義
+    @Environment(\.presentationMode) var presentaion
     
     var body: some View {
         ScrollView{
@@ -239,11 +279,18 @@ struct CompanyDetailsView: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
         .navigationTitle("\(company.name)")
         .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                  Button(action: { presentaion.wrappedValue.dismiss() }) {
+                    Image(systemName: "chevron.backward")
+                }
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink(destination: EditCompanyView(company: $company, industryList: $industryList, occupationList: $occupationList)) {
-                    Image(systemName: "square.and.pencil")
+                    Text("編集")
+                    //Image(systemName: "square.and.pencil")
                 }
             }
         }
@@ -329,135 +376,253 @@ struct AddCompanyView: View {
     //キーボードの利用検知
     @FocusState  var isActive:Bool
     
+    //ナビゲーションバーの戻るボタンを消すための定義
+    @Environment(\.presentationMode) var presentaion
+    
+    //ScrollViewで指定した場所まで飛ぶための変数定義
+    @State private var indexnum = 0
+    
     var body: some View {
-        ScrollView{
-            HStack{
-                Text("企業名")
-                    //.font(.title)
-                    .padding()
-                TextField("株式会社タカアシガニ", text:$newName)
-                    //.font(.title)
-                    .focused($isActive)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                    .autocapitalization(.none)
-            }
-            HStack{
-                Text("業種")
-                    //.font(.title2)
-                    .padding()
-                Section{
-                    Picker(selection: $selectindustry, content: {
-                        ForEach(industryList) { industry in
-                            Text("\(industry.name)").tag(industry.id)
+        ScrollViewReader{reader in
+            ScrollView{
+                //最初にカテゴリーから検索するのか新規作成するのか選択する部分
+                Group{
+                    Text("追加方法を選択")
+                        .font(.title2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 15)
+                        .padding(.top, 20)
+                    HStack{
+                        Button(action: {
+                            //ここにボタンを押したときの動作を記述
+                            indexnum = 1
+                            withAnimation (.easeInOut){
+                                reader.scrollTo(indexnum, anchor: .top)
+                            }
+                        }){
+                        Text("カテゴリー\nから検索")
+                             .foregroundColor(Color.white)
+                             .frame(width: 130, height: 60, alignment: .center)
+                             .background(Color.green)
+                             .cornerRadius(50)
+                            /*
+                            // 文字色をブルーに指定
+                            .foregroundColor(.blue)
+                            // フレームのサイズを指定
+                            .frame(width: 130, height: 60, alignment: .center)
+                            // 枠線で囲って文字を重ねる
+                            .overlay(RoundedRectangle(cornerRadius: 20)
+                            // 枠線の色をブルーに指定
+                            .stroke(Color.blue, lineWidth: 2)
+                            )
+                             */
                         }
-                    }, label: { Text("業種") }).pickerStyle(MenuPickerStyle())
-                }.autocapitalization(.none)
-            }
-            HStack{
-                Text("職種")
-                    //.font(.title2)
-                    .padding()
-                Section{
-                    Picker(selection: $selectoccupation, content: {
-                        ForEach(occupationList) { occupation in
-                            Text("\(occupation.name)").tag(occupation.id)
+                        Button(action: {
+                            //ここにボタンを押したときの動作を記述
+                            indexnum = 2
+                            withAnimation (.easeInOut){
+                                reader.scrollTo(indexnum, anchor: .top)
+                            }
+                        }){
+                        Text("新規作成")
+                            .foregroundColor(Color.white)
+                            .frame(width: 130, height: 60, alignment: .center)
+                            .background(Color.pink)
+                            .cornerRadius(50)
                         }
-                    }, label: { Text("職種") }).pickerStyle(MenuPickerStyle())
-                }.autocapitalization(.none)
-            }
-            Group{
-                HStack{
-                    Text("事業内容")
-                        //.font(.title2)
-                        .padding()
-                    TextField("事業内容を書いてください。", text:$newbusiness)
-                        .focused($isActive)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .autocapitalization(.none)
+                    }
                 }
-                HStack{
-                    DatePicker("設立日", selection: $selectionDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
-                        //.font(.title2)
-                        .padding()
+                
+                Rectangle()
+                    .foregroundColor(.black)
+                    .frame(width: .infinity, height: 0.5)
+                    .padding(.vertical, 30)
+                
+                //カテゴリーから選択する部分
+                Group{
+                    Text("カテゴリーから選択").id(1)
+                        .font(.title2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 15)
+                    VStack{
+                        HStack{
+                            Text("業種")
+                                //.font(.title2)
+                                .padding()
+                            Section{
+                                Picker(selection: $selectindustry, content: {
+                                    ForEach(industryList) { industry in
+                                        Text("\(industry.name)").tag(industry.id)
+                                    }
+                                }, label: { Text("業種") }).pickerStyle(MenuPickerStyle())
+                            }.autocapitalization(.none)
+                        }
+                        HStack{
+                            Text("職種")
+                                //.font(.title2)
+                                .padding()
+                            Section{
+                                Picker(selection: $selectoccupation, content: {
+                                    ForEach(occupationList) { occupation in
+                                        Text("\(occupation.name)").tag(occupation.id)
+                                    }
+                                }, label: { Text("職種") }).pickerStyle(MenuPickerStyle())
+                            }.autocapitalization(.none)
+                        }
+                        Button(action: {
+                            //ここにボタンを押したときの動作を記述
+                        }){
+                            HStack{
+                                Text("検索")
+                                Image(systemName: "magnifyingglass")
+                            }
+                            .foregroundColor(Color.white)
+                            .frame(width: 130, height: 50, alignment: .center)
+                            .background(Color.blue)
+                            .cornerRadius(50)
+                        }
+                    }
                 }
+                
+                Rectangle()
+                    .foregroundColor(.black)
+                    .frame(width: .infinity, height: 0.5)
+                    .padding(.vertical, 30)
+                
+                //新規作成の部分
+                Text("新規作成").id(2)
+                    .font(.title2)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 15)
                 HStack{
-                    Text("従業員数")
-                        //.font(.title2)
+                    Text("企業名")
+                        //.font(.title)
                         .padding()
-                    TextField("従業員数", value:$newEmployees, format: .number)
-                        .keyboardType(.numberPad)
-                        .focused($isActive)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                        .autocapitalization(.none)
-                }
-                HStack{
-                    Text("資本金")
-                        //.font(.title2)
-                        .padding()
-                    TextField("資本金", value:$newcapital, format: .number)
-                        .keyboardType(.numberPad)
-                        .focused($isActive)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                        .autocapitalization(.none)
-                }
-                HStack{
-                    Text("売上高")
-                        //.font(.title2)
-                        .padding()
-                    TextField("売上高", value:$newsales, format: .number)
-                        .keyboardType(.numberPad)
-                        .focused($isActive)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                        .autocapitalization(.none)
-                }
-                HStack{
-                    Text("営業利益")
-                        //.font(.title2)
-                        .padding()
-                    TextField("営業利益", value:$newincome, format: .number)
-                        .keyboardType(.numberPad)
-                        .focused($isActive)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                        .autocapitalization(.none)
-                }
-                HStack{
-                    Text("代表者")
-                        //.font(.title2)
-                        .padding()
-                    TextField("山田 太郎", text:$newrepresentative)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .focused($isActive)
-                        .padding()
-                        .autocapitalization(.none)
-                }
-                HStack{
-                    Text("所在地")
-                        //.font(.title2)
-                        .padding()
-                    TextField("沖縄県中頭郡西原町字千原1番地", text:$newlocation)
+                    TextField("株式会社タカアシガニ", text:$newName)
+                        //.font(.title)
                         .focused($isActive)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
                         .autocapitalization(.none)
                 }
                 HStack{
-                    Text("メモ")
+                    Text("業種")
                         //.font(.title2)
                         .padding()
-                    TextField("メモ", text:$newmemo)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .focused($isActive)
+                    Section{
+                        Picker(selection: $selectindustry, content: {
+                            ForEach(industryList) { industry in
+                                Text("\(industry.name)").tag(industry.id)
+                            }
+                        }, label: { Text("業種") }).pickerStyle(MenuPickerStyle())
+                    }.autocapitalization(.none)
+                }
+                HStack{
+                    Text("職種")
+                        //.font(.title2)
                         .padding()
-                        .autocapitalization(.none)
+                    Section{
+                        Picker(selection: $selectoccupation, content: {
+                            ForEach(occupationList) { occupation in
+                                Text("\(occupation.name)").tag(occupation.id)
+                            }
+                        }, label: { Text("職種") }).pickerStyle(MenuPickerStyle())
+                    }.autocapitalization(.none)
+                }
+                Group{
+                    HStack{
+                        Text("事業内容")
+                            //.font(.title2)
+                            .padding()
+                        TextField("事業内容を書いてください。", text:$newbusiness)
+                            .focused($isActive)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .autocapitalization(.none)
+                    }
+                    HStack{
+                        DatePicker("設立日", selection: $selectionDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
+                            //.font(.title2)
+                            .padding()
+                    }
+                    HStack{
+                        Text("従業員数")
+                            //.font(.title2)
+                            .padding()
+                        TextField("従業員数", value:$newEmployees, format: .number)
+                            .keyboardType(.numberPad)
+                            .focused($isActive)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding()
+                            .autocapitalization(.none)
+                    }
+                    HStack{
+                        Text("資本金")
+                            //.font(.title2)
+                            .padding()
+                        TextField("資本金", value:$newcapital, format: .number)
+                            .keyboardType(.numberPad)
+                            .focused($isActive)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding()
+                            .autocapitalization(.none)
+                    }
+                    HStack{
+                        Text("売上高")
+                            //.font(.title2)
+                            .padding()
+                        TextField("売上高", value:$newsales, format: .number)
+                            .keyboardType(.numberPad)
+                            .focused($isActive)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding()
+                            .autocapitalization(.none)
+                    }
+                    HStack{
+                        Text("営業利益")
+                            //.font(.title2)
+                            .padding()
+                        TextField("営業利益", value:$newincome, format: .number)
+                            .keyboardType(.numberPad)
+                            .focused($isActive)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding()
+                            .autocapitalization(.none)
+                    }
+                    HStack{
+                        Text("代表者")
+                            //.font(.title2)
+                            .padding()
+                        TextField("山田 太郎", text:$newrepresentative)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .focused($isActive)
+                            .padding()
+                            .autocapitalization(.none)
+                    }
+                    HStack{
+                        Text("所在地")
+                            //.font(.title2)
+                            .padding()
+                        TextField("沖縄県中頭郡西原町字千原1番地", text:$newlocation)
+                            .focused($isActive)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding()
+                            .autocapitalization(.none)
+                    }
+                    HStack{
+                        Text("メモ")
+                            //.font(.title2)
+                            .padding()
+                        TextField("メモ", text:$newmemo)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .focused($isActive)
+                            .padding()
+                            .autocapitalization(.none)
+                    }
                 }
             }
         }
-        .navigationTitle("新規作成")
+        .navigationBarBackButtonHidden(true)
+        .navigationTitle("リストを追加")
         .navigationBarItems(trailing: Button("作成") {
             //新規企業データの作成
             companyList.append(corporate_info(user: userid, name: newName, Industry: selectindustry, Occupation: selectoccupation, business: newbusiness, establishment: dateFormatter.string(from: selectionDate), employees: String(newEmployees), capital: String(newcapital), sales: String(newsales), operating_income: String(newincome), representative: newrepresentative, location: newlocation, registration: dateFormatter.string(from: currentdate), memo: newmemo))
@@ -479,6 +644,11 @@ struct AddCompanyView: View {
             presentationMode.wrappedValue.dismiss()
         })
         .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                  Button(action: { presentaion.wrappedValue.dismiss() }) {
+                    Image(systemName: "chevron.backward")
+                }
+            }
             //キーボードを閉じるボタン
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()         // 右寄せにする
@@ -657,7 +827,7 @@ struct EditCompanyView: View {
             
         }
         .navigationTitle("編集")
-        .navigationBarItems(trailing: Button("編集を保存") {
+        .navigationBarItems(trailing: Button("保存") {
             //編集した部分を保存する
             editedCompany.memo = editedmemo
             editedCompany.establishment = dateFormatter.string(from: editedDate)

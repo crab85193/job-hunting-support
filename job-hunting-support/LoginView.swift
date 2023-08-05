@@ -76,14 +76,12 @@ struct LoginView: View {
                                 ContentView()
                             }
                         }
-                        //pushLoginButton.toggle()
                     }label: {
                         Text("ログイン")
                             .foregroundColor(Color.white)
                             .frame(width: 100, height: 40, alignment: .center)
                             .background(Color.orange)
                             .cornerRadius(50)
-                            //.padding()
                     }
                     
                     Rectangle()
@@ -93,16 +91,12 @@ struct LoginView: View {
                     
                     Button(action: {
                         pushCreate = true
-                        if pushCreate{
-                            CreateAccountView()
-                        }
                     }) {
                         Text("初めての方はこちら")
                             .foregroundColor(Color.white)
                             .frame(width: 200, height: 40, alignment: .center)
                             .background(Color.green)
                             .cornerRadius(50)
-                            //.padding()
                     }
                     .fullScreenCover(isPresented: $pushCreate) { //フルスクリーンの画面遷移
                         CreateAccountView()

@@ -8,6 +8,11 @@
 
 import SwiftUI
 
+//卒業年度の値受け渡しのためのクラス
+class SharedData: ObservableObject {
+    @Published var selectedTag: String = ""
+}
+
 struct CreateAccountView: View {
     
     //@State private var name = ""
@@ -30,7 +35,7 @@ struct CreateAccountView: View {
                     .autocapitalization(.none)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(width: 330)
-                    .padding()
+                    .padding(.bottom, 30)
                 
                 Text("パスワード")
                 HStack{
@@ -50,14 +55,14 @@ struct CreateAccountView: View {
                     }
                 }
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
+                .padding(.bottom, 30)
                 
                 Text("学年")
-                Picker("あなたの学年を選択", selection: $year) {
-                    Text("学部1年次").tag(1)
-                    Text("学部2年次").tag(2)
-                    Text("学部3年次").tag(3)
-                    Text("学部4年次").tag(4)
+                Picker("好きな動物を選択", selection: $year) {
+                    Text("23卒").tag(1)
+                    Text("24卒").tag(2)
+                    Text("25卒").tag(3)
+                    Text("26卒").tag(4)
                 }
             }
             
@@ -73,7 +78,6 @@ struct CreateAccountView: View {
                     .frame(width: 200, height: 40, alignment: .center)
                     .background(Color.blue)
                     .cornerRadius(50)
-                    .padding()
             }
         }
     }
