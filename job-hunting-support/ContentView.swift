@@ -11,7 +11,7 @@ struct ContentView: View {
     
     @AppStorage("user_name") var name = ""
     @State var year = 0
-    @State var tabSelect = 0
+    @State var tabSelect = 2
     
     @EnvironmentObject var sharedData: SharedData
     
@@ -23,6 +23,26 @@ struct ContentView: View {
                     Text("List")
                     }
                     .tag(0)
+                ScheduleView()
+                    .tabItem{Image(systemName: "calendar")
+                    Text("Schedule")
+                    }
+                    .tag(1)
+                SelectionInfoView()
+                    .tabItem{Image(systemName: "doc.text")
+                    Text("SelectionInfo")
+                    }
+                    .tag(2)
+                InternView()
+                    .tabItem{Image(systemName: "figure.walk")
+                    Text("Intern")
+                    }
+                    .tag(3)
+                ProfileView(year: year, name: name)
+                    .tabItem{Image(systemName: "person.fill")
+                    Text("Profile")
+                    }
+                    .tag(4)
                 /*  これは、カテゴリー別に表示する段階まできたら追加する。
                 HomeView()
                     .tabItem{Image(systemName: "house.fill")
@@ -30,11 +50,6 @@ struct ContentView: View {
                     }
                     .tag(1)
                 */
-                ProfileView(year: year, name: name)
-                    .tabItem{Image(systemName: "person.fill")
-                    Text("Profile")
-                    }
-                    .tag(2)
             }
             .padding()
         }

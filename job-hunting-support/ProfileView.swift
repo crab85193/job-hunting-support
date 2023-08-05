@@ -18,22 +18,21 @@ struct ProfileView: View {
     @State private var isKeyboardVisible = false
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack(spacing: 80){
                 VStack(spacing: 20)/*(alignment: .leading)*/{
-                    Text("ユーザー名")
-                    TextField("ユーザー名", text: $name)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())  // 入力域のまわりを枠で囲む
-                        .padding(.horizontal)  // 余白を追加
-                    Text("卒業予定年度")
-                    TextField("あなたの卒業予定年度", value: $year, format: .number)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                    /*
-                    Text("Selected Tag in AnotherView: \(sharedData.selectedTag)")
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.horizontal)
-                     */
+                    HStack{
+                        Text("ユーザー名")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text("\(name)")
+                    }
+                    .padding(.all, 20)
+                    HStack{
+                        Text("卒業予定年度")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text("\(year)")
+                    }
+                    .padding(.all, 20)
                 }
                 
                 Button(action: {
@@ -59,8 +58,15 @@ struct ProfileView: View {
                     )
                 }
             }
-            .navigationTitle("Profile")
+            .navigationTitle("プロフィール")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: ProfileEditView()) {
+                        Text("編集")
+                    }
+                }
+            }
         }
     }
 }

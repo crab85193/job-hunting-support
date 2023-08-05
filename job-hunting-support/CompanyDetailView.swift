@@ -24,7 +24,7 @@ struct CompanyDetailView: View {
         _occupationList = occupationList
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateStyle = .medium
-        dateFormatter.dateFormat = "yyyy/MM/dd"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
     }
     
     //ナビゲーションバーの戻るボタンを消すための定義
