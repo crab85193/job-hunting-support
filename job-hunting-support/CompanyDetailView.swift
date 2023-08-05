@@ -10,21 +10,21 @@ import SwiftUI
 //企業データの詳細表示
 struct CompanyDetailView: View {
     //詳細表示する企業を保持する変数
-    @Binding var company: corporate_info
-    @Binding var industryList : [industry]
-    @Binding var occupationList : [occupation]
+    @Binding var company: Corporate_info
+    @Binding var industryList : [Industry]
+    @Binding var occupationList : [Occupation]
     
     //日付関連
     let dateFormatter = DateFormatter()
     
     //各パラメータの初期化
-    init(company: Binding<corporate_info>, industryList: Binding<[industry]>, occupationList: Binding<[occupation]>) {
+    init(company: Binding<Corporate_info>, industryList: Binding<[Industry]>, occupationList: Binding<[Occupation]>) {
         _company = company
         _industryList = industryList
         _occupationList = occupationList
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateStyle = .medium
-        dateFormatter.dateFormat = "yyyy/MM/dd"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
     }
     
     //ナビゲーションバーの戻るボタンを消すための定義

@@ -14,22 +14,22 @@ struct CompanyAddView: View {
     @Environment(\.presentationMode) var presentationMode
     
     var userid: String //ユーザーID
-    @Binding var companyList: [corporate_info] //企業リスト
-    var industryList: [industry] //職種リスト
-    var occupationList: [occupation] //業種リスト
+    @Binding var companyList: [Corporate_info] //企業リスト
+    var industryList: [Industry] //職種リスト
+    var occupationList: [Occupation] //業種リスト
     
     //日付関連
     let dateFormatter = DateFormatter()
     
     //各種パラメータの初期化
-    init(userid: String,companyList: Binding<[corporate_info]>, industryList: [industry], occupationList: [occupation]) {
+    init(userid: String,companyList: Binding<[Corporate_info]>, industryList: [Industry], occupationList: [Occupation]) {
         self.userid = userid
         self.industryList = industryList
         self.occupationList = occupationList
         _companyList = companyList
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateStyle = .medium
-        dateFormatter.dateFormat = "yyyy/MM/dd"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
     }
     
     //新規作成時の初期値
@@ -294,7 +294,7 @@ struct CompanyAddView: View {
         .navigationTitle("リストを追加")
         .navigationBarItems(trailing: Button("作成") {
             //新規企業データの作成
-            companyList.append(corporate_info(user: userid, name: newName, Industry: selectindustry, Occupation: selectoccupation, business: newbusiness, establishment: dateFormatter.string(from: selectionDate), employees: String(newEmployees), capital: String(newcapital), sales: String(newsales), operating_income: String(newincome), representative: newrepresentative, location: newlocation, registration: dateFormatter.string(from: currentdate), memo: newmemo))
+            companyList.append(Corporate_info(user: userid, name: newName, Industry: selectindustry, Occupation: selectoccupation, business: newbusiness, establishment: dateFormatter.string(from: selectionDate), employees: String(newEmployees), capital: String(newcapital), sales: String(newsales), operating_income: String(newincome), representative: newrepresentative, location: newlocation, registration: dateFormatter.string(from: currentdate), memo: newmemo))
             
             //企業データ入力部分の初期化
             newName = ""

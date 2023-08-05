@@ -27,8 +27,8 @@ struct CreateAccountView: View {
     @State var sex = ""
     @State var age = ""
     @State var response = ""
-    @State var selectionuser = [user]()
-    @State var login_User: user = user(name: "", password: "", sex: "", age: "", graduate: "")
+    @State var selectionuser = [User]()
+    @State var login_User: User = User(name: "", password: "", sex: "", age: "", graduate: "")
     //ここから下の三つを追加した。
     @AppStorage("user_name") var name = ""
     @AppStorage("isLogin") var isLogin = false

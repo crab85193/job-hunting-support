@@ -14,14 +14,14 @@ struct CompanyEditView: View {
     @Environment(\.presentationMode) var presentationMode
     
     //編集する企業を保持する変数
-    @Binding var company: corporate_info
+    @Binding var company: Corporate_info
     
     //職種、業種のリスト
-    @Binding var industryList: [industry]
-    @Binding var occupationList: [occupation]
+    @Binding var industryList: [Industry]
+    @Binding var occupationList: [Occupation]
     
     //編集前の企業データを保存する変数
-    @State private var editedCompany: corporate_info
+    @State private var editedCompany: Corporate_info
     @State private var editedmemo: String
     @State private var editedDate: Date = Date()
     
@@ -32,7 +32,7 @@ struct CompanyEditView: View {
     @FocusState  var isActive:Bool
     
     //各種パラメータの初期化
-    init(company: Binding<corporate_info>, industryList: Binding<[industry]>, occupationList: Binding<[occupation]>) {
+    init(company: Binding<Corporate_info>, industryList: Binding<[Industry]>, occupationList: Binding<[Occupation]>) {
         _company = company
         _industryList = industryList
         _occupationList = occupationList
@@ -40,7 +40,7 @@ struct CompanyEditView: View {
         _editedmemo = State(initialValue: company.wrappedValue.memo)
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateStyle = .medium
-        dateFormatter.dateFormat = "yyyy/MM/dd"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         self.editedDate = dateFormatter.date(from: editedCompany.establishment) ?? Date()
     }
     

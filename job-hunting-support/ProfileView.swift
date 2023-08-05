@@ -15,7 +15,7 @@ struct ProfileView: View {
     @AppStorage("user_name") var name = ""
     @AppStorage("isLogin") var isLogin = false
     
-    @State var LoginUser: user = (LoadUserData() ?? user(name: "dummy", password: "01234", sex: "male", age: "20", graduate: "2023/03/31"))
+    @State var LoginUser: User = (LoadUserData() ?? User(name: "dummy", password: "01234", sex: "male", age: "20", graduate: "2023-03-31"))
 
     @State private var isKeyboardVisible = false
     

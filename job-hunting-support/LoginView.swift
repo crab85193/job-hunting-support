@@ -19,10 +19,10 @@ struct LoginView: View {
     //ここから下の三つを追加した。
     @AppStorage("user_name") var name = ""
     @AppStorage("isLogin") var isLogin = false
-    @State var login_User: user = user(name: "", password: "", sex: "", age: "", graduate: "")
+    @State var login_User: User = User(name: "", password: "", sex: "", age: "", graduate: "")
     @State var pushLoginButton: Bool = false
     @State var inputUserName: String = ""
-    @State var selectionuser = [user]()
+    @State var selectionuser = [User]()
     @State private var NotExistAlert = false
 
     var body: some View {

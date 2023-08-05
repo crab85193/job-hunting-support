@@ -10,30 +10,30 @@ import SwiftUI
 
 struct CompanyListView: View {
     //テスト動作用のユーザー、業種、職種
-    var testUser = user(name: "dummy", password: "01234", sex: "male", age: "20", graduate: "2023/03/31")
+    var testUser = User(name: "dummy", password: "01234", sex: "male", age: "20", graduate: "2023-03-31")
     
     @State var testindustry = [
-        industry(name:"未選択"),
-        industry(name:"プログラマー"),
-        industry(name: "WEBエンジニア"),
-        industry(name: "インフラエンジニア")
+        Industry(name:"未選択"),
+        Industry(name:"プログラマー"),
+        Industry(name: "WEBエンジニア"),
+        Industry(name: "インフラエンジニア")
     ]
     
     @State var testoccupation = [
-        occupation(name:"未選択"),
-        occupation(name: "正社員"),
-        occupation(name:"契約社員"),
-        occupation(name:"パート")
+        Occupation(name:"未選択"),
+        Occupation(name: "正社員"),
+        Occupation(name:"契約社員"),
+        Occupation(name:"パート")
     ]
     //ログインしているユーザーの情報
-        @State var LoginUser: user = (LoadUserData() ?? user(name: "dummy", password: "01234", sex: "male", age: "20", graduate: "2023/03/31"))
+        @State var LoginUser: User = (LoadUserData() ?? User(name: "dummy", password: "01234", sex: "male", age: "20", graduate: "2023-03-31"))
     
     //企業リスト
-    @State var CompanyList = [corporate_info]()
+    @State var CompanyList = [Corporate_info]()
     
-    @State var IndustryList = [industry]()
+    @State var IndustryList = [Industry]()
     
-    @State var OccupationList = [occupation]()
+    @State var OccupationList = [Occupation]()
     
     //削除のアラートの管理するフラグ
     @State var deleteAlert: Bool = false
@@ -117,8 +117,8 @@ struct CompanyListView: View {
             }
             .onAppear(){
                 print(LoginUser)
-                let firstindustry = industry(id: "0", name: "未選択")
-                let firstoccupation = occupation(id: "0", name: "未選択")
+                let firstindustry = Industry(id: "0", name: "未選択")
+                let firstoccupation = Occupation(id: "0", name: "未選択")
                 apiCall().getIndustry{ (industry) in
                                 self.IndustryList = industry
                                 IndustryList.insert(firstindustry, at: 0)
@@ -133,7 +133,7 @@ struct CompanyListView: View {
     }
     
     //選択したCompanyの前処理
-    private func binding(for company: corporate_info) -> Binding<corporate_info> {
+    private func binding(for company: Corporate_info) -> Binding<Corporate_info> {
         guard let companyIndex = CompanyList.firstIndex(of: company) else {
             fatalError("Person not found")
         }
