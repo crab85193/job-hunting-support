@@ -29,7 +29,7 @@ struct CompanyAddView: View {
         _companyList = companyList
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateStyle = .medium
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "yyyy/MM/dd"
     }
     
     //新規作成時の初期値
@@ -174,7 +174,6 @@ struct CompanyAddView: View {
                         .padding()
                     TextField("株式会社タカアシガニ", text:$newName)
                         //.font(.title)
-                        .focused($isActive)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
                         .autocapitalization(.none)
@@ -209,7 +208,6 @@ struct CompanyAddView: View {
                             //.font(.title2)
                             .padding()
                         TextField("事業内容を書いてください。", text:$newbusiness)
-                            .focused($isActive)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .autocapitalization(.none)
                     }
@@ -268,7 +266,6 @@ struct CompanyAddView: View {
                             .padding()
                         TextField("山田 太郎", text:$newrepresentative)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .focused($isActive)
                             .padding()
                             .autocapitalization(.none)
                     }
@@ -277,7 +274,6 @@ struct CompanyAddView: View {
                             //.font(.title2)
                             .padding()
                         TextField("沖縄県中頭郡西原町字千原1番地", text:$newlocation)
-                            .focused($isActive)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .padding()
                             .autocapitalization(.none)
@@ -288,7 +284,6 @@ struct CompanyAddView: View {
                             .padding()
                         TextField("メモ", text:$newmemo)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .focused($isActive)
                             .padding()
                             .autocapitalization(.none)
                     }

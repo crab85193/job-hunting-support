@@ -40,7 +40,7 @@ struct CompanyEditView: View {
         _editedmemo = State(initialValue: company.wrappedValue.memo)
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateStyle = .medium
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "yyyy/MM/dd"
         self.editedDate = dateFormatter.date(from: editedCompany.establishment) ?? Date()
     }
     
@@ -52,7 +52,6 @@ struct CompanyEditView: View {
                     .padding()
                 TextField("企業名", text:$editedCompany.name)
                     //.font(.title)
-                    .focused($isActive)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                     .autocapitalization(.none)
@@ -145,7 +144,6 @@ struct CompanyEditView: View {
                         .padding()
                     TextField("代表者", text:$editedCompany.representative)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .focused($isActive)
                         .padding()
                         .autocapitalization(.none)
                 }
@@ -155,7 +153,6 @@ struct CompanyEditView: View {
                         .padding()
                     TextField("所在地", text:$editedCompany.location)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .focused($isActive)
                         .padding()
                         .autocapitalization(.none)
                 }
@@ -165,7 +162,6 @@ struct CompanyEditView: View {
                         .padding()
                     TextField("メモ", text:$editedmemo)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .focused($isActive)
                         .padding()
                         .autocapitalization(.none)
                 }

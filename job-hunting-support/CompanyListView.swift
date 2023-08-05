@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CompanyListView: View {
     //テスト動作用のユーザー、業種、職種
-    var testUser = user(name: "dummy", password: "01234", sex: "male", age: "20", graduate: "2023-03-31")
+    var testUser = user(name: "dummy", password: "01234", sex: "male", age: "20", graduate: "2023/03/31")
     
     @State var testindustry = [
         industry(name:"未選択"),
@@ -25,9 +25,15 @@ struct CompanyListView: View {
         occupation(name:"契約社員"),
         occupation(name:"パート")
     ]
+    //ログインしているユーザーの情報
+        @State var LoginUser: user = (LoadUserData() ?? user(name: "dummy", password: "01234", sex: "male", age: "20", graduate: "2023/03/31"))
     
     //企業リスト
     @State var CompanyList = [corporate_info]()
+    
+    @State var IndustryList = [industry]()
+    
+    @State var OccupationList = [occupation]()
     
     //削除のアラートの管理するフラグ
     @State var deleteAlert: Bool = false
@@ -49,16 +55,16 @@ struct CompanyListView: View {
                     if CompanyList.count != 0 {
                         //企業のリスト表示
                         ForEach(CompanyList) { company in
-                            NavigationLink(destination: CompanyDetailView(company: binding(for: company), industryList: $testindustry, occupationList: $testoccupation)) {
+                            NavigationLink(destination: CompanyDetailView(company: binding(for: company), industryList: $IndustryList, occupationList: $OccupationList)) {
                                 VStack(alignment: .leading){
                                     Text(company.name)
                                         .fontWeight(.bold)
-                                    if let viewindustry = testindustry.first(where: {$0.id == company.industry}){
+                                    if let viewindustry = IndustryList.first(where: {$0.id == company.industry}){
                                         Text("\(viewindustry.name)")
                                     } else {
                                         Text("未選択")
                                     }
-                                    if let viewoccupation = testoccupation.first(where: {$0.id == company.occupation}){
+                                    if let viewoccupation = OccupationList.first(where: {$0.id == company.occupation}){
                                         Text("\(viewoccupation.name)")
                                     } else {
                                         Text("未選択")
@@ -94,7 +100,7 @@ struct CompanyListView: View {
                     DatePicker("Calendar", selection: $date)
                         .labelsHidden()
                         .datePickerStyle(GraphicalDatePickerStyle())
-                        //.border(Color.blue)
+                    //.border(Color.blue)
                         .frame(width: 300, height: 400)
                     //Text(dateFormatter.string(from: date))
                     //    .frame(maxWidth: .infinity, alignment: .center)
@@ -103,11 +109,25 @@ struct CompanyListView: View {
             .navigationTitle("ホーム")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: CompanyAddView(userid:testUser.id, companyList: $CompanyList, industryList: testindustry, occupationList: testoccupation)) {
+                    NavigationLink(destination: CompanyAddView(userid:testUser.id, companyList: $CompanyList, industryList: IndustryList, occupationList: OccupationList)) {
                         Text("追加")
                         //Image(systemName: "plus")
                     }
                 }
+            }
+            .onAppear(){
+                print(LoginUser)
+                let firstindustry = industry(id: "0", name: "未選択")
+                let firstoccupation = occupation(id: "0", name: "未選択")
+                apiCall().getIndustry{ (industry) in
+                                self.IndustryList = industry
+                                IndustryList.insert(firstindustry, at: 0)
+                            }
+                
+                apiCall().getOccupation{ (occupation) in
+                                self.OccupationList = occupation
+                                OccupationList.insert(firstoccupation, at: 0)
+                            }
             }
         }
     }
