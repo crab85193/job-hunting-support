@@ -38,7 +38,7 @@ struct ContentView: View {
                     Text("Intern")
                     }
                     .tag(3)
-                ProfileView(year: year, name: name)
+                ProfileView()
                     .tabItem{Image(systemName: "person.fill")
                     Text("Profile")
                     }

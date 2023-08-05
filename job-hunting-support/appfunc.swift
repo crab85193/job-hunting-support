@@ -11,11 +11,11 @@ import Foundation
 //ユーザー情報
 struct User: Identifiable, Equatable, Codable{
     let id: String //ID(作成する場合としない場合でイニシャライザを分ける)
-    let name: String   //名前
-    let password: String    //パスワード
-    let sex: String  //性別
-    let age: String    //年齢 ->intへ変換する必要あり
-    let graduation_year: String //卒業年度　->Dateへ変換する必要あり
+    var name: String   //名前
+    var password: String    //パスワード
+    var sex: String  //性別
+    var age: String    //年齢 ->intへ変換する必要あり
+    var graduation_year: String //卒業年度　->Dateへ変換する必要あり
 
     init(name: String, password: String, sex: String, age: String, graduate: String) {
         self.id = UUID().uuidString
