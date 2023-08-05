@@ -9,7 +9,7 @@
 import Foundation
 
 //ユーザー情報
-struct user: Identifiable, Equatable, Codable{
+struct User: Identifiable, Equatable, Codable{
     let id: String //ID(作成する場合としない場合でイニシャライザを分ける)
     let name: String   //名前
     let password: String    //パスワード
@@ -37,7 +37,7 @@ struct user: Identifiable, Equatable, Codable{
 }
 
 //業種
-struct industry: Identifiable, Equatable, Hashable, Codable{
+struct Industry: Identifiable, Equatable, Hashable, Codable{
     let id: String //ID
     let name: String //業種
 
@@ -53,7 +53,7 @@ struct industry: Identifiable, Equatable, Hashable, Codable{
     
 }
 //職種
-struct occupation: Identifiable, Equatable, Hashable, Codable{
+struct Occupation: Identifiable, Equatable, Hashable, Codable{
     let id: String //id
     var name: String // 職種
 
@@ -69,7 +69,7 @@ struct occupation: Identifiable, Equatable, Hashable, Codable{
 }
 
 //企業情報
-struct corporate_info: Identifiable, Equatable, Codable{
+struct Corporate_info: Identifiable, Equatable, Codable{
     let id : String //ID(作成する場合としない場合でイニシャライザを分ける必要あり)
     let user_info: String //作成したユーザーのid
     var name: String //企業名
@@ -123,7 +123,7 @@ struct corporate_info: Identifiable, Equatable, Codable{
 }
 
 //インターン情報
-struct internship_info: Identifiable, Equatable, Codable{
+struct Internship_info: Identifiable, Equatable, Codable{
     let id: String //ID
     let user_info: String//ユーザーのid
     let corporate_info: String //企業のid
@@ -231,6 +231,8 @@ struct Comments: Codable, Identifiable {
 
 }
 
+//以降サーバとの通信関連
+
 //追加時等の反応
 struct Response: Codable {
     let status: String
@@ -259,14 +261,14 @@ class apiCall {
     }
     
     //職種(industry)の情報をサーバからすべて取得するメソッド
-    func getIndustry(completion:@escaping ([industry]) -> ()) {
+    func getIndustry(completion:@escaping ([Industry]) -> ()) {
 //        guard let url = URL(string: "http://10.0.4.175/api/select-user.php?id="+"2") else { return }
         guard let url = URL(string: "http://job-app.st.ie.u-ryukyu.ac.jp/industry/select.php") else { print("Error")
             return
         }
 
         URLSession.shared.dataTask(with: url) { (data, _, _) in
-            let industries = try! JSONDecoder().decode([industry].self, from: data!)
+            let industries = try! JSONDecoder().decode([Industry].self, from: data!)
             print(industries)
 
             DispatchQueue.main.async {
@@ -278,14 +280,14 @@ class apiCall {
     }
     
     //業種(occupation)の情報をサーバからすべて取得するメソッド
-    func getOccupation(completion:@escaping ([occupation]) -> ()) {
+    func getOccupation(completion:@escaping ([Occupation]) -> ()) {
 //        guard let url = URL(string: "http://10.0.4.175/api/select-user.php?id="+"2") else { return }
         guard let url = URL(string: "http://job-app.st.ie.u-ryukyu.ac.jp/occupation/select.php") else { print("Error")
             return
         }
 
         URLSession.shared.dataTask(with: url) { (data, _, _) in
-            let occupations = try! JSONDecoder().decode([occupation].self, from: data!)
+            let occupations = try! JSONDecoder().decode([Occupation].self, from: data!)
             print(occupations)
 
             DispatchQueue.main.async {
@@ -316,7 +318,7 @@ class apiCall {
     }
     
     //nameとpasswordからUserの情報を取得するメソッド
-    func getUserFromNameAndPassword(name: String, password: String, completion: @escaping ([user]) -> Void) {
+    func getUserFromNameAndPassword(name: String, password: String, completion: @escaping ([User]) -> Void) {
             var urlComponents = URLComponents()
             urlComponents.scheme = "http"
             urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
@@ -338,7 +340,7 @@ class apiCall {
 
                 if let data = data {
                     do {
-                        let decodedResponse = try JSONDecoder().decode([user].self, from: data)
+                        let decodedResponse = try JSONDecoder().decode([User].self, from: data)
                         print("success")
                         print(decodedResponse)
                         completion(decodedResponse)
@@ -350,7 +352,7 @@ class apiCall {
         }
     
     //userIDをもとにそのユーザーが登録した企業データを取得するメソッド
-    func getCompanyInfoFromUserID(userID: String, completion: @escaping ([corporate_info]) -> Void) {
+    func getCompanyInfoFromUserID(userID: String, completion: @escaping ([Corporate_info]) -> Void) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "http"
         urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
@@ -371,7 +373,7 @@ class apiCall {
 
             if let data = data {
                 do {
-                    let decodedResponse = try JSONDecoder().decode([corporate_info].self, from: data)
+                    let decodedResponse = try JSONDecoder().decode([Corporate_info].self, from: data)
                     print("success")
                     print(decodedResponse)
                     completion(decodedResponse)
@@ -449,7 +451,7 @@ class apiCall {
     }
     
     //userIDをもとにそのユーザーが登録したインターンシップのデータを取得するメソッド
-    func getInternshipInfoFromUserID(userID: String, completion: @escaping ([internship_info]) -> Void) {
+    func getInternshipInfoFromUserID(userID: String, completion: @escaping ([Internship_info]) -> Void) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "http"
         urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
@@ -470,7 +472,7 @@ class apiCall {
 
             if let data = data {
                 do {
-                    let decodedResponse = try JSONDecoder().decode([internship_info].self, from: data)
+                    let decodedResponse = try JSONDecoder().decode([Internship_info].self, from: data)
                     print("success")
                     print(decodedResponse)
                     completion(decodedResponse)
@@ -519,8 +521,10 @@ class apiCall {
     }
 }
 
+//以降データ永続化関連
+
 //User情報をアプリ内に保存
-func SaveUserData(_ user: user) {
+func SaveUserData(_ user: User) {
     do {
         let encodedData = try JSONEncoder().encode(user)
         UserDefaults.standard.set(encodedData, forKey: "savedUser")
@@ -530,11 +534,53 @@ func SaveUserData(_ user: user) {
 }
 
 //user情報をアプリ内から読み込み
-func LoadUserData() -> user? {
+func LoadUserData() -> User? {
     if let savedData = UserDefaults.standard.data(forKey: "savedUser") {
         do {
-            let loadedPerson = try JSONDecoder().decode(user.self, from: savedData)
+            let loadedPerson = try JSONDecoder().decode(User.self, from: savedData)
             return loadedPerson
+        } catch {
+            print("Error decoding person: \(error)")
+        }
+    }
+    return nil
+}
+
+func SaveIndustryData(_ industry:[Industry]){
+    do {
+        let encodedData = try JSONEncoder().encode(industry)
+        UserDefaults.standard.set(encodedData, forKey: "savedIndustry")
+    } catch {
+        print("Error encoding person: \(error)")
+    }
+}
+
+func LoadIndustryData() -> [Industry]? {
+    if let savedData = UserDefaults.standard.data(forKey: "savedIndustry") {
+        do {
+            let loadedIndustry = try JSONDecoder().decode([Industry].self, from: savedData)
+            return loadedIndustry
+        } catch {
+            print("Error decoding person: \(error)")
+        }
+    }
+    return nil
+}
+
+func SaveOccupationData(_ occupation:[Occupation]){
+    do {
+        let encodedData = try JSONEncoder().encode(occupation)
+        UserDefaults.standard.set(encodedData, forKey: "savedoccupation")
+    } catch {
+        print("Error encoding person: \(error)")
+    }
+}
+
+func LoadOccupationData() -> [Occupation]? {
+    if let savedData = UserDefaults.standard.data(forKey: "savedoccupation") {
+        do {
+            let loadedOccupation = try JSONDecoder().decode([Occupation].self, from: savedData)
+            return loadedOccupation
         } catch {
             print("Error decoding person: \(error)")
         }
