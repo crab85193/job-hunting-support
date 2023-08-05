@@ -41,17 +41,10 @@ struct CompanyListView: View {
     //削除する項目のindexを保持する変数
     @State private var deleteIndexSet: IndexSet?
     
-    //カレンダー表示に関する変数
-    @State var date = Date()
-    private let dateFormatter = DateFormatter()
-    init(){
-        dateFormatter.dateFormat = "YYYY/MM/dd(E)"
-    }
-    
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("企業リスト").font(.title3)){
+                Section(/*header: Text("企業リスト").font(.title3)*/){
                     if CompanyList.count != 0 {
                         //企業のリスト表示
                         ForEach(CompanyList) { company in
@@ -71,6 +64,7 @@ struct CompanyListView: View {
                                     }
                                 }
                             }
+                            .listRowBackground(Color.gray.opacity(0.2))
                         }
                         //削除ボタン
                         .onDelete { indexSet in
@@ -93,25 +87,18 @@ struct CompanyListView: View {
                         }
                     }else {
                         Text("会社が登録されていません。")
+                        .listRowBackground(Color.gray.opacity(0.2))
                     }
                 }
-                //カレンダーセクション
-                Section(header: Text("カレンダー").font(.title3)){
-                    DatePicker("Calendar", selection: $date)
-                        .labelsHidden()
-                        .datePickerStyle(GraphicalDatePickerStyle())
-                    //.border(Color.blue)
-                        .frame(width: 300, height: 400)
-                    //Text(dateFormatter.string(from: date))
-                    //    .frame(maxWidth: .infinity, alignment: .center)
-                }
             }
-            .navigationTitle("ホーム")
+            .scrollContentBackground(.hidden)
+            .background(Color.white)
+            .navigationTitle("企業リスト")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: CompanyAddView(userid:testUser.id, companyList: $CompanyList, industryList: IndustryList, occupationList: OccupationList)) {
                         Text("追加")
-                        //Image(systemName: "plus")
                     }
                 }
             }
