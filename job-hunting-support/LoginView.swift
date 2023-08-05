@@ -77,6 +77,7 @@ struct LoginView: View {
                                 print("正常に動作してる")
                                 login_User = selectionuser[0]
                                 print(login_User)
+                                SaveUserData(login_User)
                                 isLogin.toggle()
                             } else {
                                 print("そんなユーザーは存在しない")
@@ -84,12 +85,6 @@ struct LoginView: View {
                             }
                             name = inputUserName
                             if isLogin {
-                                ContentView()
-                            }
-                        }
-                        if name != ""{
-                            pushLoginButton.toggle()
-                            if pushLoginButton {
                                 ContentView()
                             }
                         }

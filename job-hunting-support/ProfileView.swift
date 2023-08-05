@@ -15,6 +15,8 @@ struct ProfileView: View {
     @AppStorage("user_name") var name = ""
     @AppStorage("isLogin") var isLogin = false
     
+    @State var LoginUser: user = (LoadUserData() ?? user(name: "dummy", password: "01234", sex: "male", age: "20", graduate: "2023/03/31"))
+
     @State private var isKeyboardVisible = false
     
     var body: some View {
@@ -51,6 +53,7 @@ struct ProfileView: View {
                         message: Text("ログアウトすると、次回アプリを開いていただいた時に再度ログインしてもらう必要があります。"),
                         primaryButton: .destructive(Text("ログアウト")){
                             isLogin.toggle()
+                            UserDefaults.resetStandardUserDefaults()
                             LoginView()
                         },
                         secondaryButton: .cancel(Text("キャンセル")){
