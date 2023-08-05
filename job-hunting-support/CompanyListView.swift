@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ListCompanyView: View {
+struct CompanyListView: View {
     //テスト動作用のユーザー、業種、職種
     var testUser = user(name: "dummy", password: "01234", sex: "male", age: "20", graduate: "2023-03-31")
     
@@ -49,7 +49,7 @@ struct ListCompanyView: View {
                     if CompanyList.count != 0 {
                         //企業のリスト表示
                         ForEach(CompanyList) { company in
-                            NavigationLink(destination: DetailCompanyView(company: binding(for: company), industryList: $testindustry, occupationList: $testoccupation)) {
+                            NavigationLink(destination: CompanyDetailView(company: binding(for: company), industryList: $testindustry, occupationList: $testoccupation)) {
                                 VStack(alignment: .leading){
                                     Text(company.name)
                                         .fontWeight(.bold)
@@ -103,7 +103,7 @@ struct ListCompanyView: View {
             .navigationTitle("ホーム")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: AddCompanyView(userid:testUser.id, companyList: $CompanyList, industryList: testindustry, occupationList: testoccupation)) {
+                    NavigationLink(destination: CompanyAddView(userid:testUser.id, companyList: $CompanyList, industryList: testindustry, occupationList: testoccupation)) {
                         Text("追加")
                         //Image(systemName: "plus")
                     }
@@ -133,6 +133,6 @@ struct ListCompanyView: View {
 
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
-        ListCompanyView()
+        CompanyListView()
     }
 }

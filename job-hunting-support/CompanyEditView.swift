@@ -8,7 +8,7 @@
 import SwiftUI
 
 //企業データの編集
-struct EditCompanyView: View {
+struct CompanyEditView: View {
     
     //画面遷移
     @Environment(\.presentationMode) var presentationMode

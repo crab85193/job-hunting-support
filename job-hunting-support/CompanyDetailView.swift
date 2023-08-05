@@ -8,7 +8,7 @@
 import SwiftUI
 
 //企業データの詳細表示
-struct CompanyDetailsView: View {
+struct CompanyDetailView: View {
     //詳細表示する企業を保持する変数
     @Binding var company: corporate_info
     @Binding var industryList : [industry]
@@ -26,6 +26,9 @@ struct CompanyDetailsView: View {
         dateFormatter.dateStyle = .medium
         dateFormatter.dateFormat = "yyyy/MM/dd"
     }
+    
+    //ナビゲーションバーの戻るボタンを消すための定義
+    @Environment(\.presentationMode) var presentaion
     
     var body: some View {
         ScrollView{
@@ -152,11 +155,56 @@ struct CompanyDetailsView: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
         .navigationTitle("\(company.name)")
-        .navigationBarItems(trailing: {
-                NavigationLink(destination: EditCompanyView(company: $company, industryList: $industryList, occupationList: $occupationList)) {
-                    Image(systemName: "square.and.pencil")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                  Button(action: { presentaion.wrappedValue.dismiss() }) {
+                    Image(systemName: "chevron.backward")
                 }
-            }())
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink(destination: CompanyEditView(company: $company, industryList: $industryList, occupationList: $occupationList)) {
+                    Text("編集")
+                    //Image(systemName: "square.and.pencil")
+                }
+            }
+        }
     }
 }
+
+/*
+ 
+ struct CompanyDetailsView: View {
+ //詳細表示する会社を保持する変数
+ @Binding var company: corporate_info
+ @Binding var industryList : [industry]
+ @Binding var occupationList : [occupation]
+ 
+ var body: some View {
+ ScrollView{
+ 
+ Text("従業員数: \(company.employees)").font(.title3)
+ .padding()
+ .frame(maxWidth: .infinity, alignment: .leading)
+ 
+ Text("従業員数: \(company.employees)").font(.title3)
+ .padding()
+ .frame(maxWidth: .infinity, alignment: .leading)
+ 
+ Text("従業員数: \(company.employees)").font(.title3)
+ .padding()
+ .frame(maxWidth: .infinity, alignment: .leading)
+ 
+ Text("従業員数: \(company.employees)").font(.title3)
+ .padding()
+ .frame(maxWidth: .infinity, alignment: .leading)
+ 
+ NavigationLink(destination: EditCompanyView(company: $company, industryList: $industryList, occupationList: $occupationList)) {
+ Text("Edit")
+ }
+ }
+ .navigationTitle("\(company.name)")
+ }
+ }
+ */

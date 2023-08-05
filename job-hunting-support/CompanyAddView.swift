@@ -8,7 +8,7 @@
 import SwiftUI
 
 //新規企業データの作成
-struct AddCompanyView: View {
+struct CompanyAddView: View {
     
     //画面遷移
     @Environment(\.presentationMode) var presentationMode

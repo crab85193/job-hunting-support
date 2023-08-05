@@ -18,7 +18,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             TabView(selection: $tabSelect){
-                ListCompanyView()
+                CompanyListView()
                     .tabItem{Image(systemName: "list.dash")
                     Text("List")
                     }

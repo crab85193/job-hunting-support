@@ -8,16 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		18ECEB97AC0C71CD410A2E1B /* Pods_job_hunting_support.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557FA53EC785D9675D0767C5 /* Pods_job_hunting_support.framework */; };
-		7A0A90582A7B86DF00CE3DD1 /* CompanyDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A90572A7B86DF00CE3DD1 /* CompanyDetailsView.swift */; };
-		7A0A905A2A7B874800CE3DD1 /* AddCompanyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A90592A7B874800CE3DD1 /* AddCompanyView.swift */; };
-		7A0A905C2A7B87C200CE3DD1 /* EditCompanyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A905B2A7B87C200CE3DD1 /* EditCompanyView.swift */; };
+		7A0A90582A7B86DF00CE3DD1 /* CompanyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A90572A7B86DF00CE3DD1 /* CompanyDetailView.swift */; };
+		7A0A905A2A7B874800CE3DD1 /* CompanyAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A90592A7B874800CE3DD1 /* CompanyAddView.swift */; };
+		7A0A905C2A7B87C200CE3DD1 /* CompanyEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A905B2A7B87C200CE3DD1 /* CompanyEditView.swift */; };
 		D90D49A12A440CC0003E5017 /* job_hunting_supportApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49A02A440CC0003E5017 /* job_hunting_supportApp.swift */; };
 		D90D49A32A440CC0003E5017 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49A22A440CC0003E5017 /* ContentView.swift */; };
 		D90D49A52A440CC2003E5017 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D90D49A42A440CC2003E5017 /* Assets.xcassets */; };
 		D90D49A82A440CC2003E5017 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D90D49A72A440CC2003E5017 /* Preview Assets.xcassets */; };
 		D90D49B32A441356003E5017 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49B22A441356003E5017 /* LoginView.swift */; };
 		D90D49B52A44139C003E5017 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49B42A44139C003E5017 /* CreateAccountView.swift */; };
-		D90D49B72A44145F003E5017 /* ListCompanyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49B62A44145F003E5017 /* ListCompanyView.swift */; };
+		D90D49B72A44145F003E5017 /* CompanyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49B62A44145F003E5017 /* CompanyListView.swift */; };
 		D90D49B92A4414F2003E5017 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49B82A4414F2003E5017 /* HomeView.swift */; };
 		D90D49BB2A441536003E5017 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49BA2A441536003E5017 /* ProfileView.swift */; };
 		D90D49BD2A44155A003E5017 /* appfunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49BC2A44155A003E5017 /* appfunc.swift */; };
@@ -27,9 +27,9 @@
 /* Begin PBXFileReference section */
 		2FCD6B74DBE438FF752A106C /* Pods-job-hunting-support.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-job-hunting-support.release.xcconfig"; path = "Target Support Files/Pods-job-hunting-support/Pods-job-hunting-support.release.xcconfig"; sourceTree = "<group>"; };
 		557FA53EC785D9675D0767C5 /* Pods_job_hunting_support.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_job_hunting_support.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A0A90572A7B86DF00CE3DD1 /* CompanyDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetailsView.swift; sourceTree = "<group>"; };
-		7A0A90592A7B874800CE3DD1 /* AddCompanyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompanyView.swift; sourceTree = "<group>"; };
-		7A0A905B2A7B87C200CE3DD1 /* EditCompanyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCompanyView.swift; sourceTree = "<group>"; };
+		7A0A90572A7B86DF00CE3DD1 /* CompanyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetailView.swift; sourceTree = "<group>"; };
+		7A0A90592A7B874800CE3DD1 /* CompanyAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyAddView.swift; sourceTree = "<group>"; };
+		7A0A905B2A7B87C200CE3DD1 /* CompanyEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyEditView.swift; sourceTree = "<group>"; };
 		7D72D8F82A7B5E5100BCB8A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		7E7572B45EEAC7985F974781 /* Pods-job-hunting-support.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-job-hunting-support.debug.xcconfig"; path = "Target Support Files/Pods-job-hunting-support/Pods-job-hunting-support.debug.xcconfig"; sourceTree = "<group>"; };
 		D90D499D2A440CC0003E5017 /* job-hunting-support.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "job-hunting-support.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,7 +39,7 @@
 		D90D49A72A440CC2003E5017 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D90D49B22A441356003E5017 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D90D49B42A44139C003E5017 /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
-		D90D49B62A44145F003E5017 /* ListCompanyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCompanyView.swift; sourceTree = "<group>"; };
+		D90D49B62A44145F003E5017 /* CompanyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyListView.swift; sourceTree = "<group>"; };
 		D90D49B82A4414F2003E5017 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		D90D49BA2A441536003E5017 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		D90D49BC2A44155A003E5017 /* appfunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appfunc.swift; sourceTree = "<group>"; };
@@ -101,10 +101,10 @@
 				D90D49B22A441356003E5017 /* LoginView.swift */,
 				D90D49B42A44139C003E5017 /* CreateAccountView.swift */,
 				D90D49A22A440CC0003E5017 /* ContentView.swift */,
-				D90D49B62A44145F003E5017 /* ListCompanyView.swift */,
-				7A0A90592A7B874800CE3DD1 /* AddCompanyView.swift */,
-				7A0A905B2A7B87C200CE3DD1 /* EditCompanyView.swift */,
-				7A0A90572A7B86DF00CE3DD1 /* CompanyDetailsView.swift */,
+				D90D49B62A44145F003E5017 /* CompanyListView.swift */,
+				7A0A90592A7B874800CE3DD1 /* CompanyAddView.swift */,
+				7A0A905B2A7B87C200CE3DD1 /* CompanyEditView.swift */,
+				7A0A90572A7B86DF00CE3DD1 /* CompanyDetailView.swift */,
 				D90D49B82A4414F2003E5017 /* HomeView.swift */,
 				D90D49BA2A441536003E5017 /* ProfileView.swift */,
 				D90D49BC2A44155A003E5017 /* appfunc.swift */,
@@ -239,12 +239,12 @@
 			files = (
 				D90D49B32A441356003E5017 /* LoginView.swift in Sources */,
 				D90D49A32A440CC0003E5017 /* ContentView.swift in Sources */,
-				D90D49B72A44145F003E5017 /* ListCompanyView.swift in Sources */,
-				7A0A90582A7B86DF00CE3DD1 /* CompanyDetailsView.swift in Sources */,
-				7A0A905C2A7B87C200CE3DD1 /* EditCompanyView.swift in Sources */,
+				D90D49B72A44145F003E5017 /* CompanyListView.swift in Sources */,
+				7A0A90582A7B86DF00CE3DD1 /* CompanyDetailView.swift in Sources */,
+				7A0A905C2A7B87C200CE3DD1 /* CompanyEditView.swift in Sources */,
 				D90D49B92A4414F2003E5017 /* HomeView.swift in Sources */,
 				D90D49B52A44139C003E5017 /* CreateAccountView.swift in Sources */,
-				7A0A905A2A7B874800CE3DD1 /* AddCompanyView.swift in Sources */,
+				7A0A905A2A7B874800CE3DD1 /* CompanyAddView.swift in Sources */,
 				D90D49BD2A44155A003E5017 /* appfunc.swift in Sources */,
 				D90D49BB2A441536003E5017 /* ProfileView.swift in Sources */,
 				D90D49BF2A441747003E5017 /* FirstView.swift in Sources */,
