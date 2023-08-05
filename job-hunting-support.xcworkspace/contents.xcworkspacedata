@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/e215726/workspace/University/ios/job-hunting-support/job-hunting-support/DetailCompanyView.swift">
-   </FileRef>
-   <FileRef
       location = "group:job-hunting-support.xcodeproj">
    </FileRef>
    <FileRef
