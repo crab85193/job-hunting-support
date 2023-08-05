@@ -173,7 +173,7 @@ struct EditCompanyView: View {
             
         }
         .navigationTitle("編集")
-        .navigationBarItems(trailing: Button("編集を保存") {
+        .navigationBarItems(trailing: Button("保存") {
             //編集した部分を保存する
             editedCompany.memo = editedmemo
             editedCompany.establishment = dateFormatter.string(from: editedDate)

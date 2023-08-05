@@ -13,10 +13,12 @@ struct ContentView: View {
     @State var year = 0
     @State var tabSelect = 0
     
+    @EnvironmentObject var sharedData: SharedData
+    
     var body: some View {
         NavigationView{
             TabView(selection: $tabSelect){
-                ListView()
+                ListCompanyView()
                     .tabItem{Image(systemName: "list.dash")
                     Text("List")
                     }
@@ -36,6 +38,7 @@ struct ContentView: View {
             }
             .padding()
         }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }
 
