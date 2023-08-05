@@ -10,13 +10,14 @@ import SwiftUI
 @main
 struct YourApp: App {
     @AppStorage("user_name") var name = ""
+    @AppStorage("isLogin") var isLogin = false
     
     var body: some Scene {
         WindowGroup {
-            if name == "" {
-                LoginView()
-            } else {
+            if isLogin {
                 ContentView()
+            } else {
+                LoginView()
             }
         }
     }
