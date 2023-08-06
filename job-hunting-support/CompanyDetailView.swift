@@ -189,18 +189,33 @@ struct CompanyDetailView: View {
 
                 }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                 
-                HStack{
+                VStack{
                     Text("所在地")
                         .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
-                    if (company.location != ""){
+                    if (company.location != "") {
                         Text(company.location)
-                            .padding()
+                            .fixedSize(horizontal: false, vertical: true)
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.black, lineWidth: 1)
+                            ).frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.bottom)
+                            .padding(.leading)
+                            .padding(.trailing)
                     } else {
                         Text("記録なし")
-                            .padding()
+                            .fixedSize(horizontal: false, vertical: true)
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.black, lineWidth: 1)
+                            ).frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.bottom)
+                            .padding(.leading)
+                            .padding(.trailing)
                     }
 
                 }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
