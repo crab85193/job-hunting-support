@@ -22,7 +22,6 @@ struct SelectionInfoView: View {
                 //ここに選考情報
                 Section(/*header: Text("選考情報").font(.title3)*/){
                     Text("選考中の企業はありません。")
-                        .listRowBackground(Color.gray.opacity(0.2))
                 }
 
                 //カレンダーセクション
@@ -34,10 +33,7 @@ struct SelectionInfoView: View {
                     //Text(dateFormatter.string(from: date))
                     //    .frame(maxWidth: .infinity, alignment: .center)
                 }
-                .listRowBackground(Color.gray.opacity(0.2))
             }
-            .scrollContentBackground(.hidden)
-            .background(Color.white)
             .navigationTitle("選考情報")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

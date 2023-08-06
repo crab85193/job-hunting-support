@@ -13,6 +13,9 @@ struct SelectionInfoAddView: View {
     @State private var selection = 1
     @State private var resultselection = 1
     @State var testSelectionInfoMemo = ""
+    
+    //画面遷移
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack{
@@ -51,6 +54,11 @@ struct SelectionInfoAddView: View {
                     .padding()
                     .autocapitalization(.none)
             }
+            .navigationTitle("選考情報の追加")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(trailing: Button("作成") {
+                presentationMode.wrappedValue.dismiss()
+            })
         }
     }
 }
