@@ -34,11 +34,10 @@ struct CompanyDetailView: View {
         ScrollView{
             HStack{
                 Text("業種")
-                //.font(.title2)
+                    .font(.headline)
                     .padding()
                 if let viewindustry = industryList.first(where: {$0.id == company.industry}){
                     Text("\(viewindustry.name)")
-                    //.font(.title3)
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 } else {
@@ -46,14 +45,14 @@ struct CompanyDetailView: View {
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
-            }
+            }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+            
             HStack{
                 Text("職種")
-                //.font(.title2)
+                    .font(.headline)
                     .padding()
                 if let viewoccupation = occupationList.first(where: {$0.id == company.occupation}){
                     Text("\(viewoccupation.name)")
-                    //.font(.title3)
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 } else {
@@ -61,98 +60,181 @@ struct CompanyDetailView: View {
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
-            }
+            }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
             Group{
                 VStack{
                     Text("事業内容")
-                    //.font(.title2)
-                        .padding()
-                    Text(company.business)
-                        .fixedSize(horizontal: false, vertical: true)
-                    //.font(.title3)
-                        .padding()
+                        .font(.headline)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.black, lineWidth: 1)
-                        ).padding()
-                }
+                        .padding()
+                    if (company.business != "") {
+                        Text(company.business)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.black, lineWidth: 1)
+                            ).frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.bottom)
+                            .padding(.leading)
+                            .padding(.trailing)
+                    } else {
+                        Text("記録なし")
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.black, lineWidth: 1)
+                            ).frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.bottom)
+                            .padding(.leading)
+                            .padding(.trailing)
+                    }
+
+                }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                
                 HStack{
                     Text("設立日")
-                    //.font(.title2)
+                        .font(.headline)
                         .padding()
-                    Text(company.establishment)
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                }
+                    if (company.establishment != ""){
+                        Text(company.establishment)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    } else {
+                        Text("記録なし")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+
+                }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                
                 HStack{
                     Text("従業員数")
-                    //.font(.title2)
+                        .font(.headline)
                         .padding()
-                    Text("\(company.employees)人")
-                    //.font(.title3)
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                }
+                    if(company.employees != "0"){
+                        Text("\(company.employees)人")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    } else {
+                        Text("記録なし")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+
+                }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                
                 HStack{
                     Text("資本金")
-                    //.font(.title2)
+                        .font(.headline)
                         .padding()
-                    Text("\(company.capital)円")
-                    //.font(.title3)
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                }
+                    if(company.capital != "0"){
+                        Text("\(company.capital)円")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    } else {
+                        Text("記録なし")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+
+                }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                
                 HStack{
                     Text("売上高")
-                    //.font(.title2)
+                        .font(.headline)
                         .padding()
-                    Text("\(company.sales)円")
-                    //.font(.title3)
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                }
+                    if (company.sales != "0") {
+                        Text("\(company.sales)円")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    } else {
+                        Text("記録なし")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+
+                }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                
                 HStack{
                     Text("営業利益")
-                    //.font(.title2)
+                        .font(.headline)
                         .padding()
-                    Text("\(company.operating_income)円")
-                    //.font(.title3)
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                }
+                    if (company.operating_income != "0"){
+                        Text("\(company.operating_income)円")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    } else {
+                        Text("記録なし")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+
+                }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                
                 HStack{
                     Text("代表者")
-                    //.font(.title2)
+                        .font(.headline)
                         .padding()
-                    Text(company.representative)
-                    //.font(.title3)
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                }
+                    if (company.representative != "") {
+                        Text(company.representative)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    } else {
+                        Text("記録なし")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+
+                }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                
                 HStack{
                     Text("所在地")
-                    //.font(.title2)
+                        .font(.headline)
                         .padding()
-                    Text(company.location)
-                    //.font(.title3)
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                HStack{
+                    if (company.location != ""){
+                        Text(company.location)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    } else {
+                        Text("記録なし")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+
+                }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                
+                VStack{
                     Text("メモ")
-                    //.font(.title2)
-                        .padding()
-                    Text(company.memo)
-                        .fixedSize(horizontal: false, vertical: true)
-                    //.font(.title3)
-                        .padding()
+                        .font(.headline)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.black, lineWidth: 1)
-                        ).padding()
-                }
+                        .padding()
+                    if (company.memo != "") {
+                        Text(company.memo)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.black, lineWidth: 1)
+                            ).frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.bottom)
+                            .padding(.leading)
+                            .padding(.trailing)
+                    } else {
+                        Text("記録なし")
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.black, lineWidth: 1)
+                            ).frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.bottom)
+                            .padding(.leading)
+                            .padding(.trailing)
+                    }
+
+                }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
             }
         }
         .navigationBarBackButtonHidden(true)
