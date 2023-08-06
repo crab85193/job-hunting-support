@@ -38,6 +38,8 @@ struct CompanyListView: View {
     //削除のアラートの管理するフラグ
     @State var deleteAlert: Bool = false
     
+    @State var response = ""
+    
     //削除する項目のindexを保持する変数
     @State private var deleteIndexSet: IndexSet?
     
@@ -123,6 +125,17 @@ struct CompanyListView: View {
     
     //項目の削除を行う
     private func deleteSelectedCompanies(at indexSet: IndexSet) {
+        for index in indexSet{
+            let item = CompanyList[index]
+            apiCall().deleteCompanyInfotoServer(id: item.id){ response in
+                self.response = response
+                if response == "OK" {
+                    apiCall().getCompanyInfoFromUserID(userID: LoginUser.id) { (corporate_info) in
+                        self.CompanyList = corporate_info
+                    }
+                }
+            }
+        }
         CompanyList.remove(atOffsets: indexSet)
     }
 }

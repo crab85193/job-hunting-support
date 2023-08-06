@@ -13,6 +13,15 @@ struct CompanyEditView: View {
     //画面遷移
     @Environment(\.presentationMode) var presentationMode
     
+    enum AlertType {
+       case alert1
+       case alert2
+    }
+    
+    @State var response = ""
+    @State var alertType: AlertType = .alert1
+    @State var showAlert = false
+    
     //編集する企業を保持する変数
     @Binding var company: Corporate_info
     
@@ -200,13 +209,37 @@ struct CompanyEditView: View {
         }
         .navigationTitle("企業リスト 編集")
         .navigationBarItems(trailing: Button("保存") {
-            //編集した部分を保存する
-            editedCompany.memo = editedmemo
-            editedCompany.establishment = dateFormatter.string(from: editedDate)
-            company = editedCompany // 変更を反映させる
-            
-            //詳細表示画面へ遷移
-            presentationMode.wrappedValue.dismiss()
+            if ((editedCompany.name != "") && ((editedCompany.industry != "") && (editedCompany.industry != "0")) && ((editedCompany.occupation != "") && (editedCompany.occupation != "0")) && (editedCompany.location != "")) {
+                print("OK")
+                editedCompany.memo = editedmemo
+                editedCompany.establishment = dateFormatter.string(from: editedDate)
+                let editedcurrentDate = dateFormatter.string(from: Date())
+                apiCall().editCompanyInfotoServer(id: company.id, userID: company.user_info, name: editedCompany.name, industry: editedCompany.industry, occupation: editedCompany.occupation, business: editedCompany.business, establishment: editedCompany.establishment, employees: editedCompany.employees, capital: editedCompany.establishment, sales: editedCompany.sales, operating_income: editedCompany.operating_income, representative: editedCompany.representative, location: editedCompany.location, registration: editedcurrentDate, memo: editedCompany.memo){ response in
+                    self.response = response
+                    if response == "OK"{
+                        company = editedCompany
+                        
+                        DispatchQueue.main.async {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    } else {
+                        print("Error in Response")
+                        alertType = .alert1
+                        showAlert.toggle()
+                    }
+                }
+            } else{
+                print("Notfull")
+                alertType = .alert2
+                showAlert.toggle()
+            }
+        }.alert(isPresented: $showAlert) {
+            switch alertType {
+                case .alert1:
+                    return Alert(title: Text("エラーが発生しました。もう一度行ってください。"))
+                case .alert2:
+                    return Alert(title: Text("すべての項目を入力してください。"))
+            }
         })
         .toolbar {
             //キーボードを閉じる
