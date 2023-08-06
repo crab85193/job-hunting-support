@@ -31,9 +31,9 @@ struct CompanyListView: View {
     //企業リスト
     @State var CompanyList = [Corporate_info]()
     
-    @State var IndustryList = [Industry]()
+    @State var IndustryList = LoadIndustryData()
     
-    @State var OccupationList = [Occupation]()
+    @State var OccupationList = LoadOccupationData()
     
     //削除のアラートの管理するフラグ
     @State var deleteAlert: Bool = false
@@ -93,24 +93,16 @@ struct CompanyListView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: CompanyAddView(userid:testUser.id, companyList: $CompanyList, industryList: IndustryList, occupationList: OccupationList)) {
+                    NavigationLink(destination: CompanyAddView(userid:LoginUser.id, companyList: $CompanyList, industryList: IndustryList, occupationList: OccupationList)) {
                         Text("追加")
                     }
                 }
             }
             .onAppear(){
                 print(LoginUser)
-                let firstindustry = Industry(id: "0", name: "未選択")
-                let firstoccupation = Occupation(id: "0", name: "未選択")
-                apiCall().getIndustry{ (industry) in
-                                self.IndustryList = industry
-                                IndustryList.insert(firstindustry, at: 0)
-                            }
-                
-                apiCall().getOccupation{ (occupation) in
-                                self.OccupationList = occupation
-                                OccupationList.insert(firstoccupation, at: 0)
-                            }
+                apiCall().getCompanyInfoFromUserID(userID: LoginUser.id) { (corporate_info) in
+                    self.CompanyList = corporate_info
+                }
                 print(CompanyList)
             }
         }
