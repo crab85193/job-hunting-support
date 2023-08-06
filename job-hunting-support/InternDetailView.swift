@@ -26,7 +26,6 @@ struct InternDetailView: View {
                     TextField("企業名", text: $testCompanyName)
                         .textFieldStyle(RoundedBorderTextFieldStyle())  // 入力域のまわりを枠で囲む
                         .padding(.horizontal)  // 余白を追加
-                    
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 50)

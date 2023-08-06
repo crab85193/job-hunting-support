@@ -13,11 +13,8 @@ struct ScheduleView: View {
             VStack{
                 List{
                     Text("ここにスケジュール名が表示される。")
-                        .listRowBackground(Color.gray.opacity(0.2))
                 }
             }
-            .scrollContentBackground(.hidden)
-            .background(Color.white)
             .navigationTitle("スケジュール")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

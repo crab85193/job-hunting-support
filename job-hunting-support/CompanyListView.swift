@@ -64,7 +64,6 @@ struct CompanyListView: View {
                                     }
                                 }
                             }
-                            .listRowBackground(Color.gray.opacity(0.2))
                         }
                         //削除ボタン
                         .onDelete { indexSet in
@@ -87,12 +86,9 @@ struct CompanyListView: View {
                         }
                     }else {
                         Text("会社が登録されていません。")
-                        .listRowBackground(Color.gray.opacity(0.2))
                     }
                 }
             }
-            .scrollContentBackground(.hidden)
-            .background(Color.white)
             .navigationTitle("企業リスト")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

@@ -83,7 +83,7 @@ struct ScheduleAddView: View {
                 HStack{
                     Text("スケジュール\n開始日")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    DatePicker("Calendar", selection: $scheduleStartDate, displayedComponents: .date)
+                    DatePicker("Calendar", selection: $scheduleStartDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
                         .labelsHidden()
                 }
                 .padding(.all, 20)
@@ -91,7 +91,7 @@ struct ScheduleAddView: View {
                 HStack{
                     Text("スケジュール\n終了日")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    DatePicker("Calendar", selection: $scheduleFinishDate, displayedComponents: .date)
+                    DatePicker("Calendar", selection: $scheduleFinishDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
                         .labelsHidden()
                 }
                 .padding(.all, 20)

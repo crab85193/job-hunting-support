@@ -13,11 +13,8 @@ struct InternView: View {
             VStack{
                 List{
                     Text("CompanyName")
-                        .listRowBackground(Color.gray.opacity(0.2))
                 }
             }
-            .scrollContentBackground(.hidden)
-            .background(Color.white)
             .navigationTitle("インターン")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
