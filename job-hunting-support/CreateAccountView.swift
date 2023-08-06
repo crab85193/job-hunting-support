@@ -60,20 +60,22 @@ struct CreateAccountView: View {
             
             VStack{
                 Text("あなたのユーザー名")
-                TextField("UserName", text: $inputUserName)
+                TextField("ユーザー名", text: $inputUserName)
                     .autocapitalization(.none)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .frame(width: 330)
+                    .keyboardType(.asciiCapable)
+                    .frame(width: 300)
+                    .padding(.trailing, 30)
                     .padding(.bottom, 20)
                 
                 Text("パスワード")
                 HStack{
                     if isSecure {
-                        TextField("パスワード入力", text: $password)
+                        TextField("パスワード", text: $password)
                             .autocapitalization(.none)
                             .frame(width: 300)
                     } else {
-                        SecureField("パスワード入力", text: $password)
+                        SecureField("パスワード", text: $password)
                             .autocapitalization(.none)
                             .frame(width: 300)
                     }
@@ -115,9 +117,10 @@ struct CreateAccountView: View {
                 HStack{
                     Text("年齢")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    TextField("Age", text: $age)
+                    TextField("年齢", text: $age)
                         .autocapitalization(.none)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.numbersAndPunctuation)
                         .frame(width: 85)
                 }
                 .padding(.horizontal, 30)

@@ -41,23 +41,29 @@ struct LoginView: View {
                     
                     VStack(spacing: 10){
                         Text("あなたのユーザー名")
-                        TextField("UserName", text: $inputUserName)
+                        TextField("ユーザー名", text: $inputUserName)
                             .autocapitalization(.none)  // 最初の文字が大文字になるのを防ぐ
                             .textFieldStyle(RoundedBorderTextFieldStyle())  // 入力域のまわりを枠で囲む
-                            .frame(width: 330)
+                            .keyboardType(.asciiCapable)
+                            .frame(width: 300)
+                            .padding(.trailing, 30)
                             .padding(.bottom, 20)  // 余白を追加
                         
                         Text("パスワード")
                         HStack{
                             if isSecure {
-                                TextField("パスワード入力", text: $password)
+                                TextField("パスワード", text: $password)
                                     .autocapitalization(.none)
+                                    .keyboardType(.asciiCapable)
                                     .frame(width: 300)
                             } else {
-                                SecureField("パスワード入力", text: $password)
+                                SecureField("パスワード", text: $password)
                                     .autocapitalization(.none)
+                                    .keyboardType(.asciiCapable)
                                     .frame(width: 300)
+                                
                             }
+                            
                             Button(action: {
                                 isSecure.toggle()
                             }) {
