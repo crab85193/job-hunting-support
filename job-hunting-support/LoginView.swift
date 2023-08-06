@@ -24,6 +24,10 @@ struct LoginView: View {
     @State var inputUserName: String = ""
     @State var selectionuser = [User]()
     @State private var NotExistAlert = false
+    
+    @State var IndustryList = [Industry]()
+    
+    @State var OccupationList = [Occupation]()
 
     var body: some View {
         
@@ -84,6 +88,19 @@ struct LoginView: View {
                                 login_User = selectionuser[0]
                                 print(login_User)
                                 SaveUserData(login_User)
+                                let firstindustry = Industry(id: "0", name: "未選択")
+                                let firstoccupation = Occupation(id: "0", name: "未選択")
+                                apiCall().getIndustry{ (industry) in
+                                    self.IndustryList = industry
+                                    IndustryList.insert(firstindustry, at: 0)
+                                    SaveIndustryData(IndustryList)
+                                }
+                                
+                                apiCall().getOccupation{ (occupation) in
+                                    self.OccupationList = occupation
+                                    OccupationList.insert(firstoccupation, at: 0)
+                                    SaveOccupationData(OccupationList)
+                                }
                                 isLogin.toggle()
                             } else {
                                 print("そんなユーザーは存在しない")

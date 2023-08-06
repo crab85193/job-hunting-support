@@ -23,7 +23,7 @@ struct CompanyEditView: View {
     //編集前の企業データを保存する変数
     @State private var editedCompany: Corporate_info
     @State private var editedmemo: String
-    @State private var editedDate: Date = Date()
+    @State private var editedDate: Date
     
     //日付関連
     let dateFormatter = DateFormatter()
@@ -41,7 +41,8 @@ struct CompanyEditView: View {
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateStyle = .medium
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        self.editedDate = dateFormatter.date(from: editedCompany.establishment) ?? Date()
+        _editedDate = State(initialValue: dateFormatter.date(from: company.wrappedValue.establishment) ?? Date())
+        print(editedDate)
     }
     
     var body: some View {

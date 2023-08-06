@@ -557,6 +557,52 @@ class apiCall {
             }
         }.resume()
     }
+    
+    //サーバーに新規企業情報を追加するメソッド
+    func addCompanyInfotoServer(userID: String, name: String, industry: String, occupation: String, business: String, establishment: String, employees: String, capital: String, sales: String, operating_income: String, representative: String, location: String, registration: String, memo: String, completion: @escaping (String) -> Void) {
+        var urlComponents = URLComponents()
+                urlComponents.scheme = "http"
+                urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+                urlComponents.path = "/corporate_info/add.php"
+                urlComponents.queryItems = [
+                    URLQueryItem(name: "user_info", value: userID),
+                    URLQueryItem(name: "name", value: name),
+                    URLQueryItem(name: "industry", value: industry),
+                    URLQueryItem(name: "occupation", value: occupation),
+                    URLQueryItem(name: "business", value: business),
+                    URLQueryItem(name: "establishment", value: establishment),
+                    URLQueryItem(name: "employees", value: employees),
+                    URLQueryItem(name: "capital", value: capital),
+                    URLQueryItem(name: "sales", value: sales),
+                    URLQueryItem(name: "operating_income", value: operating_income),
+                    URLQueryItem(name: "representative", value: representative),
+                    URLQueryItem(name: "location", value: location),
+                    URLQueryItem(name: "registration", value: registration),
+                    URLQueryItem(name: "memo", value: memo)
+                ]
+
+                guard let url = urlComponents.url else {
+                    return
+                }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
+                    print("success")
+                    print(decodedResponse)
+                    completion(decodedResponse.status)
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            }
+        }.resume()
+    }
 }
 
 //以降データ永続化関連
@@ -593,7 +639,7 @@ func SaveIndustryData(_ industry:[Industry]){
     }
 }
 
-func LoadIndustryData() -> [Industry]? {
+func LoadIndustryData() -> [Industry] {
     if let savedData = UserDefaults.standard.data(forKey: "savedIndustry") {
         do {
             let loadedIndustry = try JSONDecoder().decode([Industry].self, from: savedData)
@@ -602,7 +648,14 @@ func LoadIndustryData() -> [Industry]? {
             print("Error decoding person: \(error)")
         }
     }
-    return nil
+    let dummyindustry = [
+        Industry(name:"未選択"),
+        Industry(name:"プログラマー"),
+        Industry(name: "WEBエンジニア"),
+        Industry(name: "インフラエンジニア")
+    ]
+    
+    return dummyindustry
 }
 
 func SaveOccupationData(_ occupation:[Occupation]){
@@ -614,7 +667,7 @@ func SaveOccupationData(_ occupation:[Occupation]){
     }
 }
 
-func LoadOccupationData() -> [Occupation]? {
+func LoadOccupationData() -> [Occupation] {
     if let savedData = UserDefaults.standard.data(forKey: "savedoccupation") {
         do {
             let loadedOccupation = try JSONDecoder().decode([Occupation].self, from: savedData)
@@ -623,5 +676,11 @@ func LoadOccupationData() -> [Occupation]? {
             print("Error decoding person: \(error)")
         }
     }
-    return nil
+    let dummyoccupation = [
+        Occupation(name:"未選択"),
+        Occupation(name: "正社員"),
+        Occupation(name:"契約社員"),
+        Occupation(name:"パート")
+    ]
+    return dummyoccupation
 }

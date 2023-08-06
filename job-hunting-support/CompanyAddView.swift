@@ -32,12 +32,22 @@ struct CompanyAddView: View {
         dateFormatter.dateFormat = "yyyy-MM-dd"
     }
     
+    enum AlertType {
+       case alert1
+       case alert2
+    }
+    
+    @State private var response = ""
+    @State var alertType: AlertType = .alert1
+    @State var showAlert = false
+    
     //新規作成時の初期値
     @State private var newName = ""
     @State private var selectindustry: String = ""
     @State private var selectoccupation: String = ""
     @State private var newbusiness = ""
     @State private var selectionDate = Date()
+    @State private var selectionDateString = ""
     @State private var newEmployees = 0
     @State private var newcapital = 0
     @State private var newsales = 0
@@ -327,24 +337,49 @@ struct CompanyAddView: View {
         .navigationBarBackButtonHidden(true)
         .navigationTitle("企業リスト 追加")
         .navigationBarItems(trailing: Button("作成") {
-            //新規企業データの作成
-            companyList.append(Corporate_info(user: userid, name: newName, Industry: selectindustry, Occupation: selectoccupation, business: newbusiness, establishment: dateFormatter.string(from: selectionDate), employees: String(newEmployees), capital: String(newcapital), sales: String(newsales), operating_income: String(newincome), representative: newrepresentative, location: newlocation, registration: dateFormatter.string(from: currentdate), memo: newmemo))
-            
-            //企業データ入力部分の初期化
-            newName = ""
-            newbusiness = ""
-            selectionDate = Date()
-            newEmployees = 0
-            newcapital = 0
-            newsales = 0
-            newincome = 0
-            newrepresentative = ""
-            newlocation = ""
-            newmemo = ""
-            currentdate = Date()
-            
-            //企業リスト画面に戻る
-            presentationMode.wrappedValue.dismiss()
+            print("変更前")
+            print(selectionDate)
+            selectionDateString = dateFormatter.string(from: selectionDate)
+            print("変更後")
+            print(selectionDateString)
+            if ((newName != "") && ((selectindustry != "") && (selectindustry != "0")) && ((selectoccupation != "") && (selectoccupation != "0")) && (newlocation != "")){
+                apiCall().addCompanyInfotoServer(userID: userid, name: newName, industry: selectindustry, occupation: selectoccupation, business: newbusiness, establishment: selectionDateString, employees: String(newEmployees), capital: String(newcapital), sales: String(newsales), operating_income: String(newincome), representative: newrepresentative, location: newlocation, registration: dateFormatter.string(from: currentdate), memo: newmemo) { response in
+                    self.response = response
+                    if response == "OK"{
+                        //企業データ入力部分の初期化
+                        newName = ""
+                        newbusiness = ""
+                        selectionDate = Date()
+                        newEmployees = 0
+                        newcapital = 0
+                        newsales = 0
+                        newincome = 0
+                        newrepresentative = ""
+                        newlocation = ""
+                        newmemo = ""
+                        currentdate = Date()
+                        
+                        DispatchQueue.main.async {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    } else {
+                        print("Error in Response")
+                        alertType = .alert1
+                        showAlert.toggle()
+                    }
+                }
+            } else {
+                print("Notfull")
+                alertType = .alert2
+                showAlert.toggle()
+            }
+        }.alert(isPresented: $showAlert) {
+            switch alertType {
+                case .alert1:
+                    return Alert(title: Text("エラーが発生しました。もう一度行ってください。"))
+                case .alert2:
+                    return Alert(title: Text("すべての必須項目\n（企業名、職種、業種、住所）\nを入力または選択してください。"))
+            }
         })
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
