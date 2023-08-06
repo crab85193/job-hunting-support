@@ -31,9 +31,13 @@ struct ScheduleDetailView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 20)
                 Text("\(scheduleName)")
-                    .padding(.horizontal, 20)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.all, 10)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    //.autocapitalization(.none)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.black, lineWidth: 1)
+                    )
 
                 HStack{
                     Text("カテゴリー")
