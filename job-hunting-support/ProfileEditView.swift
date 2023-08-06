@@ -36,10 +36,13 @@ struct ProfileEditView: View {
         VStack {
             VStack(spacing: 20){
                 Text("ユーザー名")
+                    .padding(.top, 30)
                 TextField("ユーザー名", text: $editedUserData.name)
                     .textFieldStyle(RoundedBorderTextFieldStyle())  // 入力域のまわりを枠で囲む
-                    .padding(.horizontal)  // 余白を追加
-                    .padding(.bottom,20)
+                    .keyboardType(.asciiCapable)
+                    .frame(width: 300)
+                    .padding(.trailing, 30)
+                    .padding(.bottom, 15)
                 
                 Text("パスワード")
                 HStack{
@@ -59,7 +62,8 @@ struct ProfileEditView: View {
                     }
                 }
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding(.bottom, 20)
+                .padding(.leading, 8)
+                .padding(.bottom, 15)
                 
                 HStack{
                     Text("卒業予定年度")

@@ -12,7 +12,7 @@ struct ScheduleAddView: View {
     //画面遷移
     @Environment(\.presentationMode) var presentationMode
     
-    //各パラメータの初期値
+    //新規作成時の初期値
     @State private var scheduleName = ""
     @State private var categorySelection = "1"
     @State private var internSelection = "1"
