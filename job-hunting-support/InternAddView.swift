@@ -26,40 +26,43 @@ struct InternAddView: View {
             VStack{
                 HStack{
                     Text("企業名")
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     TextField("企業名", text: $testCompanyName)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())  // 入力域のまわりを枠で囲む
-                        .padding(.horizontal)  // 余白を追加
+                        .frame(width: 250)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                     
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 50)
+                .padding()
 
                 HStack{
-                    Text("インターン\n開始日")
+                    Text("インターン開始日")
                         .frame(maxWidth: .infinity, alignment: .leading)
                     DatePicker("Calendar", selection: $testStartDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
                         .labelsHidden()
                 }
-                .padding(.all, 20)
+                .padding()
 
                 HStack{
-                    Text("インターン\n終了日")
+                    Text("インターン終了日")
                         .frame(maxWidth: .infinity, alignment: .leading)
                     DatePicker("Calendar", selection: $testFinishDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
                         .labelsHidden()
                 }
-                .padding(.all, 20)
+                .padding()
 
                 HStack{
-                    Text("メモ")
-                        //.font(.title2)
-                        .padding()
-                    TextField("メモ", text:$testMemo)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                        .autocapitalization(.none)
+                    VStack{
+                        Text("メモ")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        TextEditor(text: $testMemo)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .autocapitalization(.none)
+                            .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                            .frame(width: 350, height: 200)
+                    }.padding()
                 }
-                .padding(.bottom, 30)
+                
             }
             .navigationTitle("リストを追加")
             .navigationBarTitleDisplayMode(.inline)
