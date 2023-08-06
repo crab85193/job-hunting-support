@@ -240,6 +240,9 @@ struct Response: Codable {
 }
 //サーバ通信用の関数をまとめたクラス
 class apiCall {
+    /*-------------------------------------------------------------
+     Test Class
+     -------------------------------------------------------------*/
     //testclass(Comments)の情報をサーバからすべて取得するメソッド
     func getUserComments(completion:@escaping ([Comments]) -> ()) {
 //        guard let url = URL(string: "http://10.0.4.175/api/select-user.php?id="+"2") else { return }
@@ -260,6 +263,10 @@ class apiCall {
         
     }
     
+    /*-------------------------------------------------------------
+     Industry
+      - select
+     -------------------------------------------------------------*/
     //職種(industry)の情報をサーバからすべて取得するメソッド
     func getIndustry(completion:@escaping ([Industry]) -> ()) {
 //        guard let url = URL(string: "http://10.0.4.175/api/select-user.php?id="+"2") else { return }
@@ -279,6 +286,10 @@ class apiCall {
         .resume()
     }
     
+    /*-------------------------------------------------------------
+     Occupation
+      - select
+     -------------------------------------------------------------*/
     //業種(occupation)の情報をサーバからすべて取得するメソッド
     func getOccupation(completion:@escaping ([Occupation]) -> ()) {
 //        guard let url = URL(string: "http://10.0.4.175/api/select-user.php?id="+"2") else { return }
@@ -298,6 +309,10 @@ class apiCall {
         .resume()
     }
     
+    /*-------------------------------------------------------------
+     Schedule Category
+      - select
+     -------------------------------------------------------------*/
     //スケジュールカテゴリ(Category)の情報をサーバからすべて取得するメソッド
     func getCategory(completion:@escaping ([Category]) -> ()) {
 //        guard let url = URL(string: "http://10.0.4.175/api/select-user.php?id="+"2") else { return }
@@ -316,7 +331,13 @@ class apiCall {
         }
         .resume()
     }
-    
+
+    /*-------------------------------------------------------------
+     User
+      - select
+      - add
+      - update
+     -------------------------------------------------------------*/
     //nameとpasswordからUserの情報を取得するメソッド
     func getUserFromNameAndPassword(name: String, password: String, completion: @escaping ([User]) -> Void) {
             var urlComponents = URLComponents()
@@ -349,138 +370,6 @@ class apiCall {
                     }
                 }
             }.resume()
-        }
-    
-    //userIDをもとにそのユーザーが登録した企業データを取得するメソッド
-    func getCompanyInfoFromUserID(userID: String, completion: @escaping ([Corporate_info]) -> Void) {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "http"
-        urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
-        urlComponents.path = "/corporate_info/select.php"
-        urlComponents.queryItems = [
-            URLQueryItem(name: "user_info", value: userID)
-        ]
-
-        guard let url = urlComponents.url else {
-            return
-        }
-    print(url.absoluteString)
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("Error: \(error)")
-                return
-            }
-
-            if let data = data {
-                do {
-                    let decodedResponse = try JSONDecoder().decode([Corporate_info].self, from: data)
-                    print("success")
-                    print(decodedResponse)
-                    completion(decodedResponse)
-                } catch {
-                    print("JSON decoding error: \(error)")
-                }
-            }
-        }.resume()
-    }
-    
-    //userIDをもとにそのユーザーが登録した本選考のデータを取得するメソッド
-    func getSelectionInfoFromUserID(userID: String, completion: @escaping ([Selection]) -> Void) {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "http"
-        urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
-        urlComponents.path = "/selection/select.php"
-        urlComponents.queryItems = [
-            URLQueryItem(name: "user_info", value: userID)
-        ]
-
-        guard let url = urlComponents.url else {
-            return
-        }
-    print(url.absoluteString)
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("Error: \(error)")
-                return
-            }
-
-            if let data = data {
-                do {
-                    let decodedResponse = try JSONDecoder().decode([Selection].self, from: data)
-                    print("success")
-                    print(decodedResponse)
-                    completion(decodedResponse)
-                } catch {
-                    print("JSON decoding error: \(error)")
-                }
-            }
-        }.resume()
-    }
-    
-    //userIDをもとにそのユーザーが登録したスケジュールのデータを取得するメソッド
-    func getScheduleInfoFromUserID(userID: String, completion: @escaping ([Schedule]) -> Void) {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "http"
-        urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
-        urlComponents.path = "/schedule/select.php"
-        urlComponents.queryItems = [
-            URLQueryItem(name: "user_info", value: userID)
-        ]
-
-        guard let url = urlComponents.url else {
-            return
-        }
-    print(url.absoluteString)
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("Error: \(error)")
-                return
-            }
-
-            if let data = data {
-                do {
-                    let decodedResponse = try JSONDecoder().decode([Schedule].self, from: data)
-                    print("success")
-                    print(decodedResponse)
-                    completion(decodedResponse)
-                } catch {
-                    print("JSON decoding error: \(error)")
-                }
-            }
-        }.resume()
-    }
-    
-    //userIDをもとにそのユーザーが登録したインターンシップのデータを取得するメソッド
-    func getInternshipInfoFromUserID(userID: String, completion: @escaping ([Internship_info]) -> Void) {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "http"
-        urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
-        urlComponents.path = "/internship_info/select.php"
-        urlComponents.queryItems = [
-            URLQueryItem(name: "user_info", value: userID)
-        ]
-
-        guard let url = urlComponents.url else {
-            return
-        }
-    print(url.absoluteString)
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("Error: \(error)")
-                return
-            }
-
-            if let data = data {
-                do {
-                    let decodedResponse = try JSONDecoder().decode([Internship_info].self, from: data)
-                    print("success")
-                    print(decodedResponse)
-                    completion(decodedResponse)
-                } catch {
-                    print("JSON decoding error: \(error)")
-                }
-            }
-        }.resume()
     }
     
     //サーバーに新規ユーザの情報を追加するメソッド
@@ -558,6 +447,46 @@ class apiCall {
         }.resume()
     }
     
+    /*-------------------------------------------------------------
+     Company Info
+      - select
+      - add
+      - update
+      - delete
+     -------------------------------------------------------------*/
+    //userIDをもとにそのユーザーが登録した企業データを取得するメソッド
+    func getCompanyInfoFromUserID(userID: String, completion: @escaping ([Corporate_info]) -> Void) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+        urlComponents.path = "/corporate_info/select.php"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "user_info", value: userID)
+        ]
+
+        guard let url = urlComponents.url else {
+            return
+        }
+    print(url.absoluteString)
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode([Corporate_info].self, from: data)
+                    print("success")
+                    print(decodedResponse)
+                    completion(decodedResponse)
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            }
+        }.resume()
+    }
+    
     //サーバーに新規企業情報を追加するメソッド
     func addCompanyInfotoServer(userID: String, name: String, industry: String, occupation: String, business: String, establishment: String, employees: String, capital: String, sales: String, operating_income: String, representative: String, location: String, registration: String, memo: String, completion: @escaping (String) -> Void) {
         var urlComponents = URLComponents()
@@ -603,6 +532,535 @@ class apiCall {
             }
         }.resume()
     }
+    
+    //企業情報を編集するメソッド
+    func editCompanyInfotoServer(id: String, userID: String, name: String, industry: String, occupation: String, business: String, establishment: String, employees: String, capital: String, sales: String, operating_income: String, representative: String, location: String, registration: String, memo: String, completion: @escaping (String) -> Void) {
+        var urlComponents = URLComponents()
+                urlComponents.scheme = "http"
+                urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+                urlComponents.path = "/corporate_info/update.php"
+                urlComponents.queryItems = [
+                    URLQueryItem(name: "id", value: id),
+                    URLQueryItem(name: "user_info", value: userID),
+                    URLQueryItem(name: "name", value: name),
+                    URLQueryItem(name: "industry", value: industry),
+                    URLQueryItem(name: "occupation", value: occupation),
+                    URLQueryItem(name: "business", value: business),
+                    URLQueryItem(name: "establishment", value: establishment),
+                    URLQueryItem(name: "employees", value: employees),
+                    URLQueryItem(name: "capital", value: capital),
+                    URLQueryItem(name: "sales", value: sales),
+                    URLQueryItem(name: "operating_income", value: operating_income),
+                    URLQueryItem(name: "representative", value: representative),
+                    URLQueryItem(name: "location", value: location),
+                    URLQueryItem(name: "registration", value: registration),
+                    URLQueryItem(name: "memo", value: memo)
+                ]
+
+                guard let url = urlComponents.url else {
+                    return
+                }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
+                    print("success")
+                    print(decodedResponse)
+                    completion(decodedResponse.status)
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            }
+        }.resume()
+    }
+    
+    //企業情報を削除するメソッド
+    func deleteCompanyInfotoServer(id: String, completion: @escaping (String) -> Void) {
+        var urlComponents = URLComponents()
+                urlComponents.scheme = "http"
+                urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+                urlComponents.path = "/corporate_info/delete.php"
+                urlComponents.queryItems = [
+                    URLQueryItem(name: "id", value: id)
+                ]
+
+                guard let url = urlComponents.url else {
+                    return
+                }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
+                    print("success")
+                    print(decodedResponse)
+                    completion(decodedResponse.status)
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            }
+        }.resume()
+    }
+    
+    /*-------------------------------------------------------------
+     Selection
+      - select
+      - add
+      - update
+      - edit
+     -------------------------------------------------------------*/
+    //userIDをもとにそのユーザーが登録した本選考のデータを取得するメソッド
+    func getSelectionInfoFromUserID(userID: String, completion: @escaping ([Selection]) -> Void) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+        urlComponents.path = "/selection/select.php"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "user_info", value: userID)
+        ]
+
+        guard let url = urlComponents.url else {
+            return
+        }
+    print(url.absoluteString)
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode([Selection].self, from: data)
+                    print("success")
+                    print(decodedResponse)
+                    completion(decodedResponse)
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            }
+        }.resume()
+    }
+    
+    //本選考のデータを追加するメソッド
+    func addSelectionInfoFromUserID(userID: String, corporate_info: String, result: String, memo: String, completion: @escaping ([Selection]) -> Void) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+        urlComponents.path = "/selection/add.php"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "user_info", value: userID),
+            URLQueryItem(name: "corporate_info", value: corporate_info),
+            URLQueryItem(name: "result", value: result),
+            URLQueryItem(name: "memo", value: memo)
+        ]
+
+        guard let url = urlComponents.url else {
+            return
+        }
+    print(url.absoluteString)
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode([Selection].self, from: data)
+                    print("success")
+                    print(decodedResponse)
+                    completion(decodedResponse)
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            }
+        }.resume()
+    }
+    
+    //本選考のデータを編集するメソッド
+    func editSelectionInfoFromUserID(id: String, userID: String, corporate_info: String, result: String, memo: String, completion: @escaping ([Selection]) -> Void) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+        urlComponents.path = "/selection/update.php"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "id", value: id),
+            URLQueryItem(name: "user_info", value: userID),
+            URLQueryItem(name: "corporate_info", value: corporate_info),
+            URLQueryItem(name: "result", value: result),
+            URLQueryItem(name: "memo", value: memo)
+        ]
+
+        guard let url = urlComponents.url else {
+            return
+        }
+    print(url.absoluteString)
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode([Selection].self, from: data)
+                    print("success")
+                    print(decodedResponse)
+                    completion(decodedResponse)
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            }
+        }.resume()
+    }
+    
+    //本選考のデータを削除するメソッド
+    func deleteSelectionInfoFromUserID(id: String, completion: @escaping ([Selection]) -> Void) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+        urlComponents.path = "/selection/delete.php"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "id", value: id)
+        ]
+
+        guard let url = urlComponents.url else {
+            return
+        }
+    print(url.absoluteString)
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode([Selection].self, from: data)
+                    print("success")
+                    print(decodedResponse)
+                    completion(decodedResponse)
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            }
+        }.resume()
+    }
+    
+    /*-------------------------------------------------------------
+     Schedule Info
+      - select
+      - add
+      - update
+      - delete
+     -------------------------------------------------------------*/
+    //userIDをもとにそのユーザーが登録したスケジュールのデータを取得するメソッド
+    func getScheduleInfoFromUserID(userID: String, completion: @escaping ([Schedule]) -> Void) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+        urlComponents.path = "/schedule/select.php"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "user_info", value: userID)
+        ]
+
+        guard let url = urlComponents.url else {
+            return
+        }
+    print(url.absoluteString)
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode([Schedule].self, from: data)
+                    print("success")
+                    print(decodedResponse)
+                    completion(decodedResponse)
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            }
+        }.resume()
+    }
+    
+    //スケジュールのデータを追加するメソッド
+    func addScheduleInfoFromUserID(title: String, userID: String, schedule_category: String, internship_info: String, corporate_info: String, start_date: String, end_date: String, memo: String, completion: @escaping ([Schedule]) -> Void) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+        urlComponents.path = "/schedule/add.php"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "title", value: title),
+            URLQueryItem(name: "user_info", value: userID),
+            URLQueryItem(name: "schedule_category", value: schedule_category),
+            URLQueryItem(name: "internship_info", value: internship_info),
+            URLQueryItem(name: "corporate_info", value: corporate_info),
+            URLQueryItem(name: "start_date", value: start_date),
+            URLQueryItem(name: "end_date", value: end_date),
+            URLQueryItem(name: "memo", value: memo)
+        ]
+
+        guard let url = urlComponents.url else {
+            return
+        }
+    print(url.absoluteString)
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode([Schedule].self, from: data)
+                    print("success")
+                    print(decodedResponse)
+                    completion(decodedResponse)
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            }
+        }.resume()
+    }
+    
+    //スケジュールのデータを編集するメソッド
+    func editScheduleInfoFromUserID(id: String, title: String, userID: String, schedule_category: String, internship_info: String, corporate_info: String, start_date: String, end_date: String, memo: String, completion: @escaping ([Schedule]) -> Void) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+        urlComponents.path = "/schedule/update.php"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "id", value: id),
+            URLQueryItem(name: "title", value: title),
+            URLQueryItem(name: "user_info", value: userID),
+            URLQueryItem(name: "schedule_category", value: schedule_category),
+            URLQueryItem(name: "internship_info", value: internship_info),
+            URLQueryItem(name: "corporate_info", value: corporate_info),
+            URLQueryItem(name: "start_date", value: start_date),
+            URLQueryItem(name: "end_date", value: end_date),
+            URLQueryItem(name: "memo", value: memo)
+        ]
+
+        guard let url = urlComponents.url else {
+            return
+        }
+    print(url.absoluteString)
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode([Schedule].self, from: data)
+                    print("success")
+                    print(decodedResponse)
+                    completion(decodedResponse)
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            }
+        }.resume()
+    }
+    
+    //スケジュールのデータを削除するメソッド
+    func deleteScheduleInfoFromUserID(id: String, completion: @escaping ([Schedule]) -> Void) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+        urlComponents.path = "/schedule/delete.php"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "id", value: id)
+        ]
+
+        guard let url = urlComponents.url else {
+            return
+        }
+    print(url.absoluteString)
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode([Schedule].self, from: data)
+                    print("success")
+                    print(decodedResponse)
+                    completion(decodedResponse)
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            }
+        }.resume()
+    }
+    
+    /*-------------------------------------------------------------
+     Internship Info
+      - select
+      - add
+      - update
+      - delete
+     -------------------------------------------------------------*/
+    //userIDをもとにそのユーザーが登録したインターンシップのデータを取得するメソッド
+    func getInternshipInfoFromUserID(userID: String, completion: @escaping ([Internship_info]) -> Void) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+        urlComponents.path = "/internship_info/select.php"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "user_info", value: userID)
+        ]
+
+        guard let url = urlComponents.url else {
+            return
+        }
+    print(url.absoluteString)
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode([Internship_info].self, from: data)
+                    print("success")
+                    print(decodedResponse)
+                    completion(decodedResponse)
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            }
+        }.resume()
+    }
+    
+    //インターンシップのデータを追加するメソッド
+    func addInternshipInfoFromUserID(userID: String, corporate_info: String, start_date: String, end_date: String, memo: String, completion: @escaping ([Internship_info]) -> Void) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+        urlComponents.path = "/internship_info/add.php"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "user_info", value: userID),
+            URLQueryItem(name: "corporate_info", value: corporate_info),
+            URLQueryItem(name: "start_date", value: start_date),
+            URLQueryItem(name: "end_date", value: end_date),
+            URLQueryItem(name: "memo", value: memo)
+        ]
+
+        guard let url = urlComponents.url else {
+            return
+        }
+    print(url.absoluteString)
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode([Internship_info].self, from: data)
+                    print("success")
+                    print(decodedResponse)
+                    completion(decodedResponse)
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            }
+        }.resume()
+    }
+    
+    //インターンシップのデータを編集するメソッド
+    func editInternshipInfoFromUserID(id: String, userID: String, corporate_info: String, start_date: String, end_date: String, memo: String, completion: @escaping ([Internship_info]) -> Void) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+        urlComponents.path = "/internship_info/update.php"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "id", value: id),
+            URLQueryItem(name: "user_info", value: userID),
+            URLQueryItem(name: "corporate_info", value: corporate_info),
+            URLQueryItem(name: "start_date", value: start_date),
+            URLQueryItem(name: "end_date", value: end_date),
+            URLQueryItem(name: "memo", value: memo)
+        ]
+
+        guard let url = urlComponents.url else {
+            return
+        }
+    print(url.absoluteString)
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode([Internship_info].self, from: data)
+                    print("success")
+                    print(decodedResponse)
+                    completion(decodedResponse)
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            }
+        }.resume()
+    }
+    
+    //インターンシップのデータを削除するメソッド
+    func editInternshipInfoFromUserID(id: String, completion: @escaping ([Internship_info]) -> Void) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+        urlComponents.path = "/internship_info/delete.php"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "id", value: id)
+        ]
+
+        guard let url = urlComponents.url else {
+            return
+        }
+    print(url.absoluteString)
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode([Internship_info].self, from: data)
+                    print("success")
+                    print(decodedResponse)
+                    completion(decodedResponse)
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            }
+        }.resume()
+    }
+    
 }
 
 //以降データ永続化関連
