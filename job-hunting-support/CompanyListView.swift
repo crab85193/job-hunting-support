@@ -115,6 +115,7 @@ struct CompanyListView: View {
                                 self.OccupationList = occupation
                                 OccupationList.insert(firstoccupation, at: 0)
                             }
+                print(CompanyList)
             }
         }
     }

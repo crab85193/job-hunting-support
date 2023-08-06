@@ -17,6 +17,9 @@ struct InternEditView: View {
     init(){
         dateFormatter.dateFormat = "YYYY-MM-dd"
     }
+    
+    //画面遷移
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack{
@@ -33,7 +36,7 @@ struct InternEditView: View {
             HStack{
                 Text("インターン\n開始日")
                     .frame(maxWidth: .infinity, alignment: .leading)
-                DatePicker("Calendar", selection: $testStartDate, displayedComponents: .hourAndMinute)
+                DatePicker("Calendar", selection: $testStartDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
                     .labelsHidden()
             }
             .padding(.all, 20)
@@ -41,7 +44,7 @@ struct InternEditView: View {
             HStack{
                 Text("インターン\n終了日")
                     .frame(maxWidth: .infinity, alignment: .leading)
-                DatePicker("Calendar", selection: $testFinishDate, displayedComponents: .hourAndMinute)
+                DatePicker("Calendar", selection: $testFinishDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
                     .labelsHidden()
             }
             .padding(.all, 20)
@@ -56,6 +59,12 @@ struct InternEditView: View {
                     .autocapitalization(.none)
             }
             .padding(.bottom, 30)
+            
+            .navigationTitle("リストを追加")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(trailing: Button("追加") {
+                presentationMode.wrappedValue.dismiss()
+            })
         }
     }
 }

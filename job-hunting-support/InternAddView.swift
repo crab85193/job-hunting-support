@@ -17,9 +17,12 @@ struct InternAddView: View {
     init(){
         dateFormatter.dateFormat = "YYYY-MM-dd"
     }
+    
+    //画面遷移
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        NavigationView{
+        VStack{
             VStack{
                 HStack{
                     Text("企業名")
@@ -34,7 +37,7 @@ struct InternAddView: View {
                 HStack{
                     Text("インターン\n開始日")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    DatePicker("Calendar", selection: $testStartDate, displayedComponents: .date)
+                    DatePicker("Calendar", selection: $testStartDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
                         .labelsHidden()
                 }
                 .padding(.all, 20)
@@ -42,7 +45,7 @@ struct InternAddView: View {
                 HStack{
                     Text("インターン\n終了日")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    DatePicker("Calendar", selection: $testFinishDate, displayedComponents: .date)
+                    DatePicker("Calendar", selection: $testFinishDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
                         .labelsHidden()
                 }
                 .padding(.all, 20)
@@ -60,14 +63,9 @@ struct InternAddView: View {
             }
             .navigationTitle("リストを追加")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: InternView()) {
-                        Text("作成")
-                    }
-                }
-            }
+            .navigationBarItems(trailing: Button("追加") {
+                presentationMode.wrappedValue.dismiss()
+            })
         }
     }
 }

@@ -27,10 +27,25 @@ struct ProfileView: View {
                         Text("\(LoginUser.name)")
                     }
                     .padding(.all, 20)
+                    
                     HStack{
                         Text("卒業予定年度")
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Text("\(LoginUser.graduation_year)")
+                    }
+                    .padding(.all, 20)
+                    
+                    HStack{
+                        Text("性別")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text("\(LoginUser.sex)")
+                    }
+                    .padding(.all, 20)
+                    
+                    HStack{
+                        Text("年齢")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text("\(LoginUser.age)")
                     }
                     .padding(.all, 20)
                 }

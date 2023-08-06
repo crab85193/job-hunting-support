@@ -59,6 +59,7 @@ struct CompanyAddView: View {
     var body: some View {
         ScrollViewReader{reader in
             ScrollView{
+                /*
                 //最初にカテゴリーから検索するのか新規作成するのか選択する部分
                 Group{
                     Text("追加方法を選択")
@@ -162,7 +163,8 @@ struct CompanyAddView: View {
                     .foregroundColor(.black)
                     .frame(width: .infinity, height: 0.5)
                     .padding(.vertical, 30)
-                
+                */
+                 
                 //新規作成の部分
                 Text("新規作成").id(2)
                     .font(.title2)

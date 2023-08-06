@@ -10,7 +10,7 @@ import SwiftUI
 struct ScheduleDetailView: View {
 
     //表示確認用
-    @State var scheduleName = ""
+    @State var scheduleName = "テスト"
     @State var testMemo = ""
     @State var testCompanyName = ""
     @State var testStartDate = Date()
@@ -30,10 +30,10 @@ struct ScheduleDetailView: View {
                     .padding(.top, 30)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 20)
-                TextField("スケジュール名", text:$scheduleName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Text("\(scheduleName)")
                     .padding(.horizontal, 20)
-                    .autocapitalization(.none)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    //.autocapitalization(.none)
 
                 HStack{
                     Text("カテゴリー")
@@ -80,7 +80,7 @@ struct ScheduleDetailView: View {
                 HStack{
                     Text("スケジュール\n開始日")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    DatePicker("Calendar", selection: $testStartDate, displayedComponents: .date)
+                    DatePicker("Calendar", selection: $testStartDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
                         .labelsHidden()
                 }
                 .padding(.all, 20)
@@ -88,7 +88,7 @@ struct ScheduleDetailView: View {
                 HStack{
                     Text("スケジュール\n終了日")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    DatePicker("Calendar", selection: $testFinishDate, displayedComponents: .date)
+                    DatePicker("Calendar", selection: $testFinishDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
                         .labelsHidden()
                 }
                 .padding(.all, 20)
@@ -103,9 +103,16 @@ struct ScheduleDetailView: View {
                         .autocapitalization(.none)
                 }
             }
+            .navigationTitle("スケジュールの詳細")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: ScheduleEditView()) {
+                        Text("編集")
+                    }
+                }
+            }
         }
-        .navigationBarBackButtonHidden(true)
-        .navigationTitle("スケジュールを編集")
     }
 }
 
