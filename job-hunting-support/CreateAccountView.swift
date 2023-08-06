@@ -93,10 +93,10 @@ struct CreateAccountView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Picker("あなたの卒業予定年度を選択", selection: $year) {
                         Text("未選択").tag("0")
-                        Text("23卒").tag("2023")
-                        Text("24卒").tag("2024")
-                        Text("25卒").tag("2025")
-                        Text("26卒").tag("2026")
+                        Text("23卒").tag("2023-03-31")
+                        Text("24卒").tag("2024-03-31")
+                        Text("25卒").tag("2025-03-31")
+                        Text("26卒").tag("2026-03-31")
                     }
                 }
                 .padding(.horizontal,30)
@@ -130,7 +130,7 @@ struct CreateAccountView: View {
                 //ここに作成ボタンが押された時の処理
                 if ((inputUserName != "") && (password != "") && ((year != "") && (year != "0")) && ((sex != "") && (sex != "0")) && (age != "")){
                     print("OK")
-                    apiCall().addUserInfotoServer(name: inputUserName, password: password, sex: sex, age: age, graduate: year+"/3/31") { response in
+                    apiCall().addUserInfotoServer(name: inputUserName, password: password, sex: sex, age: age, graduate: year) { response in
                         self.response = response
                         if response == "OK"{
                             apiCall().getUserFromNameAndPassword(name: inputUserName, password: password) { (user) in
