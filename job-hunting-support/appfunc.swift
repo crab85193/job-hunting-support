@@ -519,6 +519,44 @@ class apiCall {
             }
         }.resume()
     }
+    
+    //サーバーにあるユーザの情報を編集するメソッド
+    func EditUserInfoinServer(id: String, name: String, password: String, sex: String, age: String, graduate: String, completion: @escaping (String) -> Void) {
+        var urlComponents = URLComponents()
+                urlComponents.scheme = "http"
+                urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
+                urlComponents.path = "/user/update.php"
+                urlComponents.queryItems = [
+                    URLQueryItem(name: "id", value: id),
+                    URLQueryItem(name: "name", value: name),
+                    URLQueryItem(name: "password", value: password),
+                    URLQueryItem(name: "sex", value: sex),
+                    URLQueryItem(name: "age", value: age),
+                    URLQueryItem(name: "graduation_year", value: graduate)
+                ]
+
+                guard let url = urlComponents.url else {
+                    return
+                }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
+                    print("success")
+                    print(decodedResponse)
+                    completion(decodedResponse.status)
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            }
+        }.resume()
+    }
 }
 
 //以降データ永続化関連

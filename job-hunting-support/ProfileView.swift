@@ -12,6 +12,7 @@ struct ProfileView: View {
     
     @State var showLogoutAlert = false
     @AppStorage("isLogin") var isLogin = false
+    @State var viewSex : String = ""
     
     @State var LoginUser: User = (LoadUserData() ?? User(name: "dummy", password: "01234", sex: "male", age: "20", graduate: "2023-03-31"))
 
@@ -78,7 +79,7 @@ struct ProfileView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: ProfileEditView()) {
+                    NavigationLink(destination: ProfileEditView(UserInfo: $LoginUser)) {
                         Text("編集")
                     }
                 }
