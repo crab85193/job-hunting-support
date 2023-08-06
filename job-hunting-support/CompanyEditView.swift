@@ -48,127 +48,156 @@ struct CompanyEditView: View {
         ScrollView{
             HStack{
                 Text("企業名")
-                    //.font(.title)
                     .padding()
+                    .frame(width: 100)
                 TextField("企業名", text:$editedCompany.name)
-                    //.font(.title)
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
+                    .frame(width: 280)
                     .autocapitalization(.none)
+                Spacer()
             }
             HStack{
                 Text("業種")
-                    //.font(.title2)
                     .padding()
+                    .frame(width: 100)
                 Section{
                     Picker(selection: $editedCompany.industry, content: {
                         ForEach(industryList) { industry in
                             Text("\(industry.name)").tag(industry.id)
                         }
                     }, label: { Text("業種") }).pickerStyle(MenuPickerStyle())
-                }.autocapitalization(.none)
+                }
+                .autocapitalization(.none)
+                .frame(width: 250, height:50)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                .padding()
+                Spacer()
             }
             HStack{
                 Text("職種")
-                    //.font(.title2)
                     .padding()
+                    .frame(width: 100)
                 Section{
                     Picker(selection: $editedCompany.occupation, content: {
                         ForEach(occupationList) { occupation in
                             Text("\(occupation.name)").tag(occupation.id)
                         }
                     }, label: { Text("職種") }).pickerStyle(MenuPickerStyle())
-                }.autocapitalization(.none)
+                }
+                .autocapitalization(.none)
+                .frame(width: 250, height:50)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                .padding()
+                Spacer()
             }
             Group{
                 HStack{
-                    Text("事業内容")
-                        //.font(.title2)
-                        .padding()
-                    TextField("事業内容", text:$editedCompany.business)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .autocapitalization(.none)
+                    VStack{
+                        Text("事業内容")
+                            .frame(width: 350, alignment: .leading)
+                        TextEditor(text: $editedCompany.business)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .autocapitalization(.none)
+                            .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                            .frame(width: 350, height: 200)
+                    }.padding()
                 }
                 HStack{
                     DatePicker("設立日", selection: $editedDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
-                        //.font(.title2)
                         .padding()
+                        .frame(width: 380)
                 }
                 HStack{
                     Text("従業員数")
-                        //.font(.title2)
                         .padding()
-                    TextField("従業員数", text: $editedCompany.employees)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .frame(width: 100)
+                    TextField("従業員数", text:$editedCompany.employees)
+                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                         .keyboardType(.numberPad)
                         .focused($isActive)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
+                        .frame(width: 280)
                         .autocapitalization(.none)
                 }
                 HStack{
                     Text("資本金")
-                        //.font(.title2)
                         .padding()
-                    TextField("資本金", text: $editedCompany.capital)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .frame(width: 100)
+                    TextField("資本金", text:$editedCompany.capital)
+                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                         .keyboardType(.numberPad)
                         .focused($isActive)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
+                        .frame(width: 280)
                         .autocapitalization(.none)
                 }
                 HStack{
                     Text("売上高")
-                        //.font(.title2)
                         .padding()
+                        .frame(width: 100)
                     TextField("売上高", text:$editedCompany.sales)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                         .keyboardType(.numberPad)
                         .focused($isActive)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
+                        .frame(width: 280)
                         .autocapitalization(.none)
                 }
                 HStack{
                     Text("営業利益")
-                        //.font(.title2)
                         .padding()
+                        .frame(width: 100)
                     TextField("営業利益", text:$editedCompany.operating_income)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                         .keyboardType(.numberPad)
                         .focused($isActive)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
+                        .frame(width: 280)
                         .autocapitalization(.none)
                 }
                 HStack{
                     Text("代表者")
-                        //.font(.title2)
                         .padding()
-                    TextField("代表者", text:$editedCompany.representative)
+                        .frame(width: 100)
+                    TextField("山田 太郎", text:$editedCompany.representative)
+                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
+                        .frame(width: 280)
                         .autocapitalization(.none)
                 }
                 HStack{
-                    Text("所在地")
-                        //.font(.title2)
-                        .padding()
-                    TextField("所在地", text:$editedCompany.location)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                        .autocapitalization(.none)
+                    VStack{
+                        Text("所在地")
+                            .frame(width: 340, alignment: .leading)
+                        TextField("沖縄県中頭郡西原町字千原1番地", text:$editedCompany.location)
+                            .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .frame(width: 350)
+                            .autocapitalization(.none)
+                    }.padding()
                 }
                 HStack{
-                    Text("メモ")
-                        //.font(.title2)
-                        .padding()
-                    TextField("メモ", text:$editedmemo)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                        .autocapitalization(.none)
+                    VStack{
+                        Text("メモ")
+                            .frame(width: 340, alignment: .leading)
+                        TextEditor(text: $editedmemo)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .autocapitalization(.none)
+                            .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                            .frame(width: 350, height: 200)
+                    }.padding()
                 }
             }
             
         }
-        .navigationTitle("編集")
+        .navigationTitle("企業リスト 編集")
         .navigationBarItems(trailing: Button("保存") {
             //編集した部分を保存する
             editedCompany.memo = editedmemo
