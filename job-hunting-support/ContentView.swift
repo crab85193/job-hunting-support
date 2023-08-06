@@ -13,34 +13,34 @@ struct ContentView: View {
     @State var year = 0
     @State var tabSelect = 2
     
-    @EnvironmentObject var sharedData: SharedData
+    //@EnvironmentObject var sharedData: SharedData
     
     var body: some View {
         NavigationView{
             TabView(selection: $tabSelect){
                 CompanyListView()
                     .tabItem{Image(systemName: "list.dash")
-                    Text("List")
+                    Text("企業リスト")
                     }
                     .tag(0)
                 ScheduleView()
                     .tabItem{Image(systemName: "calendar")
-                    Text("Schedule")
+                    Text("スケジュール")
                     }
                     .tag(1)
                 SelectionInfoView()
                     .tabItem{Image(systemName: "doc.text")
-                    Text("SelectionInfo")
+                    Text("選考情報")
                     }
                     .tag(2)
                 InternView()
                     .tabItem{Image(systemName: "figure.walk")
-                    Text("Intern")
+                    Text("インターン")
                     }
                     .tag(3)
                 ProfileView()
                     .tabItem{Image(systemName: "person.fill")
-                    Text("Profile")
+                    Text("プロフィール")
                     }
                     .tag(4)
                 /*  これは、カテゴリー別に表示する段階まできたら追加する。

@@ -37,19 +37,34 @@ struct CreateAccountView: View {
     @State private var showAlert = false
     @State var alertType: AlertType = .alert1
     
+    // 画面遷移
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
-        //Viewは仮置き
-        VStack(spacing: 70){
+        VStack(spacing: 50){
+            // 戻るボタン
+            HStack {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "chevron.backward")
+                        .foregroundColor(.blue)
+                }
+                .padding(.leading, 16)
+                Spacer()
+            }
+            .background(Color(UIColor.systemBackground))
+            
             Text("アカウント作成")
                 .font(.largeTitle)
             
-            VStack(spacing: 10){
+            VStack{
                 Text("あなたのユーザー名")
                 TextField("UserName", text: $inputUserName)
                     .autocapitalization(.none)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(width: 330)
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 20)
                 
                 Text("パスワード")
                 HStack{
@@ -69,30 +84,43 @@ struct CreateAccountView: View {
                     }
                 }
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding(.bottom, 30)
+                .padding(.bottom, 20)
                 
-                Text("卒業年度")
-                Picker("あなたの卒業予定年度を選択", selection: $year) {
-                                    Text("未選択").tag("0")
-                                    Text("23卒").tag("2023")
-                                    Text("24卒").tag("2024")
-                                    Text("25卒").tag("2025")
-                                    Text("26卒").tag("2026")
-                }.padding(.bottom, 30)
+                HStack{
+                    Text("卒業年度")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Picker("あなたの卒業予定年度を選択", selection: $year) {
+                        Text("未選択").tag("0")
+                        Text("23卒").tag("2023")
+                        Text("24卒").tag("2024")
+                        Text("25卒").tag("2025")
+                        Text("26卒").tag("2026")
+                    }
+                }
+                .padding(.horizontal,30)
+                .padding(.bottom, 15)
                 
-                Text("性別")
-                Picker("あなたの性別を選択", selection: $sex) {
-                                    Text("未選択").tag("0")
-                                    Text("男性").tag("male")
-                                    Text("女性").tag("female")
-                }.padding(.bottom, 30)
+                HStack{
+                    Text("性別")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Picker("あなたの性別を選択", selection: $sex) {
+                        Text("未選択").tag("0")
+                        Text("男性").tag("male")
+                        Text("女性").tag("female")
+                    }
+                }
+                .padding(.horizontal,30)
+                .padding(.bottom, 15)
                 
-                Text("年齢")
-                TextField("Age", text: $age)
-                    .autocapitalization(.none)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .frame(width: 75)//調整頼む
-                    .padding(.bottom, 30)
+                HStack{
+                    Text("年齢")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    TextField("Age", text: $age)
+                        .autocapitalization(.none)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .frame(width: 85)
+                }
+                .padding(.horizontal, 30)
             }
             
             Button{
@@ -153,6 +181,7 @@ struct CreateAccountView: View {
                         return Alert(title: Text("すべての項目を入力または選択してください。"))
                 }
             }
+            .padding(.bottom, 25)
         }
     }
 }
