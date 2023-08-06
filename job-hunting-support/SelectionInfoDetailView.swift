@@ -10,9 +10,10 @@ import SwiftUI
 struct SelectionInfoDetailView: View {
 
     //テスト用
-    @State private var selection = 1
-    @State private var resultselection = 1
-    @State var testSelectionInfoMemo = ""
+    @State private var sompanySelection = "1"
+    @State var viewCompanyDetail : Bool = false
+    @State private var resultselection = "0"
+    @State var selectionInfoMemo = ""
     
     var body: some View {
         NavigationView{
@@ -20,36 +21,49 @@ struct SelectionInfoDetailView: View {
                 HStack{
                     Text("企業情報")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Picker(selection: $selection, label: Text("企業情報")) {
-                        Text("なし").tag(1)
-                        Text("企業リスト1").tag(2)
-                        Text("企業リスト2").tag(3)
-                        Text("企業リスト3").tag(4)
-                        Text("企業リスト4").tag(5)
+                    Button(action: {
+                        viewCompanyDetail = true
+                        if viewCompanyDetail {
+                            //選択した企業の詳細情報画面に遷移
+                        }
+                    }) {
+                        Text("XX株式会社")
                     }
+                     /*
+                    Picker(selection: $companySelection, label: Text("企業情報")) {
+                        Text("未選択").tag("1")
+                        Text("企業リスト1").tag("2")
+                        Text("企業リスト2").tag("3")
+                        Text("企業リスト3").tag("4")
+                        Text("企業リスト4").tag("5")
+                    }
+                      */
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.all, 20)
+                .padding(.all, 30)
                 
                 HStack{
                     Text("合否")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Picker(selection: $resultselection, label: Text("企業情報")) {
-                        Text("未確定").tag(1)
-                        Text("合格").tag(2)
-                        Text("不合格").tag(3)
-                        Text("保留").tag(4)
+                    if resultselection == "2" {
+                        Text("合格")
+                    } else if resultselection == "1" {
+                        Text("不合格")
+                    } else {
+                        Text("未選択")
                     }
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.all, 20)
+                .padding(.all, 30)
                 
                 HStack{
                     Text("メモ")
-                        .padding()
-                    TextField("メモ", text:$testSelectionInfoMemo)
+                        .padding(30)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    TextField("メモ", text:$selectionInfoMemo)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
+                        .frame(width: 220)
+                        .padding(.trailing, 30)
                         .autocapitalization(.none)
                 }
                 .navigationTitle("スケジュールの詳細")

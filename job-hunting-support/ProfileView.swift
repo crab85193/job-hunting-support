@@ -27,28 +27,34 @@ struct ProfileView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Text("\(LoginUser.name)")
                     }
-                    .padding(.all, 20)
+                    .padding(.all, 30)
                     
                     HStack{
                         Text("卒業予定年度")
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Text("\(LoginUser.graduation_year)")
                     }
-                    .padding(.all, 20)
+                    .padding(.all, 30)
                     
                     HStack{
                         Text("性別")
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Text("\(LoginUser.sex)")
+                        if LoginUser.sex == "male" {
+                            Text("男性")
+                        } else if LoginUser.sex == "female" {
+                            Text("女性")
+                        } else {
+                            Text("未選択")
+                        }
                     }
-                    .padding(.all, 20)
+                    .padding(.all, 30)
                     
                     HStack{
                         Text("年齢")
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Text("\(LoginUser.age)")
                     }
-                    .padding(.all, 20)
+                    .padding(.all, 30)
                 }
                 
                 Button(action: {

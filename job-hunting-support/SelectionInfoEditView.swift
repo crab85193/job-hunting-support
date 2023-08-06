@@ -23,35 +23,37 @@ struct SelectionInfoEditView: View {
                 Text("企業情報")
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Picker(selection: $selection, label: Text("企業情報")) {
-                    Text("なし").tag(1)
-                    Text("企業リスト1").tag(2)
-                    Text("企業リスト2").tag(3)
-                    Text("企業リスト3").tag(4)
-                    Text("企業リスト4").tag(5)
+                    Text("未選択").tag("1")
+                    Text("企業リスト1").tag("2")
+                    Text("企業リスト2").tag("3")
+                    Text("企業リスト3").tag("4")
+                    Text("企業リスト4").tag("5")
                 }
             }
             .frame(maxWidth: .infinity)
-            .padding(.all, 20)
+            .padding(.all, 30)
 
             HStack{
                 Text("合否")
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Picker(selection: $resultselection, label: Text("企業情報")) {
-                    Text("未確定").tag(1)
+                    Text("未選択").tag(1)
                     Text("合格").tag(2)
                     Text("不合格").tag(3)
                     Text("保留").tag(4)
                 }
             }
             .frame(maxWidth: .infinity)
-            .padding(.all, 20)
+            .padding(.all, 30)
 
             HStack{
                 Text("メモ")
-                    .padding()
+                    .padding(30)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 TextField("メモ", text:$testSelectionInfoMemo)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
+                    .frame(width: 220)
+                    .padding(.trailing, 30)
                     .autocapitalization(.none)
             }
             .navigationTitle("選考情報の編集")
