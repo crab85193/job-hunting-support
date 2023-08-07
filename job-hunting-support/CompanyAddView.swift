@@ -40,6 +40,7 @@ struct CompanyAddView: View {
     @State private var response = ""
     @State var alertType: AlertType = .alert1
     @State var showAlert = false
+    @State var showbar = false
     
     //新規作成時の初期値
     @State private var newName = ""
@@ -334,8 +335,9 @@ struct CompanyAddView: View {
                 }
             }
         }
-        .navigationBarBackButtonHidden(true)
         .navigationTitle("企業リスト 追加")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarHidden(showbar)
         .navigationBarItems(trailing: Button("作成") {
             print("変更前")
             print(selectionDate)
@@ -360,6 +362,7 @@ struct CompanyAddView: View {
                         currentdate = Date()
                         
                         DispatchQueue.main.async {
+                            showbar.toggle()
                             presentationMode.wrappedValue.dismiss()
                         }
                     } else {
@@ -382,11 +385,6 @@ struct CompanyAddView: View {
             }
         })
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                  Button(action: { presentaion.wrappedValue.dismiss() }) {
-                    Image(systemName: "chevron.backward")
-                }
-            }
             //キーボードを閉じるボタン
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()         // 右寄せにする

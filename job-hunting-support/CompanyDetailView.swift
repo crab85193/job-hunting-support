@@ -28,7 +28,7 @@ struct CompanyDetailView: View {
     }
     
     //ナビゲーションバーの戻るボタンを消すための定義
-    @Environment(\.presentationMode) var presentaion
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ScrollView{
@@ -252,15 +252,8 @@ struct CompanyDetailView: View {
                 }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
             }
         }
-        .navigationBarBackButtonHidden(true)
         .navigationTitle("\(company.name)")
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { presentaion.wrappedValue.dismiss() }) {
-                    Image(systemName: "chevron.backward")
-                }
-            }
-        }
+        .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(trailing: {
             NavigationLink(destination: CompanyEditView(company: $company, industryList: $industryList, occupationList: $occupationList)) {
                 Text("編集")

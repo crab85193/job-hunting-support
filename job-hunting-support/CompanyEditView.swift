@@ -21,6 +21,7 @@ struct CompanyEditView: View {
     @State var response = ""
     @State var alertType: AlertType = .alert1
     @State var showAlert = false
+    @State var showbar = false
     
     //編集する企業を保持する変数
     @Binding var company: Corporate_info
@@ -208,6 +209,8 @@ struct CompanyEditView: View {
             
         }
         .navigationTitle("企業リスト 編集")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarHidden(showbar)
         .navigationBarItems(trailing: Button("保存") {
             if ((editedCompany.name != "") && ((editedCompany.industry != "") && (editedCompany.industry != "0")) && ((editedCompany.occupation != "") && (editedCompany.occupation != "0")) && (editedCompany.location != "")) {
                 print("OK")
@@ -220,6 +223,7 @@ struct CompanyEditView: View {
                         company = editedCompany
                         
                         DispatchQueue.main.async {
+                            showbar.toggle()
                             presentationMode.wrappedValue.dismiss()
                         }
                     } else {

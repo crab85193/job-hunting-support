@@ -28,6 +28,8 @@ struct LoginView: View {
     @State var IndustryList = [Industry]()
     
     @State var OccupationList = [Occupation]()
+    
+    @State var CategoryList = [Category]()
 
     var body: some View {
         
@@ -90,6 +92,7 @@ struct LoginView: View {
                                 SaveUserData(login_User)
                                 let firstindustry = Industry(id: "0", name: "未選択")
                                 let firstoccupation = Occupation(id: "0", name: "未選択")
+                                let firstcategory = Category(id: "0", category: "未選択")
                                 apiCall().getIndustry{ (industry) in
                                     self.IndustryList = industry
                                     IndustryList.insert(firstindustry, at: 0)
@@ -100,6 +103,12 @@ struct LoginView: View {
                                     self.OccupationList = occupation
                                     OccupationList.insert(firstoccupation, at: 0)
                                     SaveOccupationData(OccupationList)
+                                }
+                                
+                                apiCall().getCategory { (category) in
+                                    self.CategoryList = category
+                                    CategoryList.insert(firstcategory, at: 0)
+                                    SaveCategoryData(CategoryList)
                                 }
                                 isLogin.toggle()
                             } else {
