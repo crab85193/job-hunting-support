@@ -29,9 +29,11 @@ struct SelectionInfoAddView: View {
                     Text("企業リスト3").tag("4")
                     Text("企業リスト4").tag("5")
                 }
+                .frame(width: 200)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
             }
             .frame(maxWidth: .infinity)
-            .padding(.all, 30)
+            .padding(.all, 20)
 
             HStack{
                 Text("合否")
@@ -42,19 +44,22 @@ struct SelectionInfoAddView: View {
                     Text("不合格").tag("3")
                     Text("保留").tag("4")
                 }
+                .frame(width: 200)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
             }
             .frame(maxWidth: .infinity)
-            .padding(.all, 30)
-
+            .padding(.all, 20)
+            
             HStack{
-                Text("メモ")
-                    .padding(30)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                TextField("メモ", text:$newMemo)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .frame(width: 220)
-                    .padding(.trailing, 30)
-                    .autocapitalization(.none)
+                VStack{
+                    Text("メモ")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    TextEditor(text: $newMemo)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .autocapitalization(.none)
+                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                        .frame(width: 350, height: 200)
+                }.padding()
             }
             .navigationTitle("選考情報の追加")
             .navigationBarTitleDisplayMode(.inline)

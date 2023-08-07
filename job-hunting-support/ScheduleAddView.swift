@@ -29,15 +29,18 @@ struct ScheduleAddView: View {
     var body: some View {
         VStack{
             ScrollView{
-                Text("スケジュール名")
-                    .padding(.top, 30)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 20)
-                TextField("スケジュール名", text:$scheduleName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.horizontal, 20)
-                    .autocapitalization(.none)
-
+                VStack {
+                    Text("スケジュール名")
+                        .padding(.top, 30)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 20)
+                    TextField("スケジュール名", text:$scheduleName)
+                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.horizontal, 20)
+                        .autocapitalization(.none)
+                }
+                
                 HStack{
                     Text("カテゴリー")
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -48,6 +51,8 @@ struct ScheduleAddView: View {
                         Text("カテゴリー3").tag("4")
                         Text("カテゴリー4").tag("5")
                     }
+                    .frame(width: 200)
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.all, 20)
@@ -62,6 +67,8 @@ struct ScheduleAddView: View {
                         Text("インターンリスト3").tag("4")
                         Text("インターンリスト4").tag("5")
                     }
+                    .frame(width: 200)
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.all, 20)
@@ -76,12 +83,14 @@ struct ScheduleAddView: View {
                         Text("企業リスト3").tag("4")
                         Text("企業リスト4").tag("5")
                     }
+                    .frame(width: 200)
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.all, 20)
 
                 HStack{
-                    Text("スケジュール\n開始日")
+                    Text("スケジュール開始日")
                         .frame(maxWidth: .infinity, alignment: .leading)
                     DatePicker("Calendar", selection: $scheduleStartDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
                         .labelsHidden()
@@ -89,7 +98,7 @@ struct ScheduleAddView: View {
                 .padding(.all, 20)
 
                 HStack{
-                    Text("スケジュール\n終了日")
+                    Text("スケジュール終了日")
                         .frame(maxWidth: .infinity, alignment: .leading)
                     DatePicker("Calendar", selection: $scheduleFinishDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
                         .labelsHidden()
@@ -97,13 +106,15 @@ struct ScheduleAddView: View {
                 .padding(.all, 20)
 
                 HStack{
-                    Text("メモ")
-                        //.font(.title2)
-                        .padding()
-                    TextField("メモ", text:$newMemo)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                        .autocapitalization(.none)
+                    VStack{
+                        Text("メモ")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        TextEditor(text: $newMemo)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .autocapitalization(.none)
+                            .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                            .frame(width: 350, height: 200)
+                    }.padding()
                 }
             }
             .navigationTitle("スケジュールを追加")

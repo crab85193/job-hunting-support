@@ -64,21 +64,21 @@ struct InternEditView: View {
             }
 
             HStack{
-                Text("インターン\n開始日")
+                Text("インターン開始日")
                     .frame(maxWidth: .infinity, alignment: .leading)
                 DatePicker("Calendar", selection: $editedStartDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
                     .labelsHidden()
             }
-            .padding(.all, 20)
+            .padding()
 
             HStack{
-                Text("インターン\n終了日")
+                Text("インターン終了日")
                     .frame(maxWidth: .infinity, alignment: .leading)
                 DatePicker("Calendar", selection: $editedEndDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
                     .labelsHidden()
             }
-            .padding(.all, 20)
-
+            .padding()
+            
             HStack{
                 Text("メモ")
                     //.font(.title2)
@@ -88,7 +88,6 @@ struct InternEditView: View {
                     .padding()
                     .autocapitalization(.none)
             }
-            .padding(.bottom, 30)
             
             .navigationTitle("インターン情報　編集")
             .navigationBarTitleDisplayMode(.inline)

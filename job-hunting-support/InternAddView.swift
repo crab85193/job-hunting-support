@@ -53,24 +53,23 @@ struct InternAddView: View {
                         }, label: { Text("業種") }).pickerStyle(MenuPickerStyle())
                     }
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 50)
+                .padding()
 
                 HStack{
-                    Text("インターン\n開始日")
+                    Text("インターン開始日")
                         .frame(maxWidth: .infinity, alignment: .leading)
                     DatePicker("Calendar", selection: $StartDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
                         .labelsHidden()
                 }
-                .padding(.all, 20)
+                .padding()
 
                 HStack{
-                    Text("インターン\n終了日")
+                    Text("インターン終了日")
                         .frame(maxWidth: .infinity, alignment: .leading)
                     DatePicker("Calendar", selection: $FinishDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
                         .labelsHidden()
                 }
-                .padding(.all, 20)
+                .padding()
 
                 HStack{
                     Text("メモ")
@@ -81,7 +80,7 @@ struct InternAddView: View {
                         .padding()
                         .autocapitalization(.none)
                 }
-                .padding(.bottom, 30)
+                
             }
             .navigationTitle("インターン情報を追加")
             .navigationBarTitleDisplayMode(.inline)
