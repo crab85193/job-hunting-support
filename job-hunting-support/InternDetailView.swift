@@ -7,71 +7,119 @@
 import SwiftUI
 
 struct InternDetailView: View {
+    
+    //ログインしているユーザーの情報
+    @State var LoginUser: User = (LoadUserData() ?? User(name: "dummy", password: "01234", sex: "male", age: "20", graduate: "2023-03-31"))
 
-    //表示確認用
-    @State var testCompanyName = ""
-    @State var testMemo = ""
-    @State var testStartDate = Date()
-    @State var testFinishDate = Date()
+    @State var userid : String = ""
+    @State var CompanyList : [Corporate_info]
+    @Binding var InternInfo : Internship_info
     private let dateFormatter = DateFormatter()
-    init(){
-        dateFormatter.dateFormat = "YYYY-MM-dd"
+    init(interninfo : Binding<Internship_info>, companyList : [Corporate_info]){
+        _InternInfo = interninfo
+        CompanyList = companyList
+        print("受け取った情報")
+        print(InternInfo)
+        print(CompanyList)
     }
 
     var body: some View {
-        NavigationView{
             VStack{
                 HStack{
                     Text("企業名")
-                    TextField("企業名", text: $testCompanyName)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())  // 入力域のまわりを枠で囲む
-                        .padding(.horizontal)  // 余白を追加
-                }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 50)
+                        .font(.headline)
+                        .padding()
+                    if let viewCompany = CompanyList.first(where: {$0.id == InternInfo.corporate_info}){
+                        Text("\(viewCompany.name)")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    } else {
+                        Text("未選択")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
 
                 HStack{
                     Text("インターン\n開始日")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    DatePicker("Calendar", selection: $testStartDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
-                        .labelsHidden()
-                }
-                .padding(.all, 20)
+                        .font(.headline)
+                        .padding()
+                    if (InternInfo.start != ""){
+                        Text(InternInfo.start)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    } else {
+                        Text("記録なし")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+
+                }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
 
                 HStack{
                     Text("インターン\n終了日")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    DatePicker("Calendar", selection: $testFinishDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
-                        .labelsHidden()
-                }
-                .padding(.all, 20)
+                        .font(.headline)
+                        .padding()
+                    if (InternInfo.end != ""){
+                        Text(InternInfo.end)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    } else {
+                        Text("記録なし")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
 
-                HStack{
+                }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+
+                VStack{
                     Text("メモ")
-                        //.font(.title2)
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
-                    TextField("メモ", text:$testMemo)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                        .autocapitalization(.none)
-                }
-                .padding(.bottom, 30)
+                    if (InternInfo.memo != "") {
+                        Text(InternInfo.memo)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.black, lineWidth: 1)
+                            ).frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.bottom)
+                            .padding(.leading)
+                            .padding(.trailing)
+                    } else {
+                        Text("記録なし")
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.black, lineWidth: 1)
+                            ).frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.bottom)
+                            .padding(.leading)
+                            .padding(.trailing)
+                    }
+
+                }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
             }
             .navigationTitle("インターンの詳細")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: InternEditView()) {
+                    NavigationLink(destination: InternEditView(interninfo: $InternInfo, corporatelist: $CompanyList)) {
                         Text("編集")
                     }
                 }
             }
-        }
+        
     }
 }
 
-struct InternDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        InternDetailView()
-    }
-}
+/*
+ struct InternDetailView_Previews: PreviewProvider {
+ static var previews: some View {
+ InternDetailView()
+ }
+ }
+ */

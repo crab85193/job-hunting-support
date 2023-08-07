@@ -126,10 +126,10 @@ struct Corporate_info: Identifiable, Equatable, Codable{
 struct Internship_info: Identifiable, Equatable, Codable{
     let id: String //ID
     let user_info: String//ユーザーのid
-    let corporate_info: String //企業のid
-    let start: String //いつから ->Dateへ変換する必要あり
-    let end: String //いつまで ->Dateへ変換する必要あり
-    let memo: String   //メモ
+    var corporate_info: String //企業のid
+    var start: String //いつから ->Dateへ変換する必要あり
+    var end: String //いつまで ->Dateへ変換する必要あり
+    var memo: String   //メモ
 
     init(id: String, user: String, company: String, start:String, end:String, memo: String){
         self.id = id
@@ -154,9 +154,9 @@ struct Internship_info: Identifiable, Equatable, Codable{
 struct Selection: Identifiable, Equatable, Codable{
     let id: String //ID
     let user_info: String //ユーザーのid
-    let corporate_info: String //企業のid
-    let result: String //合否結果
-    let memo: String //メモ
+    var corporate_info: String //企業のid
+    var result: String //合否結果
+    var memo: String //メモ
 
     init(id: String, user: String, company: String, result: String, memo: String){
         self.id = id
@@ -188,13 +188,13 @@ struct Category: Identifiable, Equatable, Codable{
 //スケジュール
 struct Schedule: Identifiable, Equatable, Codable{
     let id: String //ID
-    let title: String //スケジュール名
-    let schedule_category: String //カテゴリのid
-    let internship_info: String //インターンのid
-    let corporate_info : String //企業のid
-    let start: String //いつから ->Dateへ変換する必要あり
-    let end: String //いつまで ->Dateへ変換する必要あり
-    let memo: String //メモ
+    var title: String //スケジュール名
+    var schedule_category: String //カテゴリのid
+    var internship_info: String //インターンのid
+    var corporate_info : String //企業のid
+    var start: String //いつから ->Dateへ変換する必要あり
+    var end: String //いつまで ->Dateへ変換する必要あり
+    var memo: String //メモ
 
     init(id: String, name: String, category: String, intern: String, company:String, begin: String, end: String, memo: String){
         self.id = id
@@ -654,7 +654,7 @@ class apiCall {
     }
     
     //本選考のデータを追加するメソッド
-    func addSelectionInfoFromUserID(userID: String, corporate_info: String, result: String, memo: String, completion: @escaping ([Selection]) -> Void) {
+    func addSelectionInfoToServer(userID: String, corporate_info: String, result: String, memo: String, completion: @escaping (String) -> Void) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "http"
         urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
@@ -678,10 +678,10 @@ class apiCall {
 
             if let data = data {
                 do {
-                    let decodedResponse = try JSONDecoder().decode([Selection].self, from: data)
+                    let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
                     print("success")
                     print(decodedResponse)
-                    completion(decodedResponse)
+                    completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
                 }
@@ -690,7 +690,7 @@ class apiCall {
     }
     
     //本選考のデータを編集するメソッド
-    func editSelectionInfoFromUserID(id: String, userID: String, corporate_info: String, result: String, memo: String, completion: @escaping ([Selection]) -> Void) {
+    func editSelectionInfoToServer(id: String, userID: String, corporate_info: String, result: String, memo: String, completion: @escaping (String) -> Void) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "http"
         urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
@@ -715,10 +715,10 @@ class apiCall {
 
             if let data = data {
                 do {
-                    let decodedResponse = try JSONDecoder().decode([Selection].self, from: data)
+                    let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
                     print("success")
                     print(decodedResponse)
-                    completion(decodedResponse)
+                    completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
                 }
@@ -727,7 +727,7 @@ class apiCall {
     }
     
     //本選考のデータを削除するメソッド
-    func deleteSelectionInfoFromUserID(id: String, completion: @escaping ([Selection]) -> Void) {
+    func deleteSelectionInfoToServer(id: String, completion: @escaping (String) -> Void) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "http"
         urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
@@ -748,10 +748,10 @@ class apiCall {
 
             if let data = data {
                 do {
-                    let decodedResponse = try JSONDecoder().decode([Selection].self, from: data)
+                    let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
                     print("success")
                     print(decodedResponse)
-                    completion(decodedResponse)
+                    completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
                 }
@@ -800,7 +800,7 @@ class apiCall {
     }
     
     //スケジュールのデータを追加するメソッド
-    func addScheduleInfoFromUserID(title: String, userID: String, schedule_category: String, internship_info: String, corporate_info: String, start_date: String, end_date: String, memo: String, completion: @escaping ([Schedule]) -> Void) {
+    func addScheduleInfoToServer(title: String, userID: String, schedule_category: String, internship_info: String, corporate_info: String, start_date: String, end_date: String, memo: String, completion: @escaping (String) -> Void) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "http"
         urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
@@ -811,8 +811,8 @@ class apiCall {
             URLQueryItem(name: "schedule_category", value: schedule_category),
             URLQueryItem(name: "internship_info", value: internship_info),
             URLQueryItem(name: "corporate_info", value: corporate_info),
-            URLQueryItem(name: "start_date", value: start_date),
-            URLQueryItem(name: "end_date", value: end_date),
+            URLQueryItem(name: "start", value: start_date),
+            URLQueryItem(name: "end", value: end_date),
             URLQueryItem(name: "memo", value: memo)
         ]
 
@@ -828,10 +828,10 @@ class apiCall {
 
             if let data = data {
                 do {
-                    let decodedResponse = try JSONDecoder().decode([Schedule].self, from: data)
+                    let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
                     print("success")
                     print(decodedResponse)
-                    completion(decodedResponse)
+                    completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
                 }
@@ -840,7 +840,7 @@ class apiCall {
     }
     
     //スケジュールのデータを編集するメソッド
-    func editScheduleInfoFromUserID(id: String, title: String, userID: String, schedule_category: String, internship_info: String, corporate_info: String, start_date: String, end_date: String, memo: String, completion: @escaping ([Schedule]) -> Void) {
+    func editScheduleInfoToServer(id: String, title: String, userID: String, schedule_category: String, internship_info: String, corporate_info: String, start_date: String, end_date: String, memo: String, completion: @escaping (String) -> Void) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "http"
         urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
@@ -852,8 +852,8 @@ class apiCall {
             URLQueryItem(name: "schedule_category", value: schedule_category),
             URLQueryItem(name: "internship_info", value: internship_info),
             URLQueryItem(name: "corporate_info", value: corporate_info),
-            URLQueryItem(name: "start_date", value: start_date),
-            URLQueryItem(name: "end_date", value: end_date),
+            URLQueryItem(name: "start", value: start_date),
+            URLQueryItem(name: "end", value: end_date),
             URLQueryItem(name: "memo", value: memo)
         ]
 
@@ -869,10 +869,10 @@ class apiCall {
 
             if let data = data {
                 do {
-                    let decodedResponse = try JSONDecoder().decode([Schedule].self, from: data)
+                    let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
                     print("success")
                     print(decodedResponse)
-                    completion(decodedResponse)
+                    completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
                 }
@@ -881,7 +881,7 @@ class apiCall {
     }
     
     //スケジュールのデータを削除するメソッド
-    func deleteScheduleInfoFromUserID(id: String, completion: @escaping ([Schedule]) -> Void) {
+    func deleteScheduleInfoToServer(id: String, completion: @escaping (String) -> Void) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "http"
         urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
@@ -902,10 +902,10 @@ class apiCall {
 
             if let data = data {
                 do {
-                    let decodedResponse = try JSONDecoder().decode([Schedule].self, from: data)
+                    let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
                     print("success")
                     print(decodedResponse)
-                    completion(decodedResponse)
+                    completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
                 }
@@ -954,7 +954,7 @@ class apiCall {
     }
     
     //インターンシップのデータを追加するメソッド
-    func addInternshipInfoFromUserID(userID: String, corporate_info: String, start_date: String, end_date: String, memo: String, completion: @escaping ([Internship_info]) -> Void) {
+    func addInternshipInfoToServer(userID: String, corporate_info: String, start_date: String, end_date: String, memo: String, completion: @escaping (String) -> Void) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "http"
         urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
@@ -962,8 +962,8 @@ class apiCall {
         urlComponents.queryItems = [
             URLQueryItem(name: "user_info", value: userID),
             URLQueryItem(name: "corporate_info", value: corporate_info),
-            URLQueryItem(name: "start_date", value: start_date),
-            URLQueryItem(name: "end_date", value: end_date),
+            URLQueryItem(name: "start", value: start_date),
+            URLQueryItem(name: "end", value: end_date),
             URLQueryItem(name: "memo", value: memo)
         ]
 
@@ -979,10 +979,10 @@ class apiCall {
 
             if let data = data {
                 do {
-                    let decodedResponse = try JSONDecoder().decode([Internship_info].self, from: data)
+                    let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
                     print("success")
                     print(decodedResponse)
-                    completion(decodedResponse)
+                    completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
                 }
@@ -991,7 +991,7 @@ class apiCall {
     }
     
     //インターンシップのデータを編集するメソッド
-    func editInternshipInfoFromUserID(id: String, userID: String, corporate_info: String, start_date: String, end_date: String, memo: String, completion: @escaping ([Internship_info]) -> Void) {
+    func editInternshipInfoToServer(id: String, userID: String, corporate_info: String, start_date: String, end_date: String, memo: String, completion: @escaping (String) -> Void) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "http"
         urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
@@ -1000,8 +1000,8 @@ class apiCall {
             URLQueryItem(name: "id", value: id),
             URLQueryItem(name: "user_info", value: userID),
             URLQueryItem(name: "corporate_info", value: corporate_info),
-            URLQueryItem(name: "start_date", value: start_date),
-            URLQueryItem(name: "end_date", value: end_date),
+            URLQueryItem(name: "start", value: start_date),
+            URLQueryItem(name: "end", value: end_date),
             URLQueryItem(name: "memo", value: memo)
         ]
 
@@ -1017,10 +1017,10 @@ class apiCall {
 
             if let data = data {
                 do {
-                    let decodedResponse = try JSONDecoder().decode([Internship_info].self, from: data)
+                    let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
                     print("success")
                     print(decodedResponse)
-                    completion(decodedResponse)
+                    completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
                 }
@@ -1029,7 +1029,7 @@ class apiCall {
     }
     
     //インターンシップのデータを削除するメソッド
-    func editInternshipInfoFromUserID(id: String, completion: @escaping ([Internship_info]) -> Void) {
+    func deleteInternshipInfotoServer(id: String, completion: @escaping (String) -> Void) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "http"
         urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
@@ -1050,10 +1050,10 @@ class apiCall {
 
             if let data = data {
                 do {
-                    let decodedResponse = try JSONDecoder().decode([Internship_info].self, from: data)
+                    let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
                     print("success")
                     print(decodedResponse)
-                    completion(decodedResponse)
+                    completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
                 }
@@ -1141,4 +1141,31 @@ func LoadOccupationData() -> [Occupation] {
         Occupation(name:"パート")
     ]
     return dummyoccupation
+}
+
+func SaveCategoryData(_ category:[Category]){
+    do {
+        let encodedData = try JSONEncoder().encode(category)
+        UserDefaults.standard.set(encodedData, forKey: "savedcategory")
+    } catch {
+        print("Error encoding person: \(error)")
+    }
+}
+
+func LoadCategoryData() -> [Category] {
+    if let savedData = UserDefaults.standard.data(forKey: "savedcategory") {
+        do {
+            let loadedCategory = try JSONDecoder().decode([Category].self, from: savedData)
+            return loadedCategory
+        } catch {
+            print("Error decoding person: \(error)")
+        }
+    }
+    let dummyCategory = [
+        Category(id:UUID().uuidString, category: "未選択"),
+        Category(id:UUID().uuidString, category: "カテゴリー1"),
+        Category(id:UUID().uuidString, category: "カテゴリー2"),
+        Category(id:UUID().uuidString, category: "カテゴリー3")
+    ]
+    return dummyCategory
 }
