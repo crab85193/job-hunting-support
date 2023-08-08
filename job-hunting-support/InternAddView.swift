@@ -50,7 +50,7 @@ struct InternAddView: View {
                             ForEach(CompanyList) { Company in
                                 Text("\(Company.name)").tag(Company.id)
                             }
-                        }, label: { Text("業種") }).pickerStyle(MenuPickerStyle())
+                        }, label: { Text("企業名") }).pickerStyle(MenuPickerStyle())
                     }
                 }
                 .padding()
@@ -109,7 +109,6 @@ struct InternAddView: View {
                             alertType = .alert1
                             showAlert.toggle()
                         }
-                        
                     }
                 } else {
                     print("Notfull")

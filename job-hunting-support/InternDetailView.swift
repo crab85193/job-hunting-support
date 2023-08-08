@@ -7,11 +7,7 @@
 import SwiftUI
 
 struct InternDetailView: View {
-    
-    //ログインしているユーザーの情報
-    @State var LoginUser: User = (LoadUserData() ?? User(name: "dummy", password: "01234", sex: "male", age: "20", graduate: "2023-03-31"))
 
-    @State var userid : String = ""
     @State var CompanyList : [Corporate_info]
     @Binding var InternInfo : Internship_info
     private let dateFormatter = DateFormatter()

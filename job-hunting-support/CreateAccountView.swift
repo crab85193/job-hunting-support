@@ -41,6 +41,8 @@ struct CreateAccountView: View {
     
     @State var OccupationList = [Occupation]()
     
+    @State var CategoryList = [Category]()
+    
     // 画面遷移
     @Environment(\.presentationMode) var presentationMode
     
