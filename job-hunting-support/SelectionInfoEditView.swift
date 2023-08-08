@@ -102,7 +102,7 @@ struct SelectionInfoEditView: View {
                     case .alert1:
                         return Alert(title: Text("エラーが発生しました。もう一度行ってください。"))
                     case .alert2:
-                        return Alert(title: Text("すべての必須項目\n（企業名、開始日、終了日）\nを入力または選択してください。"))
+                        return Alert(title: Text("すべての必須項目\n（企業情報、合否）\nを選択してください。"))
                 }
             })
         }

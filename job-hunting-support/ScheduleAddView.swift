@@ -12,17 +12,39 @@ struct ScheduleAddView: View {
     //画面遷移
     @Environment(\.presentationMode) var presentationMode
     
+    enum AlertType {
+       case alert1
+       case alert2
+    }
+    
+    @State var alertType: AlertType = .alert1
+    @State var showAlert = false
+    @State var showbar = false
+    
     //新規作成時の初期値
     @State private var scheduleName = ""
-    @State private var categorySelection = "1"
-    @State private var internSelection = "1"
+    @State private var categorySelection = ""
+    @State private var internSelection = ""
     @State private var companySelection = "1"
     @State var scheduleStartDate = Date()
     @State var scheduleFinishDate = Date()
     @State var newMemo = ""
     
+    @State var CategoryList = LoadCategoryData()
+    
+    var userid: String
+    @Binding var scheduleList: [Schedule]
+    @Binding var CompanyList: [Corporate_info]
+    @Binding var InternList: [Internship_info]
+    
     private let dateFormatter = DateFormatter()
-    init(){
+    init(userid: String, schedulelist: Binding<[Schedule]>, companylist: Binding<[Corporate_info]>, internlist: Binding<[Internship_info]>){
+        self.userid = userid
+        _scheduleList = schedulelist
+        _CompanyList = companylist
+        _InternList = internlist
+        dateFormatter.locale = Locale(identifier: "ja_JP")
+        dateFormatter.dateStyle = .medium
         dateFormatter.dateFormat = "YYYY-MM-dd"
     }
 
@@ -44,13 +66,11 @@ struct ScheduleAddView: View {
                 HStack{
                     Text("カテゴリー")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Picker(selection: $categorySelection, label: Text("インターン情報")) {
-                        Text("なし").tag("1")
-                        Text("カテゴリー1").tag("2")
-                        Text("カテゴリー2").tag("3")
-                        Text("カテゴリー3").tag("4")
-                        Text("カテゴリー4").tag("5")
-                    }
+                    Picker(selection: $categorySelection, content: {
+                        ForEach(CategoryList) { category in
+                            Text("\(category.name)").tag(category.id)
+                        }
+                    }, label: { Text("カテゴリー") })
                     .frame(width: 200)
                     .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                 }
@@ -60,13 +80,14 @@ struct ScheduleAddView: View {
                 HStack{
                     Text("インターン情報")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Picker(selection: $internSelection, label: Text("インターン情報")) {
-                        Text("なし").tag("1")
-                        Text("インターンリスト1").tag("2")
-                        Text("インターンリスト2").tag("3")
-                        Text("インターンリスト3").tag("4")
-                        Text("インターンリスト4").tag("5")
-                    }
+                    Picker(selection: $internSelection, content: {
+                        ForEach(InternList) { intern in
+                            if let viewCompany = CompanyList.first(where: {$0.id == intern.corporate_info}) {
+                                Text("\(viewCompany.name)").tag(intern.id)
+                            }
+                            
+                        }
+                    }, label: { Text("インターン情報") })
                     .frame(width: 200)
                     .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                 }
@@ -76,13 +97,11 @@ struct ScheduleAddView: View {
                 HStack{
                     Text("企業情報")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Picker(selection: $companySelection, label: Text("企業情報")) {
-                        Text("なし").tag("1")
-                        Text("企業リスト1").tag("2")
-                        Text("企業リスト2").tag("3")
-                        Text("企業リスト3").tag("4")
-                        Text("企業リスト4").tag("5")
-                    }
+                    Picker(selection: $companySelection, content: {
+                        ForEach(CompanyList) { company in
+                            Text("\(company.name)").tag(company.id)
+                        }
+                    }, label: { Text("企業情報") })
                     .frame(width: 200)
                     .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                 }
@@ -120,15 +139,46 @@ struct ScheduleAddView: View {
             .navigationTitle("スケジュールを追加")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(trailing: Button("作成") {
-                //企業リスト画面に戻る
-                presentationMode.wrappedValue.dismiss()
+                if ((scheduleName != "") && ((categorySelection != "") && (categorySelection != "0")) && ((companySelection != "") && (companySelection != "0")) && ((internSelection != "") && (internSelection != "0"))) {
+                    let StartDateString = dateFormatter.string(from: scheduleStartDate)
+                    let EndDateString = dateFormatter.string(from: scheduleFinishDate)
+                    apiCall().addScheduleInfoToServer(title: scheduleName, userID: userid, schedule_category: categorySelection, internship_info: internSelection, corporate_info: companySelection, start_date: StartDateString, end_date: EndDateString, memo: newMemo) { response in
+                        let response = response
+                        if response == "OK"{
+                            scheduleStartDate = Date()
+                            scheduleFinishDate = Date()
+                            newMemo = ""
+                            
+                            DispatchQueue.main.async {
+                                presentationMode.wrappedValue.dismiss()
+                            }
+                        } else {
+                            print("Error in Response")
+                            alertType = .alert1
+                            showAlert.toggle()
+                        }
+                    }
+                } else {
+                    print("Notfull")
+                    alertType = .alert2
+                    showAlert.toggle()
+                }
+            }.alert(isPresented: $showAlert) {
+                switch alertType {
+                    case .alert1:
+                        return Alert(title: Text("エラーが発生しました。もう一度行ってください。"))
+                    case .alert2:
+                        return Alert(title: Text("すべての必須項目\n（スケジュール名、カテゴリー、企業情報、インターン情報）\nを入力または選択してください。\nもし、企業名またはインターン情報選択欄で、\n「未選択」のみであれば先に企業情報を追加してください"))
+                }
             })
         }
     }
 }
 
-struct ScheduleAddView_Previews: PreviewProvider {
-    static var previews: some View {
-        ScheduleAddView()
-    }
-}
+/*
+ struct ScheduleAddView_Previews: PreviewProvider {
+ static var previews: some View {
+ ScheduleAddView()
+ }
+ }
+ */

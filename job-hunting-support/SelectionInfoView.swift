@@ -63,16 +63,6 @@ struct SelectionInfoView: View {
                         Text("本選考の情報が登録されていません")
                     }
                 }
-
-                //カレンダーセクション
-                Section(header: Text("カレンダー").font(.title3)){
-                    DatePicker("Calendar", selection: $date)
-                        .labelsHidden()
-                        .datePickerStyle(GraphicalDatePickerStyle())
-                        .frame(width: 300, height: 400)
-                    //Text(dateFormatter.string(from: date))
-                    //    .frame(maxWidth: .infinity, alignment: .center)
-                }
             }
             .navigationTitle("選考情報")
             .navigationBarTitleDisplayMode(.inline)
@@ -86,8 +76,9 @@ struct SelectionInfoView: View {
             .onAppear(){
                 apiCall().getCompanyInfoFromUserID(userID: LoginUser.id) { (corporate_info) in
                     self.CompanyList = corporate_info
+                    let firstCompany = Corporate_info(id: "0", user: "", name: "未選択", Industry: "", Occupation: "", business: "", establishment: "", employees: "", capital: "", sales: "", operating_income: "", representative: "", location: "", registration: "", memo: "")
+                    CompanyList.insert(firstCompany, at: 0)
                 }
-                print(CompanyList)
                 
                 print(LoginUser)
                 apiCall().getSelectionInfoFromUserID(userID: LoginUser.id){ (selection) in
