@@ -133,7 +133,7 @@ struct ScheduleView: View {
                 print(ScheduleList)
                 
             }
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
     
     private func deleteSelectedScheduleInfo(at indexSet: IndexSet) {

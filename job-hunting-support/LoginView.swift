@@ -97,28 +97,27 @@ struct LoginView: View {
                                     self.IndustryList = industry
                                     IndustryList.insert(firstindustry, at: 0)
                                     SaveIndustryData(IndustryList)
+                                    apiCall().getOccupation{ (occupation) in
+                                        self.OccupationList = occupation
+                                        OccupationList.insert(firstoccupation, at: 0)
+                                        SaveOccupationData(OccupationList)
+                                        apiCall().getCategory { (category) in
+                                            self.CategoryList = category
+                                            CategoryList.insert(firstcategory, at: 0)
+                                            SaveCategoryData(CategoryList)
+                                            isLogin.toggle()
+                                            print("ログインできます")
+                                            DispatchQueue.main.async {
+                                                ContentView()
+                                            }
+                                        }
+                                    }
                                 }
-                                
-                                apiCall().getOccupation{ (occupation) in
-                                    self.OccupationList = occupation
-                                    OccupationList.insert(firstoccupation, at: 0)
-                                    SaveOccupationData(OccupationList)
-                                }
-                                
-                                apiCall().getCategory { (category) in
-                                    self.CategoryList = category
-                                    CategoryList.insert(firstcategory, at: 0)
-                                    SaveCategoryData(CategoryList)
-                                }
-                                isLogin.toggle()
                             } else {
                                 print("そんなユーザーは存在しない")
                                 NotExistAlert = true
                             }
                             name = inputUserName
-                            if isLogin {
-                                ContentView()
-                            }
                         }
                     }label: {
                         Text("ログイン")

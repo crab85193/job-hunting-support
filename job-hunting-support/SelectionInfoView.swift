@@ -87,7 +87,7 @@ struct SelectionInfoView: View {
                 print(SelectionList)
                 
             }
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
     
     private func deleteSelectedSelectionInfo(at indexSet: IndexSet) {

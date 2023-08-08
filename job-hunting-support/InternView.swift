@@ -76,7 +76,7 @@ struct InternView: View {
                 }
                 print(CompanyList)
             }
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
     
     //削除前のアラートを呼び出す
