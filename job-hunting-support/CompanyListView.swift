@@ -101,13 +101,13 @@ struct CompanyListView: View {
                 }
             }
             .onAppear(){
-                print(LoginUser)
+                //print(LoginUser)
                 apiCall().getCompanyInfoFromUserID(userID: LoginUser.id) { (corporate_info) in
                     self.CompanyList = corporate_info
                 }
-                print(CompanyList)
+                //print(CompanyList)
             }
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
     
     //選択したCompanyの前処理

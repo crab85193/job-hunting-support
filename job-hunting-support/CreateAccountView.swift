@@ -148,33 +148,37 @@ struct CreateAccountView: View {
                                     SaveUserData(login_User)
                                     let firstindustry = Industry(id: "0", name: "未選択")
                                     let firstoccupation = Occupation(id: "0", name: "未選択")
+                                    let firstcategory = Category(id: "0", category: "未選択")
                                     apiCall().getIndustry{ (industry) in
                                         self.IndustryList = industry
                                         IndustryList.insert(firstindustry, at: 0)
                                         SaveIndustryData(IndustryList)
+                                        apiCall().getOccupation{ (occupation) in
+                                            self.OccupationList = occupation
+                                            OccupationList.insert(firstoccupation, at: 0)
+                                            SaveOccupationData(OccupationList)
+                                            apiCall().getCategory { (category) in
+                                                self.CategoryList = category
+                                                CategoryList.insert(firstcategory, at: 0)
+                                                SaveCategoryData(CategoryList)
+                                                isLogin.toggle()
+                                                inputUserName = ""
+                                                password = ""
+                                                year = ""
+                                                sex = ""
+                                                age = ""
+                                                DispatchQueue.main.async {
+                                                    ContentView()
+                                                }
+                                            }
+                                        }
                                     }
-                                    
-                                    apiCall().getOccupation{ (occupation) in
-                                        self.OccupationList = occupation
-                                        OccupationList.insert(firstoccupation, at: 0)
-                                        SaveOccupationData(OccupationList)
-                                    }
-                                    isLogin.toggle()
                                 } else {
                                     print("Error")
                                     alertType = .alert1
                                     showAlert.toggle()
                                 }
-                                name = inputUserName
                                 print("Login動作完了 ")
-                                if isLogin{
-                                    inputUserName = ""
-                                    password = ""
-                                    year = ""
-                                    sex = ""
-                                    age = ""
-                                    ContentView()
-                                }
                             }
                         } else {
                             print("Error発生")
