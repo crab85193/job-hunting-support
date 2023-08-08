@@ -34,8 +34,6 @@ struct SelectionInfoAddView: View {
         self.userid = userid
         _SelectionList = selectionList
         _CompanyList = companyList
-        let firstindex = Corporate_info(id: "0", user: "", name: "未選択", Industry: "", Occupation: "", business: "", establishment: "", employees: "", capital: "", sales: "", operating_income: "", representative: "", location: "", registration: "", memo: "")
-        CompanyList.insert(firstindex, at: 0)
     }
 
     var body: some View {
@@ -110,7 +108,7 @@ struct SelectionInfoAddView: View {
                     case .alert1:
                         return Alert(title: Text("エラーが発生しました。もう一度行ってください。"))
                     case .alert2:
-                        return Alert(title: Text("すべての必須項目\n（企業名、開始日、終了日）\nを入力または選択してください。\nもし、企業名選択欄で、\n「未選択」のみであれば先に企業情報を追加してください"))
+                        return Alert(title: Text("すべての必須項目\n（企業情報、合否）\nを選択してください。\nもし、企業名選択欄で、\n「未選択」のみであれば先に企業情報を追加してください"))
                 }
             })
         }
