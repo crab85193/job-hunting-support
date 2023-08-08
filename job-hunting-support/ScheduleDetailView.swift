@@ -28,21 +28,15 @@ struct ScheduleDetailView: View {
 
     var body: some View {
             ScrollView{
-                Text("スケジュール名")
-                    .padding(.top, 30)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 20)
-                VStack{
-                    Text("\(ScheduleInfo.title)")
-                        .fixedSize(horizontal: false, vertical: true)
-                        .padding(.all, 10)
+                HStack{
+                    Text("スケジュール名")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.black, lineWidth: 1)
-                        )
+                    Text("\(ScheduleInfo.title)")
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                 }
-                .padding(.horizontal, 20)
+                .padding(.all, 20)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
 
                 HStack{
                     Text("カテゴリー")
@@ -57,8 +51,8 @@ struct ScheduleDetailView: View {
                             .frame(maxWidth: .infinity, alignment: .trailing)
                     }
                 }
-                .frame(maxWidth: .infinity)
                 .padding(.all, 20)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
 
                 HStack{
                     Text("インターン情報")
@@ -78,6 +72,7 @@ struct ScheduleDetailView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.all, 20)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
 
                 HStack{
                     Text("企業情報")
@@ -94,6 +89,7 @@ struct ScheduleDetailView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.all, 20)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
 
                 HStack{
                     Text("スケジュール\n開始日")
@@ -109,6 +105,7 @@ struct ScheduleDetailView: View {
                     }
                 }
                 .padding(.all, 20)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
 
                 HStack{
                     Text("スケジュール\n終了日")
@@ -124,16 +121,29 @@ struct ScheduleDetailView: View {
                     }
                 }
                 .padding(.all, 20)
-
-                HStack{
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                
+                VStack{
                     Text("メモ")
-                        //.font(.title2)
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
-                    Text(ScheduleInfo.memo)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                        .autocapitalization(.none)
-                }
+                    if (ScheduleInfo.memo != "") {
+                        Text(ScheduleInfo.memo)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.bottom)
+                            .padding(.leading)
+                            .padding(.trailing)
+                    } else {
+                        Text("記録なし")
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.bottom)
+                            .padding(.leading)
+                            .padding(.trailing)
+                    }
+                }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
             }
             .navigationTitle("スケジュールの詳細")
             .navigationBarTitleDisplayMode(.inline)
