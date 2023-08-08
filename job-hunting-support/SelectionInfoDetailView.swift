@@ -63,26 +63,43 @@ struct SelectionInfoDetailView: View {
              */
             HStack{
                 Text("合否")
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.headline)
+                    .padding()
                 if SelectionInfo.result != "" {
                     Text(SelectionInfo.result)
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                 } else {
                     Text("未選択")
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }
-            .frame(maxWidth: .infinity)
-            .padding(.all, 30)
+            .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
             
-            HStack{
+            VStack{
                 Text("メモ")
-                    .padding(30)
+                    .font(.headline)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text(SelectionInfo.memo)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .frame(width: 220)
-                    .padding(.trailing, 30)
-                    .autocapitalization(.none)
-            }
+                    .padding()
+                if (SelectionInfo.memo != "") {
+                    Text(SelectionInfo.memo)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.bottom)
+                        .padding(.leading)
+                        .padding(.trailing)
+                } else {
+                    Text("記録なし")
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.bottom)
+                        .padding(.leading)
+                        .padding(.trailing)
+                }
+
+            }.overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+            
             .navigationTitle("選考情報の詳細")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

@@ -77,10 +77,6 @@ struct InternDetailView: View {
                         Text(InternInfo.memo)
                             .fixedSize(horizontal: false, vertical: true)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.black, lineWidth: 1)
-                            ).frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.bottom)
                             .padding(.leading)
                             .padding(.trailing)
@@ -88,10 +84,6 @@ struct InternDetailView: View {
                         Text("記録なし")
                             .fixedSize(horizontal: false, vertical: true)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.black, lineWidth: 1)
-                            ).frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.bottom)
                             .padding(.leading)
                             .padding(.trailing)
