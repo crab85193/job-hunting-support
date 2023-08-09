@@ -44,71 +44,79 @@ struct InternEditView: View {
     }
     
     var body: some View {
-        VStack{
-            HStack{
-                Text("企業名")
-                    .padding()
-                    .frame(width: 100)
-                Section{
-                    Picker(selection: $editedinterninfo.corporate_info, content: {
-                        ForEach(CompanyList) { company in
-                            Text("\(company.name)").tag(company.id)
-                        }
-                    }, label: { Text("企業名") }).pickerStyle(MenuPickerStyle())
-                }
-                .autocapitalization(.none)
-                .frame(width: 250, height:50)
-                .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
-                .padding()
-                Spacer()
-            }
-
-            HStack{
-                Text("インターン開始日")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                DatePicker("Calendar", selection: $editedStartDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
-                    .labelsHidden()
-            }
-            .padding()
-
-            HStack{
-                Text("インターン終了日")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                DatePicker("Calendar", selection: $editedEndDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
-                    .labelsHidden()
-            }
-            .padding()
-            
-            HStack{
-                Text("メモ")
-                    //.font(.title2)
-                    .padding()
-                TextField("メモ", text:$editedinterninfo.memo)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
+        ScrollView{
+            VStack{
+                HStack{
+                    Text("企業名")
+                        .padding()
+                        .frame(width: 100)
+                    Section{
+                        Picker(selection: $editedinterninfo.corporate_info, content: {
+                            ForEach(CompanyList) { company in
+                                Text("\(company.name)").tag(company.id)
+                            }
+                        }, label: { Text("企業名") }).pickerStyle(MenuPickerStyle())
+                    }
                     .autocapitalization(.none)
-            }
-            
-            .navigationTitle("インターン情報　編集")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: Button("保存") {
-                if ((editedinterninfo.corporate_info != "") && (editedinterninfo.corporate_info != "0")) {
-                    let editedStartDateString = dateFormatter.string(from: editedStartDate)
-                    editedinterninfo.start = editedStartDateString
-                    let editedEndDateString = dateFormatter.string(from: editedEndDate)
-                    editedinterninfo.end = editedEndDateString
-                    apiCall().editInternshipInfoToServer(id: interninfo.id, userID: interninfo.id, corporate_info: editedinterninfo.corporate_info, start_date: editedinterninfo.start, end_date: editedinterninfo.end, memo: editedinterninfo.memo) { response in
-                        self.response = response
-                        if response == "OK" {
-                            interninfo = editedinterninfo
-                            DispatchQueue.main.async {
-                                presentationMode.wrappedValue.dismiss()
+                    .frame(width: 250, height:50)
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                    .padding()
+                    Spacer()
+                }
+
+                HStack{
+                    Text("インターン開始日")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    DatePicker("Calendar", selection: $editedStartDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
+                        .labelsHidden()
+                }.padding()
+
+                HStack{
+                    Text("インターン終了日")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    DatePicker("Calendar", selection: $editedEndDate, displayedComponents: .date).environment(\.locale, Locale(identifier: "ja_JP"))
+                        .labelsHidden()
+                }.padding()
+                
+                VStack{
+                    Text("メモ")
+                        .frame(width: 340, alignment: .leading)
+                    TextEditor(text:$editedinterninfo.memo)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .autocapitalization(.none)
+                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                        .frame(width: 350, height: 200)
+                }.padding()
+                
+                .navigationTitle("インターン情報　編集")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarItems(trailing: Button("保存") {
+                    if ((editedinterninfo.corporate_info != "") && (editedinterninfo.corporate_info != "0")) {
+                        let editedStartDateString = dateFormatter.string(from: editedStartDate)
+                        editedinterninfo.start = editedStartDateString
+                        let editedEndDateString = dateFormatter.string(from: editedEndDate)
+                        editedinterninfo.end = editedEndDateString
+                        apiCall().editInternshipInfoToServer(id: interninfo.id, userID: interninfo.id, corporate_info: editedinterninfo.corporate_info, start_date: editedinterninfo.start, end_date: editedinterninfo.end, memo: editedinterninfo.memo) { response in
+                            self.response = response
+                            if response == "OK" {
+                                interninfo = editedinterninfo
+                                DispatchQueue.main.async {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                            } else {
+                                print("Error in Response")
+                                alertType = .alert1
+                                showAlert.toggle()
                             }
                         } else {
                             //print("Error in Response")
                             alertType = .alert1
                             showAlert.toggle()
                         }
+                    } else {
+                        print("Notfull")
+                        alertType = .alert2
+                        showAlert.toggle()
                     }
                 } else {
                     //print("Notfull")

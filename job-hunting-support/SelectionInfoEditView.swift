@@ -34,63 +34,73 @@ struct SelectionInfoEditView: View {
     }
 
     var body: some View {
-        VStack{
-            HStack{
-                Text("企業情報")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Picker(selection: $editedselectioninfo.corporate_info, label: Text("企業情報")) {
-                    ForEach(CompanyList) { Company in
-                        Text("\(Company.name)").tag(Company.id)
-                    }
-                }
-                .frame(width: 200)
-                .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.all, 20)
-
-            HStack{
-                Text("合否")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Picker(selection: $editedselectioninfo.result, label: Text("合否")) {
-                    Text("未選択").tag("0")
-                    Text("合格").tag("pass")
-                    Text("不合格").tag("fail")
-                    Text("保留").tag("none")
-                }
-                .frame(width: 200)
-                .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.all, 20)
-
-            HStack{
-                VStack{
-                    Text("メモ")
+        ScrollView{
+            VStack{
+                HStack{
+                    Text("企業情報")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    TextEditor(text: $editedselectioninfo.memo)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .autocapitalization(.none)
-                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
-                        .frame(width: 350, height: 200)
-                }.padding()
-            }
-            .navigationTitle("選考情報の編集")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: Button("保存") {
-                if (((editedselectioninfo.corporate_info != "") && (editedselectioninfo.corporate_info != "0")) && ((editedselectioninfo.result != "") && (editedselectioninfo.result != "0"))) {
-                    apiCall().editSelectionInfoToServer(id: selectioninfo.id, userID: selectioninfo.user_info, corporate_info: editedselectioninfo.corporate_info, result: editedselectioninfo.result, memo: editedselectioninfo.memo){ response in
-                        self.response = response
-                        if response == "OK" {
-                            selectioninfo = editedselectioninfo
-                            DispatchQueue.main.async {
-                                presentationMode.wrappedValue.dismiss()
+                    Picker(selection: $editedselectioninfo.corporate_info, label: Text("企業情報")) {
+                        ForEach(CompanyList) { Company in
+                            Text("\(Company.name)").tag(Company.id)
+                        }
+                    }
+                    .frame(width: 200)
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.all, 20)
+
+                HStack{
+                    Text("合否")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Picker(selection: $editedselectioninfo.result, label: Text("合否")) {
+                        Text("未選択").tag("0")
+                        Text("合格").tag("pass")
+                        Text("不合格").tag("fail")
+                        Text("保留").tag("none")
+                    }
+                    .frame(width: 200)
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.all, 20)
+
+                HStack{
+                    VStack{
+                        Text("メモ")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        TextEditor(text: $editedselectioninfo.memo)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .autocapitalization(.none)
+                            .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                            .frame(width: 350, height: 200)
+                    }.padding()
+                }
+                .navigationTitle("選考情報の編集")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarItems(trailing: Button("保存") {
+                    if (((editedselectioninfo.corporate_info != "") && (editedselectioninfo.corporate_info != "0")) && ((editedselectioninfo.result != "") && (editedselectioninfo.result != "0"))) {
+                        apiCall().editSelectionInfoToServer(id: selectioninfo.id, userID: selectioninfo.user_info, corporate_info: editedselectioninfo.corporate_info, result: editedselectioninfo.result, memo: editedselectioninfo.memo){ response in
+                            self.response = response
+                            if response == "OK" {
+                                selectioninfo = editedselectioninfo
+                                DispatchQueue.main.async {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                            } else {
+                                print("Error in Response")
+                                alertType = .alert1
+                                showAlert.toggle()
                             }
                         } else {
                             //print("Error in Response")
                             alertType = .alert1
                             showAlert.toggle()
                         }
+                    } else {
+                        print("Notfull")
+                        alertType = .alert2
+                        showAlert.toggle()
                     }
                 } else {
                     //print("Notfull")
