@@ -52,16 +52,33 @@ struct SelectionInfoAddView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.all, 20)
-
+                
                 HStack{
                     Text("合否")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    TextEditor(text: $newMemo)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .autocapitalization(.none)
-                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
-                        .frame(width: 350, height: 200)
-                }.padding()
+                    Picker(selection: $resultSelection, label: Text("合否")) {
+                        Text("未選択").tag("0")
+                        Text("合格").tag("pass")
+                        Text("不合格").tag("fail")
+                        Text("保留").tag("none")
+                    }
+                    .frame(width: 200)
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.all, 20)
+                
+                HStack{
+                    VStack{
+                        Text("メモ")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        TextEditor(text: $newMemo)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .autocapitalization(.none)
+                            .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                            .frame(width: 350, height: 200)
+                    }.padding()
+                }
             }
             .navigationTitle("選考情報の追加")
             .navigationBarTitleDisplayMode(.inline)
@@ -89,6 +106,13 @@ struct SelectionInfoAddView: View {
                     showAlert.toggle()
                 }
                 
+            }.alert(isPresented: $showAlert) {
+                switch alertType {
+                    case .alert1:
+                        return Alert(title: Text("エラーが発生しました。もう一度行ってください。"))
+                    case .alert2:
+                        return Alert(title: Text("すべての必須項目\n（企業情報、合否）\nを選択してください。"))
+                }
             })
         }
     }
