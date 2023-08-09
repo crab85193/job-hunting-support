@@ -23,19 +23,19 @@ struct ContentView: View {
                     Text("企業リスト")
                     }
                     .tag(0)
+                InternView()
+                    .tabItem{Image(systemName: "figure.walk")
+                    Text("インターン")
+                    }
+                    .tag(1)
                 ScheduleView()
                     .tabItem{Image(systemName: "calendar")
                     Text("スケジュール")
                     }
-                    .tag(1)
+                    .tag(2)
                 SelectionInfoView()
                     .tabItem{Image(systemName: "doc.text")
                     Text("選考情報")
-                    }
-                    .tag(2)
-                InternView()
-                    .tabItem{Image(systemName: "figure.walk")
-                    Text("インターン")
                     }
                     .tag(3)
                 ProfileView()
