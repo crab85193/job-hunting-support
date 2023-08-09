@@ -17,12 +17,13 @@ struct InternAddView: View {
     @State var FinishDateString = ""
     var userid: String
     @Binding var internList: [Internship_info]
-    @State var CompanyList = [Corporate_info]()
+    @Binding var CompanyList: [Corporate_info]
     
     private let dateFormatter = DateFormatter()
-    init(userid: String, internList: Binding<[Internship_info]>){
+    init(userid: String, internList: Binding<[Internship_info]>, companylist: Binding<[Corporate_info]>){
         self.userid = userid
         _internList = internList
+        _CompanyList = companylist
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateStyle = .medium
         dateFormatter.dateFormat = "YYYY-MM-dd"
