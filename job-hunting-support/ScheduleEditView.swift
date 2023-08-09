@@ -162,6 +162,8 @@ struct ScheduleEditView: View {
                 apiCall().editScheduleInfoToServer(id: ScheduleInfo.id, title: editedSchedule.title, userID: ScheduleInfo.id, schedule_category: editedSchedule.schedule_category, internship_info: editedintern, corporate_info: editedcompany, start_date: StartDateString, end_date: EndDateString, memo: editedSchedule.memo){ response in
                     self.response = response
                     if response == "OK"{
+                        editedSchedule.internship_info = editedintern
+                        editedSchedule.corporate_info = editedcompany
                         ScheduleInfo = editedSchedule
                         DispatchQueue.main.async {
                             presentationMode.wrappedValue.dismiss()
