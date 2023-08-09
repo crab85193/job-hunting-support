@@ -35,6 +35,7 @@ struct ProfileEditView: View {
             VStack {
                 VStack(spacing: 20){
                     Text("ユーザー名")
+                        .padding(.top, 20)
                     TextField("ユーザー名", text: $editedUserData.name)
                         .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                         .keyboardType(.asciiCapable)
@@ -42,6 +43,7 @@ struct ProfileEditView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())  // 入力域のまわりを枠で囲む
                         .frame(width: 300)
                         .padding(.trailing, 30)
+                        .padding(.bottom, 15)
                     
                     Text("パスワード")
                     HStack{
@@ -66,7 +68,7 @@ struct ProfileEditView: View {
                     }
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.leading, 8)
-                    .padding(.bottom, 15)
+                    .padding(.bottom, 25)
                     
                     HStack{
                         Text("卒業予定年度")
@@ -84,6 +86,7 @@ struct ProfileEditView: View {
                         Spacer()
                     }
                     .padding(.horizontal)
+                    .padding(.bottom, 15)
                     HStack{
                         Text("性別")
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -98,6 +101,7 @@ struct ProfileEditView: View {
                         Spacer()
                     }
                     .padding(.horizontal)
+                    .padding(.bottom, 15)
                     HStack{
                         Text("年齢")
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -108,11 +112,12 @@ struct ProfileEditView: View {
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .frame(width: 150)
                     }
-                    .padding(.trailing, 8)
                     .padding(.horizontal)
+                    .padding(.trailing, 8)
+                    .padding(.bottom, 15)
                 }
                 .padding(.all, 20)
-                
+                /*
                 HStack{
                     Text("年齢")
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -122,6 +127,7 @@ struct ProfileEditView: View {
                         .frame(width: 65)
                 }
                 .padding(.all, 20)
+                 */
             }
             .padding(.bottom, 50)
             .navigationTitle("プロフィールの編集")
