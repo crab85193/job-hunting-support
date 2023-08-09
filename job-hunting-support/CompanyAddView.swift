@@ -339,11 +339,15 @@ struct CompanyAddView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarHidden(showbar)
         .navigationBarItems(trailing: Button("作成") {
+            /*
             print("変更前")
             print(selectionDate)
+             */
             selectionDateString = dateFormatter.string(from: selectionDate)
+            /*
             print("変更後")
             print(selectionDateString)
+             */
             if ((newName != "") && ((selectindustry != "") && (selectindustry != "0")) && ((selectoccupation != "") && (selectoccupation != "0")) && (newlocation != "")){
                 apiCall().addCompanyInfotoServer(userID: userid, name: newName, industry: selectindustry, occupation: selectoccupation, business: newbusiness, establishment: selectionDateString, employees: String(newEmployees), capital: String(newcapital), sales: String(newsales), operating_income: String(newincome), representative: newrepresentative, location: newlocation, registration: dateFormatter.string(from: currentdate), memo: newmemo) { response in
                     self.response = response
@@ -366,13 +370,13 @@ struct CompanyAddView: View {
                             presentationMode.wrappedValue.dismiss()
                         }
                     } else {
-                        print("Error in Response")
+                        //print("Error in Response")
                         alertType = .alert1
                         showAlert.toggle()
                     }
                 }
             } else {
-                print("Notfull")
+                //print("Notfull")
                 alertType = .alert2
                 showAlert.toggle()
             }

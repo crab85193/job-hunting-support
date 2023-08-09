@@ -86,13 +86,13 @@ struct InternAddView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(trailing: Button("追加") {
                 StartDateString = dateFormatter.string(from: StartDate)
-                print("変更後")
-                print(StartDateString)
+                //print("変更後")
+                //print(StartDateString)
                 FinishDateString = dateFormatter.string(from: FinishDate)
-                print("変更後")
-                print(FinishDateString)
-                print(selectCompany)
-                print(newMemo)
+                //print("変更後")
+                //print(FinishDateString)
+                //print(selectCompany)
+                //print(newMemo)
                 if ((selectCompany != "") && (selectCompany != "0")) {
                     apiCall().addInternshipInfoToServer(userID: userid, corporate_info: selectCompany, start_date: StartDateString, end_date: FinishDateString, memo: newMemo) { response in
                         let response = response
@@ -105,13 +105,13 @@ struct InternAddView: View {
                                 presentationMode.wrappedValue.dismiss()
                             }
                         } else {
-                            print("Error in Response")
+                           //print("Error in Response")
                             alertType = .alert1
                             showAlert.toggle()
                         }
                     }
                 } else {
-                    print("Notfull")
+                    //print("Notfull")
                     alertType = .alert2
                     showAlert.toggle()
                 }

@@ -38,9 +38,9 @@ struct InternEditView: View {
         dateFormatter.dateStyle = .medium
         dateFormatter.dateFormat = "yyyy-MM-dd"
         _editedStartDate = State(initialValue: dateFormatter.date(from: interninfo.wrappedValue.start) ?? Date())
-        print(editedStartDate)
+        //print(editedStartDate)
         _editedEndDate = State(initialValue: dateFormatter.date(from: interninfo.wrappedValue.end) ?? Date())
-        print(editedEndDate)
+        //print(editedEndDate)
     }
     
     var body: some View {
@@ -105,13 +105,13 @@ struct InternEditView: View {
                                 presentationMode.wrappedValue.dismiss()
                             }
                         } else {
-                            print("Error in Response")
+                            //print("Error in Response")
                             alertType = .alert1
                             showAlert.toggle()
                         }
                     }
                 } else {
-                    print("Notfull")
+                    //print("Notfull")
                     alertType = .alert2
                     showAlert.toggle()
                 }

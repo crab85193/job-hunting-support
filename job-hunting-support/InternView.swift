@@ -66,15 +66,15 @@ struct InternView: View {
                 }
             }
             .onAppear(){
-                print(LoginUser)
+                //print(LoginUser)
                 apiCall().getInternshipInfoFromUserID(userID: LoginUser.id){ (internship_info) in
                     self.InternshipList = internship_info
                 }
-                print(InternshipList)
+                //print(InternshipList)
                 apiCall().getCompanyInfoFromUserID(userID: LoginUser.id) { (corporate_info) in
                     self.CompanyList = corporate_info
                 }
-                print(CompanyList)
+                //print(CompanyList)
             }
         }.navigationViewStyle(StackNavigationViewStyle())
     }

@@ -16,8 +16,6 @@ struct LoginView: View {
     @State private var isSecure = false
     @State private var pushLogin = false
     @State var pushCreate = false
-    //ここから下の三つを追加した。
-    @AppStorage("user_name") var name = ""
     @AppStorage("isLogin") var isLogin = false
     @State var login_User: User = User(name: "", password: "", sex: "", age: "", graduate: "")
     @State var pushLoginButton: Bool = false
@@ -86,9 +84,9 @@ struct LoginView: View {
                         apiCall().getUserFromNameAndPassword(name: inputUserName, password: password) { (user) in
                             self.selectionuser = user
                             if selectionuser.count == 1 {
-                                print("正常に動作してる")
+                                //print("正常に動作してる")
                                 login_User = selectionuser[0]
-                                print(login_User)
+                                //print(login_User)
                                 SaveUserData(login_User)
                                 let firstindustry = Industry(id: "0", name: "未選択")
                                 let firstoccupation = Occupation(id: "0", name: "未選択")
@@ -106,7 +104,7 @@ struct LoginView: View {
                                             CategoryList.insert(firstcategory, at: 0)
                                             SaveCategoryData(CategoryList)
                                             isLogin.toggle()
-                                            print("ログインできます")
+                                            //print("ログインできます")
                                             DispatchQueue.main.async {
                                                 ContentView()
                                             }
@@ -114,10 +112,9 @@ struct LoginView: View {
                                     }
                                 }
                             } else {
-                                print("そんなユーザーは存在しない")
+                                //print("そんなユーザーは存在しない")
                                 NotExistAlert = true
                             }
-                            name = inputUserName
                         }
                     }label: {
                         Text("ログイン")

@@ -87,13 +87,13 @@ struct SelectionInfoEditView: View {
                                 presentationMode.wrappedValue.dismiss()
                             }
                         } else {
-                            print("Error in Response")
+                            //print("Error in Response")
                             alertType = .alert1
                             showAlert.toggle()
                         }
                     }
                 } else {
-                    print("Notfull")
+                    //print("Notfull")
                     alertType = .alert2
                     showAlert.toggle()
                 }

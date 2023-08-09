@@ -8,16 +8,7 @@
 import SwiftUI
 
 struct ScheduleEditView: View {
-    
-    
-    
-    //表示確認用
-    @State var scheduleName = ""
-    @State var testMemo = ""
-    @State var testCompanyName = ""
-    @State var testStartDate = Date()
-    @State var testFinishDate = Date()
-    
+
     enum AlertType {
        case alert1
        case alert2

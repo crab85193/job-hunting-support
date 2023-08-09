@@ -27,9 +27,6 @@ struct CompanyDetailView: View {
         dateFormatter.dateFormat = "yyyy-MM-dd"
     }
     
-    //ナビゲーションバーの戻るボタンを消すための定義
-    @Environment(\.presentationMode) var presentationMode
-    
     var body: some View {
         ScrollView{
             HStack{
@@ -238,39 +235,3 @@ struct CompanyDetailView: View {
         }())
     }
 }
-
-/*
- 
- struct CompanyDetailsView: View {
- //詳細表示する会社を保持する変数
- @Binding var company: corporate_info
- @Binding var industryList : [industry]
- @Binding var occupationList : [occupation]
- 
- var body: some View {
- ScrollView{
- 
- Text("従業員数: \(company.employees)").font(.title3)
- .padding()
- .frame(maxWidth: .infinity, alignment: .leading)
- 
- Text("従業員数: \(company.employees)").font(.title3)
- .padding()
- .frame(maxWidth: .infinity, alignment: .leading)
- 
- Text("従業員数: \(company.employees)").font(.title3)
- .padding()
- .frame(maxWidth: .infinity, alignment: .leading)
- 
- Text("従業員数: \(company.employees)").font(.title3)
- .padding()
- .frame(maxWidth: .infinity, alignment: .leading)
- 
- NavigationLink(destination: EditCompanyView(company: $company, industryList: $industryList, occupationList: $occupationList)) {
- Text("Edit")
- }
- }
- .navigationTitle("\(company.name)")
- }
- }
- */

@@ -14,9 +14,7 @@ struct ProfileEditView: View {
     }
     //画面遷移
     @Environment(\.presentationMode) var presentationMode
-
-    @AppStorage("user_name") var name = ""
-    @State var year: Int = 0
+    
     @State var isSecure = false
     @State var response = ""
     @State var alertType: AlertType = .alert1
@@ -103,27 +101,27 @@ struct ProfileEditView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(trailing: Button("保存") {
                 if ((editedUserData.name != "") && (editedUserData.password != "") && (editedUserData.graduation_year != "") && (editedUserData.age != "") && (editedUserData.sex != "0")){
-                    print("OK")
+                    //print("OK")
                     apiCall().EditUserInfoinServer(id: LoginUser.id, name: editedUserData.name, password: editedUserData.password, sex: editedUserData.sex, age: editedUserData.age, graduate: editedUserData.graduation_year) { response in
                         self.response = response
                         if response == "OK"{
-                            print("Complete")
-                            print(LoginUser)
+                            //print("Complete")
+                            //print(LoginUser)
                             LoginUser = editedUserData
-                            print("変更後")
-                            print(LoginUser)
+                            //print("変更後")
+                            //print(LoginUser)
                             SaveUserData(LoginUser)
                             DispatchQueue.main.async {
                                 presentationMode.wrappedValue.dismiss()
                             }
                         }  else {
-                            print("Error in Response")
+                            //print("Error in Response")
                             alertType = .alert1
                             showAlert.toggle()
                         }
                     }
                 } else {
-                    print("Notfull")
+                    //print("Notfull")
                     alertType = .alert2
                     showAlert.toggle()
                 }
