@@ -190,8 +190,8 @@ struct Schedule: Identifiable, Equatable, Codable{
     let id: String //ID
     var title: String //スケジュール名
     var schedule_category: String //カテゴリのid
-    var internship_info: String //インターンのid
-    var corporate_info : String //企業のid
+    var internship_info: String? //インターンのid
+    var corporate_info : String? //企業のid
     var start: String //いつから ->Dateへ変換する必要あり
     var end: String //いつまで ->Dateへ変換する必要あり
     var memo: String //メモ
@@ -513,7 +513,7 @@ class apiCall {
                 guard let url = urlComponents.url else {
                     return
                 }
-
+        print(url.absoluteString)
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error: \(error)")
@@ -805,21 +805,43 @@ class apiCall {
         urlComponents.scheme = "http"
         urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
         urlComponents.path = "/schedule/add.php"
-        urlComponents.queryItems = [
-            URLQueryItem(name: "title", value: title),
-            URLQueryItem(name: "user_info", value: userID),
-            URLQueryItem(name: "schedule_category", value: schedule_category),
-            URLQueryItem(name: "internship_info", value: internship_info),
-            URLQueryItem(name: "corporate_info", value: corporate_info),
-            URLQueryItem(name: "start", value: start_date),
-            URLQueryItem(name: "end", value: end_date),
-            URLQueryItem(name: "memo", value: memo)
-        ]
-
+        if internship_info == ""{
+            urlComponents.queryItems = [
+                URLQueryItem(name: "title", value: title),
+                URLQueryItem(name: "user_info", value: userID),
+                URLQueryItem(name: "schedule_category", value: schedule_category),
+                URLQueryItem(name: "corporate_info", value: corporate_info),
+                URLQueryItem(name: "start", value: start_date),
+                URLQueryItem(name: "end", value: end_date),
+                URLQueryItem(name: "memo", value: memo)
+            ]
+        } else if corporate_info == ""{
+            urlComponents.queryItems = [
+                URLQueryItem(name: "title", value: title),
+                URLQueryItem(name: "user_info", value: userID),
+                URLQueryItem(name: "schedule_category", value: schedule_category),
+                URLQueryItem(name: "internship_info", value: internship_info),
+                URLQueryItem(name: "start", value: start_date),
+                URLQueryItem(name: "end", value: end_date),
+                URLQueryItem(name: "memo", value: memo)
+            ]
+        } else {
+            urlComponents.queryItems = [
+                URLQueryItem(name: "title", value: title),
+                URLQueryItem(name: "user_info", value: userID),
+                URLQueryItem(name: "schedule_category", value: schedule_category),
+                URLQueryItem(name: "internship_info", value: internship_info),
+                URLQueryItem(name: "corporate_info", value: corporate_info),
+                URLQueryItem(name: "start", value: start_date),
+                URLQueryItem(name: "end", value: end_date),
+                URLQueryItem(name: "memo", value: memo)
+            ]
+        }
+        
         guard let url = urlComponents.url else {
             return
         }
-    //print(url.absoluteString)
+        print(url.absoluteString)
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error: \(error)")
@@ -845,22 +867,46 @@ class apiCall {
         urlComponents.scheme = "http"
         urlComponents.host = "job-app.st.ie.u-ryukyu.ac.jp"
         urlComponents.path = "/schedule/update.php"
-        urlComponents.queryItems = [
-            URLQueryItem(name: "id", value: id),
-            URLQueryItem(name: "title", value: title),
-            URLQueryItem(name: "user_info", value: userID),
-            URLQueryItem(name: "schedule_category", value: schedule_category),
-            URLQueryItem(name: "internship_info", value: internship_info),
-            URLQueryItem(name: "corporate_info", value: corporate_info),
-            URLQueryItem(name: "start", value: start_date),
-            URLQueryItem(name: "end", value: end_date),
-            URLQueryItem(name: "memo", value: memo)
-        ]
+        if internship_info == ""{
+            urlComponents.queryItems = [
+                URLQueryItem(name: "id", value: id),
+                URLQueryItem(name: "title", value: title),
+                URLQueryItem(name: "user_info", value: userID),
+                URLQueryItem(name: "schedule_category", value: schedule_category),
+                URLQueryItem(name: "corporate_info", value: corporate_info),
+                URLQueryItem(name: "start", value: start_date),
+                URLQueryItem(name: "end", value: end_date),
+                URLQueryItem(name: "memo", value: memo)
+            ]
+        } else if corporate_info == ""{
+            urlComponents.queryItems = [
+                URLQueryItem(name: "id", value: id),
+                URLQueryItem(name: "title", value: title),
+                URLQueryItem(name: "user_info", value: userID),
+                URLQueryItem(name: "schedule_category", value: schedule_category),
+                URLQueryItem(name: "internship_info", value: internship_info),
+                URLQueryItem(name: "start", value: start_date),
+                URLQueryItem(name: "end", value: end_date),
+                URLQueryItem(name: "memo", value: memo)
+            ]
+        } else {
+            urlComponents.queryItems = [
+                URLQueryItem(name: "id", value: id),
+                URLQueryItem(name: "title", value: title),
+                URLQueryItem(name: "user_info", value: userID),
+                URLQueryItem(name: "schedule_category", value: schedule_category),
+                URLQueryItem(name: "internship_info", value: internship_info),
+                URLQueryItem(name: "corporate_info", value: corporate_info),
+                URLQueryItem(name: "start", value: start_date),
+                URLQueryItem(name: "end", value: end_date),
+                URLQueryItem(name: "memo", value: memo)
+            ]
+        }
 
         guard let url = urlComponents.url else {
             return
         }
-    //print(url.absoluteString)
+        print(url.absoluteString)
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error: \(error)")

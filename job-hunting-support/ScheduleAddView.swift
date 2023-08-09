@@ -25,7 +25,7 @@ struct ScheduleAddView: View {
     @State private var scheduleName = ""
     @State private var categorySelection = ""
     @State private var internSelection = ""
-    @State private var companySelection = "1"
+    @State private var companySelection = ""
     @State var scheduleStartDate = Date()
     @State var scheduleFinishDate = Date()
     @State var newMemo = ""
@@ -139,12 +139,20 @@ struct ScheduleAddView: View {
             .navigationTitle("スケジュールを追加")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(trailing: Button("作成") {
-                if ((scheduleName != "") && ((categorySelection != "") && (categorySelection != "0")) && ((companySelection != "") && (companySelection != "0")) && ((internSelection != "") && (internSelection != "0"))) {
+                if ((scheduleName != "") && ((categorySelection != "") && (categorySelection != "0")) && (((companySelection != "") && (companySelection != "0")) || ((internSelection != "") && (internSelection != "0")))) {
+                    if ((companySelection == "") || (companySelection == "0")){
+                        companySelection = ""
+                    } else if ((internSelection == "") || (internSelection == "0")){
+                        internSelection = ""
+                    }
+                    print(companySelection)
+                    print(internSelection)
                     let StartDateString = dateFormatter.string(from: scheduleStartDate)
                     let EndDateString = dateFormatter.string(from: scheduleFinishDate)
                     apiCall().addScheduleInfoToServer(title: scheduleName, userID: userid, schedule_category: categorySelection, internship_info: internSelection, corporate_info: companySelection, start_date: StartDateString, end_date: EndDateString, memo: newMemo) { response in
                         let response = response
                         if response == "OK"{
+                            print("OK")
                             scheduleStartDate = Date()
                             scheduleFinishDate = Date()
                             newMemo = ""
@@ -168,7 +176,7 @@ struct ScheduleAddView: View {
                     case .alert1:
                         return Alert(title: Text("エラーが発生しました。もう一度行ってください。"))
                     case .alert2:
-                        return Alert(title: Text("すべての必須項目\n（スケジュール名、カテゴリー、企業情報、インターン情報）\nを入力または選択してください。\nもし、企業名またはインターン情報選択欄で、\n「未選択」のみであれば先に企業情報を追加してください"))
+                        return Alert(title: Text("すべての必須項目\nスケジュール名、カテゴリー、(企業情報、インターン情報)のどちらか\nを入力または選択してください。\nもし、企業名またはインターン情報選択欄で、\n「未選択」のみであれば先に企業情報を追加してください"))
                 }
             })
         }
