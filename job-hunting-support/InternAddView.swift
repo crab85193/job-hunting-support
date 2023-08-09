@@ -87,7 +87,7 @@ struct InternAddView: View {
                     }.padding()
                 }
                 .padding()
-
+                /*
                 HStack{
                     Text("メモ")
                         //.font(.title2)
@@ -97,6 +97,7 @@ struct InternAddView: View {
                         .padding()
                         .autocapitalization(.none)
                 }
+                 */
                 
             }
             .navigationTitle("インターン情報を追加")

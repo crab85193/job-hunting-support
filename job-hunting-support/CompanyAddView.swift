@@ -175,12 +175,6 @@ struct CompanyAddView: View {
                     .frame(width: .infinity, height: 0.5)
                     .padding(.vertical, 30)
                 */
-                 
-                //新規作成の部分
-                Text("新規作成").id(2)
-                    .font(.title2)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 30)
                 
                 HStack{
                     Text("企業名")
