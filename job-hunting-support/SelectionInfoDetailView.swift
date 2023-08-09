@@ -66,9 +66,23 @@ struct SelectionInfoDetailView: View {
                     .font(.headline)
                     .padding()
                 if SelectionInfo.result != "" {
-                    Text(SelectionInfo.result)
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .trailing)
+                    if SelectionInfo.result == "0"{
+                        Text("未選択")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    } else if SelectionInfo.result == "pass"{
+                        Text("合格")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    } else if SelectionInfo.result == "fail"{
+                        Text("不合格")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    } else if SelectionInfo.result == "none"{
+                        Text("保留")
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
                 } else {
                     Text("未選択")
                         .padding()
