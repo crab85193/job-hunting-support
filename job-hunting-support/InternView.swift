@@ -60,7 +60,7 @@ struct InternView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: InternAddView(userid: $LoginUser.id, internList: $InternshipList)) {
+                    NavigationLink(destination: InternAddView(userid: $LoginUser.id, internList: $InternshipList, companylist: $CompanyList)) {
                         Text("追加")
                     }
                 }
@@ -73,6 +73,8 @@ struct InternView: View {
                 //print(InternshipList)
                 apiCall().getCompanyInfoFromUserID(userID: LoginUser.id) { (corporate_info) in
                     self.CompanyList = corporate_info
+                    let firstCompany = Corporate_info(id: "0", user: "", name: "未選択", Industry: "", Occupation: "", business: "", establishment: "", employees: "", capital: "", sales: "", operating_income: "", representative: "", location: "", registration: "", memo: "")
+                    CompanyList.insert(firstCompany, at: 0)
                 }
                 //print(CompanyList)
             }
