@@ -88,33 +88,25 @@ struct SelectionInfoEditView: View {
                                     presentationMode.wrappedValue.dismiss()
                                 }
                             } else {
-                                print("Error in Response")
+                                //print("Error in Response")
                                 alertType = .alert1
                                 showAlert.toggle()
                             }
-                        } else {
-                            //print("Error in Response")
-                            alertType = .alert1
-                            showAlert.toggle()
                         }
                     } else {
-                        print("Notfull")
+                        //print("Notfull")
                         alertType = .alert2
                         showAlert.toggle()
                     }
-                } else {
-                    //print("Notfull")
-                    alertType = .alert2
-                    showAlert.toggle()
-                }
-            }.alert(isPresented: $showAlert) {
-                switch alertType {
-                    case .alert1:
-                        return Alert(title: Text("エラーが発生しました。もう一度行ってください。"))
-                    case .alert2:
-                        return Alert(title: Text("すべての必須項目\n（企業情報、合否）\nを選択してください。"))
-                }
-            })
+                }.alert(isPresented: $showAlert) {
+                    switch alertType {
+                        case .alert1:
+                            return Alert(title: Text("エラーが発生しました。もう一度行ってください。"))
+                        case .alert2:
+                            return Alert(title: Text("すべての必須項目\n（企業情報、合否）\nを選択してください。"))
+                    }
+                })
+            }
         }
     }
 }

@@ -146,11 +146,7 @@ struct ProfileEditView: View {
                             alertType = .alert1
                             showAlert.toggle()
                         }
-                    } else {
-                        print("Notfull")
-                        alertType = .alert2
-                        showAlert.toggle()
-                    }
+                    } 
                 } else {
                     //print("Notfull")
                     alertType = .alert2

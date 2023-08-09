@@ -88,54 +88,8 @@ struct SelectionInfoAddView: View {
                     alertType = .alert2
                     showAlert.toggle()
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.all, 20)
                 
-                HStack{
-                    VStack{
-                        Text("メモ")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        TextEditor(text: $newMemo)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .autocapitalization(.none)
-                            .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
-                            .frame(width: 350, height: 200)
-                    }.padding()
-                }
-                .navigationTitle("選考情報の追加")
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarItems(trailing: Button("作成") {
-                    if (((companySelection != "") && (companySelection != "0")) && ((resultSelection != "") && (resultSelection != "0"))) {
-                        apiCall().addSelectionInfoToServer(userID: userid, corporate_info: companySelection, result: resultSelection, memo: newMemo) { response in
-                            let response = response
-                            if response == "OK"{
-                                companySelection = ""
-                                resultSelection = ""
-                                newMemo = ""
-                                
-                                DispatchQueue.main.async {
-                                    presentationMode.wrappedValue.dismiss()
-                                }
-                            } else {
-                                print("Error in Response")
-                                alertType = .alert1
-                                showAlert.toggle()
-                            }
-                        }
-                    } else {
-                        print("Notfull")
-                        alertType = .alert2
-                        showAlert.toggle()
-                    }
-                }.alert(isPresented: $showAlert) {
-                    switch alertType {
-                        case .alert1:
-                            return Alert(title: Text("エラーが発生しました。もう一度行ってください。"))
-                        case .alert2:
-                            return Alert(title: Text("すべての必須項目\n（企業情報、合否）\nを選択してください。\nもし、企業名選択欄で、\n「未選択」のみであれば先に企業情報を追加してください"))
-                    }
-                })
-            }
+            })
         }
     }
 }

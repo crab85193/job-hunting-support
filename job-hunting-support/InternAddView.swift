@@ -126,10 +126,6 @@ struct InternAddView: View {
                             alertType = .alert1
                             showAlert.toggle()
                         }
-                    } else {
-                        print("Notfull")
-                        alertType = .alert2
-                        showAlert.toggle()
                     }
                 } else {
                     //print("Notfull")
@@ -143,7 +139,7 @@ struct InternAddView: View {
                     case .alert2:
                         return Alert(title: Text("すべての必須項目\n（企業名、開始日、終了日）\nを入力または選択してください。\nもし、企業名選択欄で、\n「未選択」のみであれば先に企業情報を追加してください"))
                 }
-            }
+            })
         }
     }
 }
