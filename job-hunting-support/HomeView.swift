@@ -10,6 +10,7 @@ import SwiftUI
 
 //  後々リスト表示ができてきたらここにカテゴリー別に表示するものを作る。
 //  (もしかしたらHomeViewを削除してListViewをメインに作っていくかも？)
+
 struct HomeView: View {
     var body: some View {
         NavigationView{

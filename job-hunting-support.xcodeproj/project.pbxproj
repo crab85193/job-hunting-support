@@ -8,22 +8,41 @@
 
 /* Begin PBXBuildFile section */
 		18ECEB97AC0C71CD410A2E1B /* Pods_job_hunting_support.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557FA53EC785D9675D0767C5 /* Pods_job_hunting_support.framework */; };
+		7A0A90582A7B86DF00CE3DD1 /* CompanyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A90572A7B86DF00CE3DD1 /* CompanyDetailView.swift */; };
+		7A0A905A2A7B874800CE3DD1 /* CompanyAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A90592A7B874800CE3DD1 /* CompanyAddView.swift */; };
+		7A0A905C2A7B87C200CE3DD1 /* CompanyEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A905B2A7B87C200CE3DD1 /* CompanyEditView.swift */; };
 		D90D49A12A440CC0003E5017 /* job_hunting_supportApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49A02A440CC0003E5017 /* job_hunting_supportApp.swift */; };
 		D90D49A32A440CC0003E5017 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49A22A440CC0003E5017 /* ContentView.swift */; };
 		D90D49A52A440CC2003E5017 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D90D49A42A440CC2003E5017 /* Assets.xcassets */; };
 		D90D49A82A440CC2003E5017 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D90D49A72A440CC2003E5017 /* Preview Assets.xcassets */; };
 		D90D49B32A441356003E5017 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49B22A441356003E5017 /* LoginView.swift */; };
 		D90D49B52A44139C003E5017 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49B42A44139C003E5017 /* CreateAccountView.swift */; };
-		D90D49B72A44145F003E5017 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49B62A44145F003E5017 /* ListView.swift */; };
+		D90D49B72A44145F003E5017 /* CompanyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49B62A44145F003E5017 /* CompanyListView.swift */; };
 		D90D49B92A4414F2003E5017 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49B82A4414F2003E5017 /* HomeView.swift */; };
 		D90D49BB2A441536003E5017 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49BA2A441536003E5017 /* ProfileView.swift */; };
 		D90D49BD2A44155A003E5017 /* appfunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49BC2A44155A003E5017 /* appfunc.swift */; };
-		D90D49BF2A441747003E5017 /* FirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90D49BE2A441747003E5017 /* FirstView.swift */; };
+		D9981FD02A7EC80B00F3EB8B /* InternAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9981FCF2A7EC80B00F3EB8B /* InternAddView.swift */; };
+		D9981FD22A7EC82000F3EB8B /* InternDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9981FD12A7EC82000F3EB8B /* InternDetailView.swift */; };
+		D9981FD42A7EC83300F3EB8B /* InternEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9981FD32A7EC83300F3EB8B /* InternEditView.swift */; };
+		D9981FD62A7EC83C00F3EB8B /* InternView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9981FD52A7EC83C00F3EB8B /* InternView.swift */; };
+		D9981FD82A7EC87700F3EB8B /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9981FD72A7EC87700F3EB8B /* ProfileEditView.swift */; };
+		D9981FDA2A7EC97400F3EB8B /* ScheduleAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9981FD92A7EC97400F3EB8B /* ScheduleAddView.swift */; };
+		D9981FDC2A7EC99F00F3EB8B /* ScheduleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9981FDB2A7EC99F00F3EB8B /* ScheduleDetailView.swift */; };
+		D9981FDE2A7EC9C200F3EB8B /* ScheduleEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9981FDD2A7EC9C200F3EB8B /* ScheduleEditView.swift */; };
+		D9981FE02A7EC9E300F3EB8B /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9981FDF2A7EC9E300F3EB8B /* ScheduleView.swift */; };
+		D9981FE22A7EC9FD00F3EB8B /* SelectionInfoAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9981FE12A7EC9FD00F3EB8B /* SelectionInfoAddView.swift */; };
+		D9981FE42A7ECA1B00F3EB8B /* SelectionInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9981FE32A7ECA1B00F3EB8B /* SelectionInfoDetailView.swift */; };
+		D9981FE62A7ECA3500F3EB8B /* SelectionInfoEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9981FE52A7ECA3500F3EB8B /* SelectionInfoEditView.swift */; };
+		D9981FE82A7ECA5000F3EB8B /* SelectionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9981FE72A7ECA5000F3EB8B /* SelectionInfoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2FCD6B74DBE438FF752A106C /* Pods-job-hunting-support.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-job-hunting-support.release.xcconfig"; path = "Target Support Files/Pods-job-hunting-support/Pods-job-hunting-support.release.xcconfig"; sourceTree = "<group>"; };
 		557FA53EC785D9675D0767C5 /* Pods_job_hunting_support.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_job_hunting_support.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A0A90572A7B86DF00CE3DD1 /* CompanyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetailView.swift; sourceTree = "<group>"; };
+		7A0A90592A7B874800CE3DD1 /* CompanyAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyAddView.swift; sourceTree = "<group>"; };
+		7A0A905B2A7B87C200CE3DD1 /* CompanyEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyEditView.swift; sourceTree = "<group>"; };
+		7D72D8F82A7B5E5100BCB8A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		7E7572B45EEAC7985F974781 /* Pods-job-hunting-support.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-job-hunting-support.debug.xcconfig"; path = "Target Support Files/Pods-job-hunting-support/Pods-job-hunting-support.debug.xcconfig"; sourceTree = "<group>"; };
 		D90D499D2A440CC0003E5017 /* job-hunting-support.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "job-hunting-support.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D90D49A02A440CC0003E5017 /* job_hunting_supportApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = job_hunting_supportApp.swift; sourceTree = "<group>"; };
@@ -32,11 +51,23 @@
 		D90D49A72A440CC2003E5017 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D90D49B22A441356003E5017 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D90D49B42A44139C003E5017 /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
-		D90D49B62A44145F003E5017 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		D90D49B62A44145F003E5017 /* CompanyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyListView.swift; sourceTree = "<group>"; };
 		D90D49B82A4414F2003E5017 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		D90D49BA2A441536003E5017 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		D90D49BC2A44155A003E5017 /* appfunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appfunc.swift; sourceTree = "<group>"; };
-		D90D49BE2A441747003E5017 /* FirstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstView.swift; sourceTree = "<group>"; };
+		D9981FCF2A7EC80B00F3EB8B /* InternAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternAddView.swift; sourceTree = "<group>"; };
+		D9981FD12A7EC82000F3EB8B /* InternDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternDetailView.swift; sourceTree = "<group>"; };
+		D9981FD32A7EC83300F3EB8B /* InternEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternEditView.swift; sourceTree = "<group>"; };
+		D9981FD52A7EC83C00F3EB8B /* InternView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternView.swift; sourceTree = "<group>"; };
+		D9981FD72A7EC87700F3EB8B /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
+		D9981FD92A7EC97400F3EB8B /* ScheduleAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleAddView.swift; sourceTree = "<group>"; };
+		D9981FDB2A7EC99F00F3EB8B /* ScheduleDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDetailView.swift; sourceTree = "<group>"; };
+		D9981FDD2A7EC9C200F3EB8B /* ScheduleEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleEditView.swift; sourceTree = "<group>"; };
+		D9981FDF2A7EC9E300F3EB8B /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
+		D9981FE12A7EC9FD00F3EB8B /* SelectionInfoAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionInfoAddView.swift; sourceTree = "<group>"; };
+		D9981FE32A7ECA1B00F3EB8B /* SelectionInfoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionInfoDetailView.swift; sourceTree = "<group>"; };
+		D9981FE52A7ECA3500F3EB8B /* SelectionInfoEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionInfoEditView.swift; sourceTree = "<group>"; };
+		D9981FE72A7ECA5000F3EB8B /* SelectionInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionInfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,15 +120,31 @@
 		D90D499F2A440CC0003E5017 /* job-hunting-support */ = {
 			isa = PBXGroup;
 			children = (
-				D90D49A22A440CC0003E5017 /* ContentView.swift */,
-				D90D49B42A44139C003E5017 /* CreateAccountView.swift */,
-				D90D49BE2A441747003E5017 /* FirstView.swift */,
-				D90D49B82A4414F2003E5017 /* HomeView.swift */,
-				D90D49B62A44145F003E5017 /* ListView.swift */,
-				D90D49B22A441356003E5017 /* LoginView.swift */,
-				D90D49BA2A441536003E5017 /* ProfileView.swift */,
-				D90D49BC2A44155A003E5017 /* appfunc.swift */,
+				7D72D8F82A7B5E5100BCB8A4 /* Info.plist */,
 				D90D49A02A440CC0003E5017 /* job_hunting_supportApp.swift */,
+				D90D49B22A441356003E5017 /* LoginView.swift */,
+				D90D49B42A44139C003E5017 /* CreateAccountView.swift */,
+				D90D49A22A440CC0003E5017 /* ContentView.swift */,
+				D90D49B82A4414F2003E5017 /* HomeView.swift */,
+				D90D49B62A44145F003E5017 /* CompanyListView.swift */,
+				7A0A90592A7B874800CE3DD1 /* CompanyAddView.swift */,
+				7A0A905B2A7B87C200CE3DD1 /* CompanyEditView.swift */,
+				7A0A90572A7B86DF00CE3DD1 /* CompanyDetailView.swift */,
+				D9981FD52A7EC83C00F3EB8B /* InternView.swift */,
+				D9981FCF2A7EC80B00F3EB8B /* InternAddView.swift */,
+				D9981FD12A7EC82000F3EB8B /* InternDetailView.swift */,
+				D9981FD32A7EC83300F3EB8B /* InternEditView.swift */,
+				D90D49BA2A441536003E5017 /* ProfileView.swift */,
+				D9981FD72A7EC87700F3EB8B /* ProfileEditView.swift */,
+				D9981FD92A7EC97400F3EB8B /* ScheduleAddView.swift */,
+				D9981FDB2A7EC99F00F3EB8B /* ScheduleDetailView.swift */,
+				D9981FDD2A7EC9C200F3EB8B /* ScheduleEditView.swift */,
+				D9981FDF2A7EC9E300F3EB8B /* ScheduleView.swift */,
+				D9981FE12A7EC9FD00F3EB8B /* SelectionInfoAddView.swift */,
+				D9981FE32A7ECA1B00F3EB8B /* SelectionInfoDetailView.swift */,
+				D9981FE52A7ECA3500F3EB8B /* SelectionInfoEditView.swift */,
+				D9981FE72A7ECA5000F3EB8B /* SelectionInfoView.swift */,
+				D90D49BC2A44155A003E5017 /* appfunc.swift */,
 				D90D49A42A440CC2003E5017 /* Assets.xcassets */,
 				D90D49A62A440CC2003E5017 /* Preview Content */,
 			);
@@ -226,14 +273,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9981FE42A7ECA1B00F3EB8B /* SelectionInfoDetailView.swift in Sources */,
+				D9981FD82A7EC87700F3EB8B /* ProfileEditView.swift in Sources */,
+				D9981FE82A7ECA5000F3EB8B /* SelectionInfoView.swift in Sources */,
+				D9981FDA2A7EC97400F3EB8B /* ScheduleAddView.swift in Sources */,
+				D9981FD42A7EC83300F3EB8B /* InternEditView.swift in Sources */,
+				D9981FDE2A7EC9C200F3EB8B /* ScheduleEditView.swift in Sources */,
 				D90D49B32A441356003E5017 /* LoginView.swift in Sources */,
 				D90D49A32A440CC0003E5017 /* ContentView.swift in Sources */,
-				D90D49B72A44145F003E5017 /* ListView.swift in Sources */,
+				D9981FDC2A7EC99F00F3EB8B /* ScheduleDetailView.swift in Sources */,
+				D9981FD02A7EC80B00F3EB8B /* InternAddView.swift in Sources */,
+				D9981FE62A7ECA3500F3EB8B /* SelectionInfoEditView.swift in Sources */,
+				D90D49B72A44145F003E5017 /* CompanyListView.swift in Sources */,
+				7A0A90582A7B86DF00CE3DD1 /* CompanyDetailView.swift in Sources */,
+				D9981FD62A7EC83C00F3EB8B /* InternView.swift in Sources */,
+				D9981FD22A7EC82000F3EB8B /* InternDetailView.swift in Sources */,
+				7A0A905C2A7B87C200CE3DD1 /* CompanyEditView.swift in Sources */,
 				D90D49B92A4414F2003E5017 /* HomeView.swift in Sources */,
 				D90D49B52A44139C003E5017 /* CreateAccountView.swift in Sources */,
+				D9981FE22A7EC9FD00F3EB8B /* SelectionInfoAddView.swift in Sources */,
+				7A0A905A2A7B874800CE3DD1 /* CompanyAddView.swift in Sources */,
 				D90D49BD2A44155A003E5017 /* appfunc.swift in Sources */,
+				D9981FE02A7EC9E300F3EB8B /* ScheduleView.swift in Sources */,
 				D90D49BB2A441536003E5017 /* ProfileView.swift in Sources */,
-				D90D49BF2A441747003E5017 /* FirstView.swift in Sources */,
 				D90D49A12A440CC0003E5017 /* job_hunting_supportApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -367,11 +429,12 @@
 				DEVELOPMENT_TEAM = 5DTX4R27WN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = "job-hunting-support/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Job Canvas";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -397,11 +460,12 @@
 				DEVELOPMENT_TEAM = 5DTX4R27WN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = "job-hunting-support/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Job Canvas";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

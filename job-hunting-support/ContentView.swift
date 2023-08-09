@@ -9,19 +9,40 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var name = ""
+    @AppStorage("user_name") var name = ""
     @State var year = 0
+    @State var tabSelect = 2
     
-    @State var tabSelect = 0
+    //@EnvironmentObject var sharedData: SharedData
     
     var body: some View {
         NavigationView{
             TabView(selection: $tabSelect){
-                ListView()
+                CompanyListView()
                     .tabItem{Image(systemName: "list.dash")
-                    Text("List")
+                    Text("企業リスト")
                     }
                     .tag(0)
+                InternView()
+                    .tabItem{Image(systemName: "figure.walk")
+                    Text("インターン")
+                    }
+                    .tag(1)
+                ScheduleView()
+                    .tabItem{Image(systemName: "calendar")
+                    Text("スケジュール")
+                    }
+                    .tag(2)
+                SelectionInfoView()
+                    .tabItem{Image(systemName: "doc.text")
+                    Text("選考情報")
+                    }
+                    .tag(3)
+                ProfileView()
+                    .tabItem{Image(systemName: "person.fill")
+                    Text("プロフィール")
+                    }
+                    .tag(4)
                 /*  これは、カテゴリー別に表示する段階まできたら追加する。
                 HomeView()
                     .tabItem{Image(systemName: "house.fill")
@@ -29,14 +50,9 @@ struct ContentView: View {
                     }
                     .tag(1)
                 */
-                ProfileView(name: name, year: year)
-                    .tabItem{Image(systemName: "person.fill")
-                    Text("Profile")
-                    }
-                    .tag(2)
             }
-            .padding()
         }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }
 
