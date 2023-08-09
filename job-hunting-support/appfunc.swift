@@ -252,7 +252,7 @@ class apiCall {
 
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             let comments = try! JSONDecoder().decode([Comments].self, from: data!)
-            print(comments)
+            //print(comments)
 
             DispatchQueue.main.async {
                 
@@ -276,7 +276,7 @@ class apiCall {
 
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             let industries = try! JSONDecoder().decode([Industry].self, from: data!)
-            print(industries)
+            //print(industries)
 
             DispatchQueue.main.async {
                 
@@ -299,7 +299,7 @@ class apiCall {
 
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             let occupations = try! JSONDecoder().decode([Occupation].self, from: data!)
-            print(occupations)
+            //print(occupations)
 
             DispatchQueue.main.async {
                 
@@ -322,7 +322,7 @@ class apiCall {
 
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             let categories = try! JSONDecoder().decode([Category].self, from: data!)
-            print(categories)
+            //print(categories)
 
             DispatchQueue.main.async {
                 
@@ -352,7 +352,7 @@ class apiCall {
             guard let url = urlComponents.url else {
                 return
             }
-        print(url.absoluteString)
+        //print(url.absoluteString)
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let error = error {
                     print("Error: \(error)")
@@ -362,8 +362,8 @@ class apiCall {
                 if let data = data {
                     do {
                         let decodedResponse = try JSONDecoder().decode([User].self, from: data)
-                        print("success")
-                        print(decodedResponse)
+                        print("Get UserInfo success")
+                        //print(decodedResponse)
                         completion(decodedResponse)
                     } catch {
                         print("JSON decoding error: \(error)")
@@ -399,8 +399,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("add UserInfo success")
+                    //print(decodedResponse)
                     completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
@@ -437,8 +437,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("Edit UserInfo success")
+                    //print(decodedResponse)
                     completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
@@ -467,7 +467,7 @@ class apiCall {
         guard let url = urlComponents.url else {
             return
         }
-    print(url.absoluteString)
+    //print(url.absoluteString)
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error: \(error)")
@@ -477,8 +477,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode([Corporate_info].self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("get CompanyInfo success")
+                    //print(decodedResponse)
                     completion(decodedResponse)
                 } catch {
                     print("JSON decoding error: \(error)")
@@ -523,8 +523,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("add CompanyInfo success")
+                    //print(decodedResponse)
                     completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
@@ -570,8 +570,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("edit CompanyInfo success")
+                    //print(decodedResponse)
                     completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
@@ -603,8 +603,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("delete CompanyInfo success")
+                    //print(decodedResponse)
                     completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
@@ -633,7 +633,7 @@ class apiCall {
         guard let url = urlComponents.url else {
             return
         }
-    print(url.absoluteString)
+    //print(url.absoluteString)
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error: \(error)")
@@ -643,8 +643,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode([Selection].self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("get Selection success")
+                    //print(decodedResponse)
                     completion(decodedResponse)
                 } catch {
                     print("JSON decoding error: \(error)")
@@ -669,7 +669,7 @@ class apiCall {
         guard let url = urlComponents.url else {
             return
         }
-    print(url.absoluteString)
+    //print(url.absoluteString)
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error: \(error)")
@@ -679,8 +679,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("add Selection success")
+                    //print(decodedResponse)
                     completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
@@ -706,7 +706,7 @@ class apiCall {
         guard let url = urlComponents.url else {
             return
         }
-    print(url.absoluteString)
+    //print(url.absoluteString)
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error: \(error)")
@@ -716,8 +716,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("edit Selection success")
+                    //print(decodedResponse)
                     completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
@@ -739,7 +739,7 @@ class apiCall {
         guard let url = urlComponents.url else {
             return
         }
-    print(url.absoluteString)
+    //print(url.absoluteString)
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error: \(error)")
@@ -749,8 +749,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("delete Selection success")
+                    //print(decodedResponse)
                     completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
@@ -779,7 +779,7 @@ class apiCall {
         guard let url = urlComponents.url else {
             return
         }
-    print(url.absoluteString)
+    //print(url.absoluteString)
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error: \(error)")
@@ -789,8 +789,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode([Schedule].self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("get Schedule success")
+                    //print(decodedResponse)
                     completion(decodedResponse)
                 } catch {
                     print("JSON decoding error: \(error)")
@@ -819,7 +819,7 @@ class apiCall {
         guard let url = urlComponents.url else {
             return
         }
-    print(url.absoluteString)
+    //print(url.absoluteString)
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error: \(error)")
@@ -829,8 +829,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("add Schedule success")
+                    //print(decodedResponse)
                     completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
@@ -860,7 +860,7 @@ class apiCall {
         guard let url = urlComponents.url else {
             return
         }
-    print(url.absoluteString)
+    //print(url.absoluteString)
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error: \(error)")
@@ -870,8 +870,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("edit Schedule success")
+                    //print(decodedResponse)
                     completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
@@ -893,7 +893,7 @@ class apiCall {
         guard let url = urlComponents.url else {
             return
         }
-    print(url.absoluteString)
+    //print(url.absoluteString)
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error: \(error)")
@@ -903,8 +903,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("delete Schedule success")
+                    //print(decodedResponse)
                     completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
@@ -933,7 +933,7 @@ class apiCall {
         guard let url = urlComponents.url else {
             return
         }
-    print(url.absoluteString)
+    //print(url.absoluteString)
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error: \(error)")
@@ -943,8 +943,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode([Internship_info].self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("get Intern success")
+                    //print(decodedResponse)
                     completion(decodedResponse)
                 } catch {
                     print("JSON decoding error: \(error)")
@@ -970,7 +970,7 @@ class apiCall {
         guard let url = urlComponents.url else {
             return
         }
-    print(url.absoluteString)
+    //print(url.absoluteString)
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error: \(error)")
@@ -980,8 +980,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("add Intern success")
+                    //print(decodedResponse)
                     completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
@@ -1008,7 +1008,7 @@ class apiCall {
         guard let url = urlComponents.url else {
             return
         }
-    print(url.absoluteString)
+    //print(url.absoluteString)
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error: \(error)")
@@ -1018,8 +1018,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("edit Intern success")
+                    //print(decodedResponse)
                     completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")
@@ -1041,7 +1041,7 @@ class apiCall {
         guard let url = urlComponents.url else {
             return
         }
-    print(url.absoluteString)
+    //print(url.absoluteString)
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error: \(error)")
@@ -1051,8 +1051,8 @@ class apiCall {
             if let data = data {
                 do {
                     let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
-                    print("success")
-                    print(decodedResponse)
+                    print("delete Intern success")
+                    //print(decodedResponse)
                     completion(decodedResponse.status)
                 } catch {
                     print("JSON decoding error: \(error)")

@@ -14,9 +14,11 @@ struct InternDetailView: View {
     init(interninfo : Binding<Internship_info>, companyList : [Corporate_info]){
         _InternInfo = interninfo
         CompanyList = companyList
+        /*
         print("受け取った情報")
         print(InternInfo)
         print(CompanyList)
+         */
     }
 
     var body: some View {

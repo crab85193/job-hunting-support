@@ -19,8 +19,8 @@ struct ScheduleDetailView: View {
         _ScheduleInfo = scheduleinfo
         CompanyList = companylist
         InternList = internlist
-        print(CompanyList)
-        print(InternList)
+        //print(CompanyList)
+        //print(InternList)
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateStyle = .medium
         dateFormatter.dateFormat = "YYYY-MM-dd"

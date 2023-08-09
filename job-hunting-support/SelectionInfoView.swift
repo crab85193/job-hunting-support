@@ -80,11 +80,11 @@ struct SelectionInfoView: View {
                     CompanyList.insert(firstCompany, at: 0)
                 }
                 
-                print(LoginUser)
+                //print(LoginUser)
                 apiCall().getSelectionInfoFromUserID(userID: LoginUser.id){ (selection) in
                     self.SelectionList = selection
                 }
-                print(SelectionList)
+                //print(SelectionList)
                 
             }
         }.navigationViewStyle(StackNavigationViewStyle())

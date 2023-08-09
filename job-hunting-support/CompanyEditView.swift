@@ -213,7 +213,7 @@ struct CompanyEditView: View {
         .navigationBarHidden(showbar)
         .navigationBarItems(trailing: Button("保存") {
             if ((editedCompany.name != "") && ((editedCompany.industry != "") && (editedCompany.industry != "0")) && ((editedCompany.occupation != "") && (editedCompany.occupation != "0")) && (editedCompany.location != "")) {
-                print("OK")
+                //print("OK")
                 editedCompany.memo = editedmemo
                 editedCompany.establishment = dateFormatter.string(from: editedDate)
                 let editedcurrentDate = dateFormatter.string(from: Date())
@@ -227,13 +227,13 @@ struct CompanyEditView: View {
                             presentationMode.wrappedValue.dismiss()
                         }
                     } else {
-                        print("Error in Response")
+                        //print("Error in Response")
                         alertType = .alert1
                         showAlert.toggle()
                     }
                 }
             } else{
-                print("Notfull")
+                //print("Notfull")
                 alertType = .alert2
                 showAlert.toggle()
             }

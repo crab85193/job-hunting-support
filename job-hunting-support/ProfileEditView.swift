@@ -14,9 +14,7 @@ struct ProfileEditView: View {
     }
     //画面遷移
     @Environment(\.presentationMode) var presentationMode
-
-    @AppStorage("user_name") var name = ""
-    @State var year: Int = 0
+    
     @State var isSecure = false
     @State var response = ""
     @State var alertType: AlertType = .alert1
@@ -113,45 +111,60 @@ struct ProfileEditView: View {
                     .padding(.trailing, 8)
                     .padding(.horizontal)
                 }
-                .padding(.bottom, 50)
-                .navigationTitle("プロフィールの編集")
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarItems(trailing: Button("保存") {
-                    if ((editedUserData.name != "") && (editedUserData.password != "") && (editedUserData.graduation_year != "") && (editedUserData.age != "") && (editedUserData.sex != "0")){
-                        print("OK")
-                        apiCall().EditUserInfoinServer(id: LoginUser.id, name: editedUserData.name, password: editedUserData.password, sex: editedUserData.sex, age: editedUserData.age, graduate: editedUserData.graduation_year) { response in
-                            self.response = response
-                            if response == "OK"{
-                                print("Complete")
-                                print(LoginUser)
-                                LoginUser = editedUserData
-                                print("変更後")
-                                print(LoginUser)
-                                SaveUserData(LoginUser)
-                                DispatchQueue.main.async {
-                                    presentationMode.wrappedValue.dismiss()
-                                }
-                            }  else {
-                                print("Error in Response")
-                                alertType = .alert1
-                                showAlert.toggle()
+                .padding(.all, 20)
+                
+                HStack{
+                    Text("年齢")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    TextField("Age", text: $editedUserData.age)
+                        .autocapitalization(.none)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .frame(width: 65)
+                }
+                .padding(.all, 20)
+            }
+            .padding(.bottom, 50)
+            .navigationTitle("プロフィールの編集")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(trailing: Button("保存") {
+                if ((editedUserData.name != "") && (editedUserData.password != "") && (editedUserData.graduation_year != "") && (editedUserData.age != "") && (editedUserData.sex != "0")){
+                    //print("OK")
+                    apiCall().EditUserInfoinServer(id: LoginUser.id, name: editedUserData.name, password: editedUserData.password, sex: editedUserData.sex, age: editedUserData.age, graduate: editedUserData.graduation_year) { response in
+                        self.response = response
+                        if response == "OK"{
+                            //print("Complete")
+                            //print(LoginUser)
+                            LoginUser = editedUserData
+                            //print("変更後")
+                            //print(LoginUser)
+                            SaveUserData(LoginUser)
+                            DispatchQueue.main.async {
+                                presentationMode.wrappedValue.dismiss()
                             }
+                        }  else {
+                            //print("Error in Response")
+                            alertType = .alert1
+                            showAlert.toggle()
                         }
                     } else {
                         print("Notfull")
                         alertType = .alert2
                         showAlert.toggle()
                     }
-                    
-                }.alert(isPresented: $showAlert) {
-                    switch alertType {
-                        case .alert1:
-                            return Alert(title: Text("エラーが発生しました。もう一度行ってください。"))
-                        case .alert2:
-                            return Alert(title: Text("すべての項目を入力してください。"))
-                    }
-                })
-            }
+                } else {
+                    //print("Notfull")
+                    alertType = .alert2
+                    showAlert.toggle()
+                }
+                
+            }.alert(isPresented: $showAlert) {
+                switch alertType {
+                    case .alert1:
+                        return Alert(title: Text("エラーが発生しました。もう一度行ってください。"))
+                    case .alert2:
+                        return Alert(title: Text("すべての項目を入力してください。"))
+                }
+            })
         }
     }
 }

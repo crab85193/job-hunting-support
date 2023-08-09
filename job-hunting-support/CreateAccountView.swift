@@ -29,8 +29,6 @@ struct CreateAccountView: View {
     @State var response = ""
     @State var selectionuser = [User]()
     @State var login_User: User = User(name: "", password: "", sex: "", age: "", graduate: "")
-    //ここから下の三つを追加した。
-    @AppStorage("user_name") var name = ""
     @AppStorage("isLogin") var isLogin = false
     @State var pushLoginButton: Bool = false
     @State var inputUserName: String = ""
@@ -135,16 +133,16 @@ struct CreateAccountView: View {
             Button{
                 //ここに作成ボタンが押された時の処理
                 if ((inputUserName != "") && (password != "") && ((year != "") && (year != "0")) && ((sex != "") && (sex != "0")) && (age != "")){
-                    print("OK")
+                    //print("OK")
                     apiCall().addUserInfotoServer(name: inputUserName, password: password, sex: sex, age: age, graduate: year) { response in
                         self.response = response
                         if response == "OK"{
                             apiCall().getUserFromNameAndPassword(name: inputUserName, password: password) { (user) in
                                 self.selectionuser = user
                                 if selectionuser.count == 1 {
-                                    print("正常動作")
+                                    //print("正常動作")
                                     login_User = selectionuser[0]
-                                    print(login_User)
+                                    //print(login_User)
                                     SaveUserData(login_User)
                                     let firstindustry = Industry(id: "0", name: "未選択")
                                     let firstoccupation = Occupation(id: "0", name: "未選択")
@@ -174,20 +172,20 @@ struct CreateAccountView: View {
                                         }
                                     }
                                 } else {
-                                    print("Error")
+                                    //print("Error")
                                     alertType = .alert1
                                     showAlert.toggle()
                                 }
-                                print("Login動作完了 ")
+                                //print("Login動作完了 ")
                             }
                         } else {
-                            print("Error発生")
+                            //print("Error発生")
                             alertType = .alert2
                             showAlert.toggle()
                         }
                         }
                 } else {
-                    print("NotOK")
+                    //print("NotOK")
                     alertType = .alert3
                     showAlert.toggle()
                 }

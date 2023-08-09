@@ -68,7 +68,7 @@ struct ScheduleView: View {
                     //カレンダーセクション
                     Section(header: Text("カレンダー").font(.title3)){
                         VStack{
-                            DatePicker("Calendar", selection: $date)
+                            DatePicker("Calendar", selection: $date, displayedComponents: .date)
                                 .environment(\.locale, Locale(identifier: "ja_JP"))
                                 .labelsHidden()
                                 .datePickerStyle(GraphicalDatePickerStyle())
@@ -76,22 +76,41 @@ struct ScheduleView: View {
                             //Text(dateFormatter.string(from: date))
                             //    .frame(maxWidth: .infinity, alignment: .center)
                             let selectiondate = dateFormatter.string(from: date)
-                            Text(selectiondate)
+                            let viewdate = viewJapaneseDate(date: date)
+                            Text(viewdate).frame(maxWidth: .infinity, alignment: .leading)
+                            Spacer()
                             let scheduleFilterfromStartdate = ScheduleList.filter {$0.start == selectiondate}
                             
                             let scheduleFilterfromEnddate = ScheduleList.filter {$0.end == selectiondate}
                             if ((scheduleFilterfromStartdate.count != 0) || (scheduleFilterfromEnddate.count != 0)){
                                 
-                                if (scheduleFilterfromStartdate.count != 0){
-                                    ForEach(scheduleFilterfromStartdate) { schedule in
-                                        Text("開始: \(schedule.title)")
+                                VStack{
+                                    HStack{
+                                        Text("開始日")
+                                        Spacer()
                                     }
-                                }
-                                if (scheduleFilterfromEnddate.count != 0){
-                                    ForEach(scheduleFilterfromEnddate) { schedule in
-                                        Text("終了: \(schedule.title)")
+                                    if (scheduleFilterfromStartdate.count != 0){
+                                        ForEach(scheduleFilterfromStartdate) { schedule in
+                                            Text("スケジュール名: \(schedule.title)")
+                                        }
+                                    } else {
+                                        Text("本日が開始日の予定はありません")
                                     }
+                                    Spacer()
+                                    HStack{
+                                        Text("終了日")
+                                        Spacer()
+                                    }
+                                    if (scheduleFilterfromEnddate.count != 0){
+                                        ForEach(scheduleFilterfromEnddate) { schedule in
+                                            Text("スケジュール名: \(schedule.title)")
+                                        }
+                                    } else {
+                                        Text("本日が終了日の予定はありません。")
+                                    }
+                                    Spacer()
                                 }
+                                
                             } else {
                                 Text("この日に予定はありません")
                             }
@@ -115,22 +134,22 @@ struct ScheduleView: View {
                     CompanyList.insert(firstCompany, at: 0)
                 }
                 
-                print(CompanyList)
+                //print(CompanyList)
                 
                 apiCall().getInternshipInfoFromUserID(userID: LoginUser.id) { (intern) in
                     self.InternList = intern
                     let firstIntern = Internship_info(id: "0", user: "", company: "0", start: "", end: "", memo: "")
                     InternList.insert(firstIntern, at: 0)
-                    print(InternList)
+                    //print(InternList)
                 }
                 
                 
                 
-                print(LoginUser)
+                //print(LoginUser)
                 apiCall().getScheduleInfoFromUserID(userID: LoginUser.id){ (schedule) in
                     self.ScheduleList = schedule
                 }
-                print(ScheduleList)
+                //print(ScheduleList)
                 
             }
         }.navigationViewStyle(StackNavigationViewStyle())
@@ -155,6 +174,15 @@ struct ScheduleView: View {
             fatalError("Infomation not found")
         }
         return $ScheduleList[scheduleIndex]
+    }
+    
+    private func viewJapaneseDate(date: Date) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ja_JP")
+        dateFormatter.dateStyle = .medium
+        dateFormatter.dateFormat = "YYYY年MM月dd日"
+        let japaneseDate = dateFormatter.string(from: date)
+        return japaneseDate
     }
 }
 

@@ -56,14 +56,37 @@ struct SelectionInfoAddView: View {
                 HStack{
                     Text("合否")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Picker(selection: $resultSelection, label: Text("合否")) {
-                        Text("未選択").tag("0")
-                        Text("合格").tag("pass")
-                        Text("不合格").tag("fail")
-                        Text("保留").tag("none")
+                    TextEditor(text: $newMemo)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .autocapitalization(.none)
+                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                        .frame(width: 350, height: 200)
+                }.padding()
+            }
+            .navigationTitle("選考情報の追加")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(trailing: Button("作成") {
+                if (((companySelection != "") && (companySelection != "0")) && ((resultSelection != "") && (resultSelection != "0"))) {
+                    apiCall().addSelectionInfoToServer(userID: userid, corporate_info: companySelection, result: resultSelection, memo: newMemo) { response in
+                        let response = response
+                        if response == "OK"{
+                            companySelection = ""
+                            resultSelection = ""
+                            newMemo = ""
+                            
+                            DispatchQueue.main.async {
+                                presentationMode.wrappedValue.dismiss()
+                            }
+                        } else {
+                            //print("Error in Response")
+                            alertType = .alert1
+                            showAlert.toggle()
+                        }
                     }
-                    .frame(width: 200)
-                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
+                } else {
+                    //print("Notfull")
+                    alertType = .alert2
+                    showAlert.toggle()
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.all, 20)

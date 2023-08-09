@@ -38,9 +38,9 @@ struct InternEditView: View {
         dateFormatter.dateStyle = .medium
         dateFormatter.dateFormat = "yyyy-MM-dd"
         _editedStartDate = State(initialValue: dateFormatter.date(from: interninfo.wrappedValue.start) ?? Date())
-        print(editedStartDate)
+        //print(editedStartDate)
         _editedEndDate = State(initialValue: dateFormatter.date(from: interninfo.wrappedValue.end) ?? Date())
-        print(editedEndDate)
+        //print(editedEndDate)
     }
     
     var body: some View {
@@ -108,21 +108,29 @@ struct InternEditView: View {
                                 alertType = .alert1
                                 showAlert.toggle()
                             }
+                        } else {
+                            //print("Error in Response")
+                            alertType = .alert1
+                            showAlert.toggle()
                         }
                     } else {
                         print("Notfull")
                         alertType = .alert2
                         showAlert.toggle()
                     }
-                }.alert(isPresented: $showAlert) {
-                    switch alertType {
-                        case .alert1:
-                            return Alert(title: Text("エラーが発生しました。もう一度行ってください。"))
-                        case .alert2:
-                            return Alert(title: Text("すべての必須項目\n（企業名、開始日、終了日）\nを入力または選択してください。"))
-                    }
-                })
-            }
+                } else {
+                    //print("Notfull")
+                    alertType = .alert2
+                    showAlert.toggle()
+                }
+            }.alert(isPresented: $showAlert) {
+                switch alertType {
+                    case .alert1:
+                        return Alert(title: Text("エラーが発生しました。もう一度行ってください。"))
+                    case .alert2:
+                        return Alert(title: Text("すべての必須項目\n（企業名、開始日、終了日）\nを入力または選択してください。"))
+                }
+            })
         }
     }
 }
