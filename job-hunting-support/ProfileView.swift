@@ -24,20 +24,25 @@ struct ProfileView: View {
                 VStack(spacing: 20)/*(alignment: .leading)*/{
                     HStack{
                         Text("ユーザー名")
+                            .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Text("\(LoginUser.name)")
                     }
-                    .padding(.all, 30)
+                    .padding()
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                     
                     HStack{
                         Text("卒業予定年度")
+                            .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Text("\(LoginUser.graduation_year)")
                     }
-                    .padding(.all, 30)
+                    .padding()
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                     
                     HStack{
                         Text("性別")
+                            .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         if LoginUser.sex == "male" {
                             Text("男性")
@@ -47,14 +52,17 @@ struct ProfileView: View {
                             Text("未選択")
                         }
                     }
-                    .padding(.all, 30)
+                    .padding()
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                     
                     HStack{
                         Text("年齢")
+                            .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Text("\(LoginUser.age)")
                     }
-                    .padding(.all, 30)
+                    .padding()
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(.gray, lineWidth: 1))
                 }
                 
                 Button(action: {
